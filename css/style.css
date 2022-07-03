@@ -38,12 +38,12 @@ header nav::after {
 	width: 110%;
 	height: 140%;
 	display: block;
-	position: absolute;
+	position: relative;
 	box-sizing: border-box;
 	left: -5%;
-	top: -20%;
+	top: -125%;
 	z-index: -1;
-	transform: translateX(-15px) translateY(-5px) translateZ(180px) rotateY(25deg) rotateZ(3deg);
+	transform: translateX(-15px) translateY(-5px) translateZ(180px) rotateY(35deg) rotateZ(3.1deg);
 }
 
 header nav {
@@ -58,19 +58,27 @@ header nav {
 	text-align: center;
   margin-top: 60px;
 	margin-bottom: 20px;
-	padding: 20px 6px;
+
+	padding: 6px 9px;
 }
 
 header nav ul {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
 	margin: 0;
 	padding: 0;
-	padding-left: 10px;
-	padding-right: 20px;
+	padding-left: 40px;
+	padding-right: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 header nav ul li {
 	display: inline;
 	margin-left: 1rem;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 header nav ul li a {
@@ -90,4 +98,69 @@ header nav ul li a:hover {
 	transition-timing-function: ease-in;
 	background-color: white;
 	color: black;
+}
+
+.art-list {
+	margin-top: 40px;
+	display: grid;
+	grid-template-columns: minmax(200px, 1fr);
+	justify-items: center;
+	grid-row-gap: 30px;
+}
+
+.art-container::after {
+	content: " ";
+	left: -10px;
+	top: calc(-100% - 10px);
+	position: relative;
+	display: block;
+	width: calc(100% + 20px);
+	height: calc(100% + 20px);
+	box-sizing: border-box;
+	border: 0.7px solid white;
+}
+
+.art-container {
+	width: 50%;
+	background-color: black;
+	color: white;
+	padding: 20px 20px;
+}
+
+.art-container .info .title {
+	font-weight: bold;
+}
+
+.art-container .info .date {
+	font-family: Calibri, sans-serif;
+}
+
+.art-container .tag-container {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	display: flex;
+	border-bottom: 0.7px solid white;
+	justify-content: flex-start;
+}
+
+.art-container .tag-container .tag {
+	padding: 5px 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+  border: 0.7px solid white;
+	border-radius: 6px;
+}
+
+.art-container .info {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+	border-bottom: 0.7px solid white;
+}
+
+.art-container .summary {
+	overflow-wrap: break-word;
 }
