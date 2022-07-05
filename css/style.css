@@ -17,8 +17,8 @@
 	background-color: rgb(0, 20, 33); 
 	*/
 	
-	background-color: rgb(0, 10, 12);
-	--panel-col: rgb(0, 20, 33); 
+	background-color: rgb(0, 8, 10);
+	--panel-col: rgb(0, 16, 26); 
 
 	color: white;
 	font-family: Verdana, sans-serif;
@@ -152,18 +152,22 @@ header nav ul li a:hover {
 .art-container .tag-container {
 	padding-left: 0;
 	list-style-type: none;
-	margin-top: 10px;
 	padding-top: 25px;
 	display: flex;
 	border-top: 0.7px solid var(--white-col);
 	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.art-container .tag-container li {
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 
 .art-container .tag-container li a {
 	font-weight: bold;
 	padding: 5px 5px;
-	margin-right: 10px;
-	margin-left: 10px;
   border-width: 1px;
 	border-style: solid;
 	border-radius: 6px;
