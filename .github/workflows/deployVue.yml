@@ -1,8 +1,8 @@
 name: Build and deploy the vue
 on:
   push:
-    branch:
-      -main
+    branches:
+      - 'main'
 
 jobs:
   build_deploy_vue:
@@ -11,8 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - id: Build-Deploy-Vue
-      uses: thefrustrateddev/vue-deploy-github-pages@v1.0.0
+      uses: LizAinslie/VueBuildToBranchAction@1.0.2 
       with:
         username: 'InnocentusLime'
         reponame: 'innocentuslime.github.io'
         token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'main'
