@@ -4,4 +4,3 @@
 
 # Do not store package build info
 node_modules/
-package-lock.json
