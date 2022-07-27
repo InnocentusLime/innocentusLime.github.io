@@ -11,9 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - id: Build-Deploy-Vue
-      uses: LizAinslie/VueBuildToBranchAction@1.0.2 
+      uses: thefrustrateddev/vue-deploy-github-pages@1.0.0
       with:
         username: 'InnocentusLime'
         reponame: 'innocentuslime.github.io'
         token: ${{ secrets.GITHUB_TOKEN }}
-        branch: 'main'
