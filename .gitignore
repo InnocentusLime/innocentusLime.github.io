@@ -1,3 +1,7 @@
 # Do not store vim files
 *.swp
 *.swo
+
+# Do not store package build info
+node_modules/
+package-lock.json
