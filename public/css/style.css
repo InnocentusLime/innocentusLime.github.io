@@ -6,19 +6,9 @@
 	--border-thicc: 1.5px;
 	--border-color: rgb(185, 185, 185);
 	--white-col: rgb(248, 248, 248);
-
-	/*
-	--panel-col: rgb(0, 20, 43);
-	background-color: rgb(0, 20, 70);
-	*/
-
-	/*	
-	--panel-col: rgb(0, 10, 12);
-	background-color: rgb(0, 20, 33); 
-	*/
 	
 	background-color: rgb(0, 8, 10);
-	--panel-col: rgb(0, 16, 26); 
+	--panel-col: rgb(0, 20, 33);
 
 	color: white;
 	font-family: Verdana, sans-serif;
@@ -42,9 +32,6 @@ header {
 }
 
 header nav::after {
-	/*transform-style: preserve-3d;*/
-	/*background: var(--panel-col);*/
-
 	border: 4px solid var(--white-col);
 	content: " ";
 	margin: 0;
@@ -106,9 +93,13 @@ header nav ul li a {
 	text-transform: uppercase;
 }
 
-header nav ul li a:hover {
+.button {
 	transition: 0.2s;
 	transition-timing-function: ease-in;
+	text-decoration: none;
+}
+
+header nav ul li a:hover {
 	background-color: var(--white-col);
 	color: black;
 }
@@ -141,7 +132,22 @@ header nav ul li a:hover {
 	border: 0.7px solid var(--white-col);
 }
 
+.art-container .info .title:hover {
+	background-color: var(--white-col);
+	color: black;
+}
+
+.art-container .info * {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 .art-container .info .title {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	color: var(--white-col);
 	font-weight: bold;
 }
 
@@ -149,10 +155,18 @@ header nav ul li a:hover {
 	font-family: Calibri, sans-serif;
 }
 
+.art-container .summary {
+	text-align: justify;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	overflow-wrap: break-word;
+}
+
 .art-container .tag-container {
+	margin: 0 0;
+	padding-bottom: 10px;
 	padding-left: 0;
 	list-style-type: none;
-	padding-top: 25px;
 	display: flex;
 	border-top: 0.7px solid var(--white-col);
 	justify-content: flex-start;
@@ -160,30 +174,22 @@ header nav ul li a:hover {
 }
 
 .art-container .tag-container li {
-	margin-right: 10px;
-	margin-left: 10px;
-	margin-top: 10px;
+	margin-right: 20px;
+	margin-top: 20px;
 }
 
 .art-container .tag-container li a {
 	font-weight: bold;
 	padding: 5px 5px;
-  border-width: 1px;
+	border-width: 1px;
 	border-style: solid;
 	border-radius: 6px;
-	text-decoration: none;
 }
 
 .art-container .info {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
 	width: 100%;
 	border-bottom: 0.7px solid var(--white-col);
-}
-
-.art-container .summary {
-	overflow-wrap: break-word;
 }
