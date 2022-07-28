@@ -1,0 +1,9 @@
+name: CI
+on:
+  pull_request:
+  push:
+
+jobs:
+  test-build:
+    - name: Test-build Vue
+      run: npm ci && npm run build
