@@ -5,5 +5,7 @@ on:
 
 jobs:
   test-build:
-    - name: Test-build Vue
-      run: npm ci && npm run build
+    runs-on: ubuntu-latest
+    name: Test-build Vue
+    steps:
+      - run: npm ci && npm run build
