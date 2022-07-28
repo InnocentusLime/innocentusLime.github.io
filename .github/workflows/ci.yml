@@ -9,3 +9,4 @@ jobs:
     name: Test-build Vue
     steps:
       - run: npm ci && npm run build
+        shell: bash
