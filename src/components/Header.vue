@@ -2,10 +2,10 @@
 	<header>
 		<nav>
 			<ul>
-				<li><a class = "button" href="#" role="button">Articles</a></li>
-				<li><a class = "button" href="#" role="button">Projects</a></li>
-				<li><a class = "button" href="#" role="button">Resources</a></li>
-				<li><a class = "button" href="#" role="button">Search</a></li>
+				<li><router-link class = "navig button" to="/articles" role="button">Articles</router-link></li>
+				<li><router-link class = "navig button" to="/projects" role="button">Projects</router-link></li>
+				<li><router-link class = "navig button" to="/resources" role="button">Resources</router-link></li>
+				<li><router-link class = "navig button" to="/search" role="button">Search</router-link></li>
 			</ul>
 		</nav>
 	</header>
