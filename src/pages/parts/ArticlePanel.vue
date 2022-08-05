@@ -1,7 +1,7 @@
 <template>
 	<article class="art-container">
 		<div class="info button">
-			<a href="#" class="title button">{{articleInfo.title}}</a>
+			<a href="#" class="title button" @click.prevent="articleTitleClick">{{articleInfo.title}}</a>
 			<a class="date">{{articleInfo.date}}</a>
 		</div>
 		<div class="summary">{{articleInfo.summary}}</div>
@@ -19,6 +19,11 @@ export default {
 	props: ["articleInfo"],
 	components: {
 		Tag,
+	},
+	methods: {
+		articleTitleClick() {
+			this.$router.push('/article/'+this.articleInfo.uuid)
+		}
 	},
 }
 </script>
