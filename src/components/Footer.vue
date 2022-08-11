@@ -1,7 +1,7 @@
 <template>
 	<footer>
 		<div>
-			Welcome to the nya zone.
+			Powered by Vue3.
 		</div>
 	</footer>
 </template>
