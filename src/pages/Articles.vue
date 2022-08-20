@@ -15,13 +15,13 @@ export default {
 	components: {
 		ArticlePanel,
 	},
-  data() {
-    return {
-      articleInfos: [],
-    }
-  },
-  computed: {},
-  beforeMount() {
+	data() {
+		return {
+			articleInfos: [],
+		}
+	},
+	computed: {},
+	beforeMount() {
     axios.get("/articlePanels/page1.json").then(response => {
 			if (response.status === 200) {
 				this.articleInfos = response.data
