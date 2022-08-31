@@ -21,19 +21,19 @@ export default {
 	components: { 
 		MdBlock 
 	},
-  data() {
-    return {
-      articleMd: null,
-    }
-  },
-  computed: {},
-  beforeMount() {
-    axios.get("/articles/" + this.$route.params.uuid + ".md").then(response => {
+	data() {
+		return {
+			articleMd: null,
+		}
+	},
+	computed: {},
+	beforeMount() {
+		axios.get("/articles/" + this.$route.params.uuid + ".md").then(response => {
 			if (response.status == 200) {
 				this.articleMd = response.data;
 			}
-    });
-  },
+		});
+	},
 }
 </script>
 

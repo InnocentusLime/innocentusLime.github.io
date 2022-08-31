@@ -15,6 +15,35 @@
 	font-size: 16px;
 }
 
+.page-enter-active,
+.page-leave-active {
+	transition: all 0.5s ease;
+}
+
+.page-leave-active {
+	position: absolute;
+}
+
+.page-enter-from, 
+.page-leave-to {
+	transform: translateY(30px);
+	opacity: 0;
+}
+
+.middle {
+	display: grid;
+	grid-template-columns: minmax(200px, 1fr);
+	justify-items: center;
+}
+
+.construction-msg-container {
+	font-weight: bold;
+	font-size: 30px;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	text-align: center;
+}
+
 footer {
 	margin-left: var(--block-horiz-margin);
 	margin-right: var(--block-horiz-margin);
