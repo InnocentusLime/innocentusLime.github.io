@@ -1,7 +1,11 @@
 <template>
 	<main><div class="art-list">
-		<p v-if="articleInfos.length === 0">Loading articles...</p>
-		<ArticlePanel v-for="info in articleInfos" :articleInfo="info" :key="info.uuid"/>
+		<Transition>
+			<p class="loading-articles" v-if="articleInfos.length === 0">Loading articles...</p>
+		</Transition>
+		<TransitionGroup>
+			<ArticlePanel v-for="info in articleInfos" :articleInfo="info" :key="info.uuid"/>
+		</TransitionGroup>
 	</div></main>
 </template> 
 
@@ -15,13 +19,13 @@ export default {
 	components: {
 		ArticlePanel,
 	},
-  data() {
-    return {
-      articleInfos: [],
-    }
-  },
-  computed: {},
-  beforeMount() {
+	data() {
+		return {
+			articleInfos: [],
+		}
+	},
+	computed: {},
+	beforeMount() {
     axios.get("/articlePanels/page1.json").then(response => {
 			if (response.status === 200) {
 				this.articleInfos = response.data
