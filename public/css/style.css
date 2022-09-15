@@ -36,6 +36,7 @@
 	display: grid;
 	grid-template-columns: minmax(200px, 1fr);
 	justify-items: center;
+	flex: 1;
 }
 
 .construction-msg-container {
@@ -46,6 +47,12 @@
 	text-align: center;
 }
 
+#app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
 footer {
 	margin-left: var(--block-horiz-margin);
 	margin-right: var(--block-horiz-margin);
@@ -53,6 +60,7 @@ footer {
 	border-top: var(--border-thicc) solid var(--white-col);
 	padding-top: 10px;
 	text-align: center;
+	padding-bottom: 20px;
 }
 
 header {
