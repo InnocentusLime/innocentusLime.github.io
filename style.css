@@ -20,7 +20,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: blue;
+    background-color: whitesmoke;
 }
 
 .site-content {
@@ -35,8 +35,12 @@ body {
     margin-top: var(--main-block-space-vert);
     margin-bottom: var(--main-block-space-vert);
     /* ===== */
-    border-bottom: var(--main-block-border-thickness) solid var(--main-block-border-col);
-    padding-bottom: var(--main-block-space-vert);
+    border-bottom: 45px solid;
+    border-left: 45px solid;
+    border-right: 45px solid;
+    border-image: url('/site-border.svg') 30;
+    /* border-bottom: var(--main-block-border-thickness) solid var(--main-block-border-col); */
+    /* padding-bottom: var(--main-block-space-vert); */
     display: flex;
     flex-direction: row;
     align-items: center;
