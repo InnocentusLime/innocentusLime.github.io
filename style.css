@@ -3,6 +3,7 @@
     --body-horiz-margin: 80px;
     --main-block-border-thickness: 1px;
     --main-border-thickness: 45px;
+    --decor-box: 45px;
 
     --main-block-border-col: black;
 
@@ -54,6 +55,29 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%)
                 translateY(calc(var(--main-border-thickness) / -2));
+}
+
+.nav-items::before {
+    color: transparent;
+    content: "A";
+    height: var(--decor-box);
+    width: var(--decor-box);
+
+    background-image: url('/site-decor-left.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.nav-items::after {
+    color: transparent;
+    content: "A";
+    height: var(--decor-box);
+    width: var(--decor-box);
+
+    background-image: url('/stie-decor-right.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .site-nav {
