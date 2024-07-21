@@ -103,6 +103,20 @@ body {
     /* border: var(--nav-item-border-thickness) solid var(--nav-item-border-col); */
 }
 
+.nav-item:hover {
+    animation-duration: 0.3s;
+    color: whitesmoke;
+    background: var(--nav-item-inactive-col);
+}
+
+.nav-item:last-child {
+    margin-right: var(--nav-item-padding);
+}
+
+.nav-item:first-child {
+    margin-left: var(--nav-item-padding);
+}
+
 .nav-item:not(:last-child) {
     border-right: var(--nav-item-border-thickness) solid var(--nav-item-border-col);
 }
