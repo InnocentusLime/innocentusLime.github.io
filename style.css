@@ -17,6 +17,7 @@
 }
 
 body {
+    box-sizing: border-box;
     margin-left: var(--body-horiz-margin);
     margin-right: var(--body-horiz-margin);
     min-height: 100vh;
