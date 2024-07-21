@@ -86,7 +86,7 @@ body {
     width: 100%;
     margin-top: var(--main-block-space-vert);
     margin-bottom: var(--main-block-space-vert);
-    /* ===== */
+    position: relative;
 }
 
 .nav-item {
