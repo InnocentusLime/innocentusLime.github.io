@@ -2,6 +2,7 @@
     --main-block-space-vert: 20px;
     --body-horiz-margin: 80px;
     --main-block-border-thickness: 1px;
+    --main-border-thickness: 45px;
 
     --main-block-border-col: black;
 
@@ -29,15 +30,10 @@ body {
     flex: 1;
 }
 
-.site-nav {
-    box-sizing: border-box;
-    width: 100%;
-    margin-top: var(--main-block-space-vert);
-    margin-bottom: var(--main-block-space-vert);
-    /* ===== */
-    border-bottom: 45px solid;
-    border-left: 45px solid;
-    border-right: 45px solid;
+.nav-items {
+    border-bottom: var(--main-border-thickness) solid;
+    border-left: var(--main-border-thickness) solid;
+    border-right: var(--main-border-thickness) solid;
     border-image: url('/site-border.svg') 30;
     /* border-bottom: var(--main-block-border-thickness) solid var(--main-block-border-col); */
     /* padding-bottom: var(--main-block-space-vert); */
@@ -45,6 +41,27 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.site-nav::after {
+    color: transparent;
+    background-image: url('/sit-border-decor.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    content: "AAAA";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%)
+                translateY(calc(var(--main-border-thickness) / -2));
+}
+
+.site-nav {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: var(--main-block-space-vert);
+    margin-bottom: var(--main-block-space-vert);
+    /* ===== */
 }
 
 .nav-item {
