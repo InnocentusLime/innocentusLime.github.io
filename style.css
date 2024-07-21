@@ -7,8 +7,8 @@
 
     --main-block-border-col: black;
 
-    --nav-item-space: 10px;
-    --nav-item-padding: 5px;
+    --nav-item-space: 30px;
+    --nav-item-padding: 8px;
     --nav-item-border-thickness: 1px;
 
     --nav-item-inactive-col: black;
@@ -68,6 +68,7 @@ body {
     background-position: center;
     background-size: contain;
 }
+
 .nav-items::after {
     color: transparent;
     content: "A";
@@ -89,13 +90,21 @@ body {
 }
 
 .nav-item {
-    padding: var(--nav-item-padding);
-    margin-left: var(--nav-item-space);
-    margin-right: var(--nav-item-space);
+    font-size: large;
+    /* font-weight: bold; */
+    padding: var(--nav-item-padding) var(--nav-item-space);
+    /* padding-left: var(--nav-item-padding);
+    padding-right: var(--nav-item-padding); */
+    /* margin-left: var(--nav-item-space);
+    margin-right: var(--nav-item-space); */
 
     text-decoration: none;
     color: var(--nav-item-inactice-text-col);
-    border: var(--nav-item-border-thickness) solid var(--nav-item-border-col);
+    /* border: var(--nav-item-border-thickness) solid var(--nav-item-border-col); */
+}
+
+.nav-item:not(:last-child) {
+    border-right: var(--nav-item-border-thickness) solid var(--nav-item-border-col);
 }
 
 .site-footer {
