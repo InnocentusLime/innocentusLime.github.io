@@ -144,6 +144,7 @@ body {
 }
 
 .site-footer {
+    position: relative;
     box-sizing: border-box;
     width: 100%;
     margin-top: var(--main-block-space-vert);
@@ -154,4 +155,18 @@ body {
     border-right: var(--main-border-thickness) solid;
     border-image: url('/site-border.svg') 30;
     text-align: center;
+}
+
+.site-footer::before {
+    width: 200px;
+    color: transparent;
+    background-image: url('/site-bot-border-decor.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    content: "A";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%)
+                translateY(calc(var(--main-border-thickness) / -2));
 }
