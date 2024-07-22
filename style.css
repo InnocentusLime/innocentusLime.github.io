@@ -26,6 +26,23 @@ body {
     background-color: whitesmoke;
 }
 
+@font-face {
+    font-family: gothicDecor;
+    /* src: url(/Germanica.otf); */
+    src: url(/BraveThornRegular.ttf);
+}
+
+p::first-letter {
+    font-size: 2rem;
+    font-weight: bold;
+    color: brown;
+    font-family: gothicDecor;
+}
+
+p {
+    font-size: 1rem;
+}
+
 .site-content {
     width: 100%;
     height: 100%;
