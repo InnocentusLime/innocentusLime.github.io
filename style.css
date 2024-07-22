@@ -76,7 +76,7 @@ body {
     height: var(--decor-box);
     width: var(--decor-box);
 
-    background-image: url('/stie-decor-right.svg');
+    background-image: url('/site-decor-right.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
