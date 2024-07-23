@@ -16,8 +16,11 @@
     --nav-item-inactice-text-col: var(--nav-item-inactive-col);
 }
 
-body {
+* {
     box-sizing: border-box;
+}
+
+body {
     margin-left: var(--body-horiz-margin);
     margin-right: var(--body-horiz-margin);
     min-height: 100vh;
@@ -101,7 +104,6 @@ p {
 }
 
 .site-nav {
-    box-sizing: border-box;
     width: 100%;
     margin-top: var(--main-block-space-vert);
     margin-bottom: var(--main-block-space-vert);
@@ -163,7 +165,6 @@ p {
 
 .site-footer {
     position: relative;
-    box-sizing: border-box;
     width: 100%;
     margin-top: var(--main-block-space-vert);
     margin-bottom: var(--main-block-space-vert);
