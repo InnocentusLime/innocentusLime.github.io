@@ -14,6 +14,8 @@
     --nav-item-inactive-col: black;
     --nav-item-border-col: var(--nav-item-inactive-col);
     --nav-item-inactice-text-col: var(--nav-item-inactive-col);
+
+    font-family: 'Times New Roman', Times, serif;
 }
 
 * {
@@ -35,14 +37,94 @@ body {
     src: url(/BraveThornRegular.ttf);
 }
 
-p::first-letter {
+.project-grid {
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-auto-rows: minmax(240px, 1.2fr);
+    display: grid;
+}
+
+.project-info {
+    padding: 3px;
+    transition: all 0.3s;
+}
+
+.project:not(:hover) {
+    transition: all 0.3s;
+}
+
+.project:hover {
+    transition: all 0.3s;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
+    transform: scale(1.03);
+    background-color: black;
+    color: white;
+}
+
+.project {
+    /* padding: 5px; */
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+    text-decoration: none;
+}
+
+.project-image {
+    height: 70%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://img.itch.zone/aW1nLzE2MzQxNDUxLnBuZw==/315x250%23c/1GbOBz.png");
+}
+
+.project:hover .project-name {
+    text-shadow: whitesmoke 1px 0 10px;
+    transition: all 0.3s;
+    color: whitesmoke;
+}
+
+.project:hover .project-description {
+    transition: all 0.3s;
+    color: whitesmoke;
+}
+
+.project:not(:hover) .project-name {
+    transition: all 0.3s;
+}
+
+.project:not(:hover) .project-description {
+    transition: all 0.3s;
+}
+
+.project-name {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-bottom: 2px;
+    width: 100%;
+    font-size: larger;
+    display: block;
+    margin: 0;
+    color: brown;
+}
+
+.project-description {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 100%;
+    font-size: small;
+    display: block;
+    margin: 0;
+    color: grey;
+    text-overflow: ellipsis;
+}
+
+p.article-p::first-letter {
     font-size: 2rem;
     font-weight: bold;
     color: brown;
     font-family: gothicDecor;
 }
 
-p {
+p.article-p {
     font-size: 1rem;
 }
 
