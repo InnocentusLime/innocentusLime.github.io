@@ -159,7 +159,7 @@ p.article-p {
 }
 
 .site-nav::after {
-    width: 80px;
+    width: 200px;
     color: transparent;
     background-image: url('/site-top-border-decor.svg');
     background-repeat: no-repeat;
