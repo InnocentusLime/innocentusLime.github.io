@@ -40,7 +40,7 @@ body {
 
 @font-face {
     font-family: gothicDecor;
-    src: url(/BraveThornRegular.ttf);
+    src: url(/font/BraveThornRegular.ttf);
 }
 
 .project-grid {
@@ -166,7 +166,7 @@ p.article-p {
     border-bottom: var(--main-border-thickness) solid;
     border-left: var(--main-border-thickness) solid;
     border-right: var(--main-border-thickness) solid;
-    border-image: url('/site-border.svg') 30;
+    border-image: url('/img/decor/site-border.svg') 30;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -176,7 +176,7 @@ p.article-p {
 .site-nav::after {
     width: 200px;
     color: transparent;
-    background-image: url('/site-top-border-decor.svg');
+    background-image: url('/img/decor/site-top-border-decor.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -193,7 +193,7 @@ p.article-p {
     height: var(--decor-box);
     width: var(--decor-box);
 
-    background-image: url('/site-decor-left.svg');
+    background-image: url('/img/decor/site-decor-left.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -205,7 +205,7 @@ p.article-p {
     height: var(--decor-box);
     width: var(--decor-box);
 
-    background-image: url('/site-decor-right.svg');
+    background-image: url('/img/decor/site-decor-right.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -281,14 +281,14 @@ p.article-p {
     border-top: var(--main-border-thickness) solid;
     border-left: var(--main-border-thickness) solid;
     border-right: var(--main-border-thickness) solid;
-    border-image: url('/site-border.svg') 30;
+    border-image: url('/img/decor/site-border.svg') 30;
     text-align: center;
 }
 
 .site-footer::before {
     width: 200px;
     color: transparent;
-    background-image: url('/site-bot-border-decor.svg');
+    background-image: url('/img/decor/site-bot-border-decor.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
