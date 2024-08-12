@@ -18,6 +18,7 @@
     --grid-project-card-gap: 6px;
     --grid-project-card-padding: 6px;
     --grid-project-card-width: 350px;
+    --grid-project-title-padding: 2px;
 
     font-family: 'Times New Roman', Times, serif;
 }
@@ -119,7 +120,7 @@ body {
 
 .project-name {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding-bottom: 2px;
+    padding-bottom: var(--grid-project-title-padding);
     width: 100%;
     font-size: larger;
     display: block;
