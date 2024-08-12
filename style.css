@@ -15,6 +15,7 @@
     --nav-item-border-col: var(--nav-item-inactive-col);
     --nav-item-inactice-text-col: var(--nav-item-inactive-col);
 
+    --grid-project-card-gap: 6px;
     --grid-project-card-padding: 6px;
     --grid-project-card-width: 350px;
 
@@ -126,7 +127,7 @@ body {
 }
 
 .project-info {
-    padding-left: 6px;
+    padding-left: var(--grid-project-card-gap);
 }
 
 .project-description {
