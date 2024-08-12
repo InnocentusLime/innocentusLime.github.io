@@ -270,6 +270,7 @@ p.article-p {
 }
 
 .site-footer {
+    font-size: smaller;
     position: relative;
     width: 100%;
     margin-top: var(--main-block-space-vert);
