@@ -36,7 +36,6 @@ body {
 
 @font-face {
     font-family: gothicDecor;
-    /* src: url(/Germanica.otf); */
     src: url(/BraveThornRegular.ttf);
 }
 
@@ -164,8 +163,6 @@ p.article-p {
     border-left: var(--main-border-thickness) solid;
     border-right: var(--main-border-thickness) solid;
     border-image: url('/site-border.svg') 30;
-    /* border-bottom: var(--main-block-border-thickness) solid var(--main-block-border-col); */
-    /* padding-bottom: var(--main-block-space-vert); */
     display: flex;
     flex-direction: row;
     align-items: center;
