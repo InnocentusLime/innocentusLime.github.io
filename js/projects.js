@@ -31,8 +31,6 @@ function render_projects(data) {
 
         container.appendChild(spawn);
     }
-
-    // container.appendChild(card.content.cloneNode(true));
 }
 
 fetch("/data/projects.json").then(function(result) {
