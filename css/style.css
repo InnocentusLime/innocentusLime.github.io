@@ -64,17 +64,6 @@ body {
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
 }
 
-.project::before {
-    box-sizing: border-box;
-    position: absolute;
-    content: "a";
-    color: transparent;
-    border: 1px solid black;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
-}
-
 .project {
     position: relative;
     display: grid;
@@ -82,6 +71,8 @@ body {
     height: 100%;
     text-decoration: none;
     padding: var(--grid-project-card-padding);
+    border: 1px solid black;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
 }
 
 .project-image-container {
