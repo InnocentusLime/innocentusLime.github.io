@@ -172,6 +172,9 @@ p.article-p {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .site-nav::after {
@@ -221,43 +224,21 @@ p.article-p {
 
 .nav-item {
     position: relative;
-    clip-path: stroke-box;
     font-size: large;
+}
+
+.nav-link {
+    position: relative;
+    display: block;
     padding: var(--nav-item-padding) var(--nav-item-space);
-    text-decoration: none;
-    transition: all 0.5s;
     color: var(--nav-item-inactice-text-col);
+    text-decoration: none;
+    transition: transform 0.3s;
 }
 
-.nav-item:hover {
-    transition: all 0.5s;
-    color: whitesmoke;
-    text-shadow: whitesmoke 1px 0 10px;
-}
-
-.nav-item::after {
-    color: transparent;
-    position: absolute;
-    content: "a";
-    left: 50%;
-    bottom: -100%;
-    clip-path: inherit;
-    transform: translateX(-50%);
-    z-index: -1;
-}
-
-.nav-item:not(:hover):after {
-    transition: all 0.5s;
-    background: whitesmoke;
-    width: 0;
-    height: 0;
-}
-
-.nav-item:hover::after {
-    transition: all 0.5s;
-    background: var(--nav-item-inactive-col);
-    width: 200px;
-    height: 200px;
+.nav-link:hover {
+    transform: scale(1.4);
+    transition: transform 0.3s;
 }
 
 .nav-item:last-child {
@@ -266,10 +247,6 @@ p.article-p {
 
 .nav-item:first-child {
     margin-left: var(--nav-item-padding);
-}
-
-.nav-item:not(:last-child) {
-    border-right: var(--nav-item-border-thickness) solid var(--nav-item-border-col);
 }
 
 .site-footer {
