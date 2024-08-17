@@ -229,15 +229,34 @@ p.article-p {
 
 .nav-link {
     position: relative;
-    display: block;
+    display: inline-block;
+    box-sizing: content-box;
     padding: var(--nav-item-padding) var(--nav-item-space);
     color: var(--nav-item-inactice-text-col);
     text-decoration: none;
+    /* transition: transform 0.3s; */
+}
+
+.nav-link-body {
+    position: relative;
+}
+
+.nav-link .nav-link-body::before {
+    content: "A";
+    color: transparent;
+    position: absolute;
+    border-bottom: 2px solid black;
+    width: 100%;
+    bottom: -8px;
+
+    /* width: 0; */
+    transform: scaleX(0.0);
     transition: transform 0.3s;
 }
 
-.nav-link:hover {
-    transform: scale(1.4);
+.nav-link:hover .nav-link-body::before {
+    /* width: 100%; */
+    transform: scaleX(1.0);
     transition: transform 0.3s;
 }
 
