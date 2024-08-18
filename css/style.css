@@ -129,8 +129,10 @@ p.article-p::first-letter {
     font-family: gothicDecor;
 }
 
-p.article-p {
-    font-size: 1rem;
+.blog-article {
+    margin: auto;
+    font-size: 1.5rem;
+    max-width: 64rem;
 }
 
 .site-content {
