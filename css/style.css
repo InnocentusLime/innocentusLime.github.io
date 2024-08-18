@@ -14,10 +14,10 @@
     --nav-item-border-col: var(--nav-item-inactive-col);
     --nav-item-inactice-text-col: var(--nav-item-inactive-col);
 
-    --grid-project-gap: 10px;
+    --grid-project-gap: 20px;
     --grid-project-card-gap: 6px;
     --grid-project-card-padding: 6px;
-    --grid-project-card-width: 350px;
+    --grid-project-card-width: 330px;
     --grid-porject-card-height: 150px;
     --grid-project-title-padding: 2px;
 
