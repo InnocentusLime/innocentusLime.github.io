@@ -62,19 +62,14 @@ body {
     display: grid;
 }
 
-.project:not(:hover) {
-    transition: all 0.3s;
-    background-color: rgb(240, 240, 240);
-}
-
 .project:hover {
-    transition: all 0.3s;
     transform: scale(1.03);
     background-color: black;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
 }
 
 .project {
+    transition: all 0.3s ease-in-out;
     position: relative;
     display: grid;
     grid-template-columns: 40% 60%;
@@ -83,6 +78,7 @@ body {
     padding: var(--grid-project-card-padding);
     border: 1px solid black;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(240, 240, 240);
 }
 
 .project-image-container {
@@ -249,15 +245,13 @@ p.article-p {
     width: 100%;
     bottom: -8px;
 
-    /* width: 0; */
     transform: scaleX(0.0);
-    transition: transform 0.3s;
+    /* cubic-bezier(.68,-0.55,.27,1.55) -- alternative */
+    transition: transform 0.3s ease-in-out;
 }
 
 .nav-link:hover .nav-link-body::before {
-    /* width: 100%; */
     transform: scaleX(1.0);
-    transition: transform 0.3s;
 }
 
 .nav-item:last-child {
