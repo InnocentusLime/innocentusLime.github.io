@@ -237,6 +237,10 @@ p.article-p {
     transform: scaleX(1.0);
 }
 
+.nav-link.active .nav-link-body::before {
+    transform: scaleX(1.0);
+}
+
 .nav-item:last-child {
     margin-right: var(--nav-item-padding);
 }
