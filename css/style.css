@@ -66,6 +66,7 @@ body {
     transform: scale(1.03);
     background-color: black;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
+    color: white;
 }
 
 .project {
@@ -79,6 +80,7 @@ body {
     border: 1px solid black;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
     background-color: rgb(240, 240, 240);
+    color: black;
 }
 
 .project-image-container {
@@ -90,31 +92,13 @@ body {
 
 .project-image {
     height: 100%;
-    overflow: hidden;
     object-position: center;
     object-fit: cover;
     aspect-ratio: 1 / 1;
 }
 
 .project:hover .project-name {
-    transition: all 0.3s;
     text-shadow: whitesmoke 1px 0 10px;
-    color: whitesmoke;
-}
-
-.project:hover .project-description {
-    transition: all 0.3s;
-    color: whitesmoke;
-}
-
-.project:not(:hover) .project-name {
-    transition: all 0.3s;
-    color: black;
-}
-
-.project:not(:hover) .project-description {
-    transition: all 0.3s;
-    color: black;
 }
 
 .project-name {
@@ -230,7 +214,6 @@ p.article-p {
     padding: var(--nav-item-padding) var(--nav-item-space);
     color: var(--nav-item-inactice-text-col);
     text-decoration: none;
-    /* transition: transform 0.3s; */
 }
 
 .nav-link-body {
