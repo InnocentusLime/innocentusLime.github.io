@@ -261,6 +261,7 @@ p.article-p::first-letter {
 }
 
 .social-link {
+    margin: var(--grid-project-gap);
     transition: all 0.3s ease-in-out;
     display: block;
     position: relative;
