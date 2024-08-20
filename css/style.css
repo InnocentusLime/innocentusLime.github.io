@@ -172,30 +172,6 @@ p.article-p::first-letter {
                 translateY(calc(var(--main-border-thickness) / -2));
 }
 
-.nav-items::before {
-    color: transparent;
-    content: "A";
-    height: var(--decor-box);
-    width: var(--decor-box);
-
-    background-image: url('/img/decor/site-decor-left.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.nav-items::after {
-    color: transparent;
-    content: "A";
-    height: var(--decor-box);
-    width: var(--decor-box);
-
-    background-image: url('/img/decor/site-decor-right.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
 .site-nav {
     width: 100%;
     margin-top: var(--main-block-space-vert);
