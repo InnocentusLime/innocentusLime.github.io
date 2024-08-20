@@ -173,9 +173,8 @@ p.article-p::first-letter {
 }
 
 .site-nav {
-    width: 100%;
     margin-top: var(--main-block-space-vert);
-    margin-bottom: var(--main-block-space-vert);
+    width: 100%;
     position: relative;
 }
 
@@ -230,7 +229,6 @@ p.article-p::first-letter {
     font-size: smaller;
     position: relative;
     width: 100%;
-    margin-top: var(--main-block-space-vert);
     margin-bottom: var(--main-block-space-vert);
     /* ===== */
     border-top: var(--main-border-thickness) solid;
