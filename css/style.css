@@ -63,7 +63,7 @@ body {
     flex-wrap: wrap;
 }
 
-.project:hover {
+.project:hover, .project:focus {
     transform: scale(1.03);
     background-color: black;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
@@ -100,7 +100,7 @@ body {
     aspect-ratio: 1 / 1;
 }
 
-.project:hover .project-name {
+.project:hover,.project:focus .project-name {
     text-shadow: whitesmoke 1px 0 10px;
 }
 
@@ -268,19 +268,21 @@ p.article-p::first-letter {
     background-color: black;
     width: 150px;
     height: 150px;
-    border-radius: 30px;
     padding: 30px;
-    border: solid 1px black;
     position: relative;
     color: black;
     text-decoration: none;
     transform: scale(1.0);
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    outline: 3px solid black;
+    border: 2px solid black;
+    border-radius: 30px;
 }
 
-.social-link:hover {
+.social-link:hover, .social-link:focus {
+    outline: 3px solid black;
+    border: 2px solid white;
     transform: scale(1.03);
-    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
 }
 
 .social-image {
