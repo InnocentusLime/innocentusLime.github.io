@@ -261,35 +261,39 @@ p.article-p::first-letter {
 }
 
 .social-link {
+    box-sizing: content-box;
     margin: var(--grid-project-gap);
     transition: all 0.3s ease-in-out;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
-    background-color: black;
-    width: 150px;
-    height: 150px;
+    /* background-color: whitesmoke; */
+    width: 100px;
+    height: 130px;
+    gap: 10px;
     padding: 30px;
     position: relative;
     color: black;
+    font-weight: bold;
     text-decoration: none;
     transform: scale(1.0);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: larger;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
-    outline: 3px solid black;
-    border: 2px solid black;
     border-radius: 30px;
 }
 
 .social-link:hover, .social-link:focus {
-    outline: 3px solid black;
-    border: 2px solid white;
     transform: scale(1.03);
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
 }
 
 .social-image {
     color: whitesmoke;
-    height: 100%;
+    height: 100px;
     overflow: hidden;
     object-position: center;
-    object-fit: cover;
+    object-fit: contain;
     aspect-ratio: 1 / 1;
 }
