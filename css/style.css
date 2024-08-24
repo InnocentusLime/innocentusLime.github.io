@@ -73,16 +73,24 @@ body {
     position: relative;
     width: var(--grid-project-card-width);
     height: var(--grid-project-card-height);
-    padding: var(--grid-project-card-padding);
+    /* padding: var(--grid-project-card-padding); */
     text-decoration: none;
-    border: 1px solid black;
+    /* border: 0px solid black; */
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px 0 rgba(0, 0, 0, 0.2);
     background-color: whitesmoke;
     color: black;
     display: grid;
-    /* border-radius: 10px; */
+    border-radius: 10px;
+    overflow: hidden;
+    /* clip-path: border-box; */
     gap: var(--grid-project-card-gap);
-    grid-template-columns: calc(var(--grid-project-card-height) - 2*var(--grid-project-card-padding)) auto;
+    grid-template-columns: calc(var(--grid-project-card-height)) auto;
+}
+
+.project-info {
+    padding-right: var(--grid-project-card-padding);
+    padding-top: var(--grid-project-card-padding);
+    padding-bottom: var(--grid-project-card-padding);
 }
 
 .project-image-container {
