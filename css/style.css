@@ -68,12 +68,14 @@ body {
 .project::before {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     opacity: 0.2;
     border-radius: 10px;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
-    /* border: 1px solid black; */
+    background-color: black;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -82,17 +84,23 @@ body {
 }
 
 .project {
-    transition: all 0.3s ease-in-out;
     position: relative;
+    transition: all 0.3s ease-in-out;
     width: var(--grid-project-card-width);
     height: var(--grid-project-card-height);
+}
+
+.project-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     text-decoration: none;
-    background-color: whitesmoke;
     color: black;
     display: grid;
     border-radius: 10px;
-    /* overflow: hidden; */
-    gap: var(--grid-project-card-gap);
+    overflow: hidden;
     grid-template-columns: calc(var(--grid-project-card-height)) auto;
 }
 
@@ -100,15 +108,14 @@ body {
     padding-right: var(--grid-project-card-padding);
     padding-top: var(--grid-project-card-padding);
     padding-bottom: var(--grid-project-card-padding);
+    padding-left: var(--grid-project-card-gap);
+    background-color: whitesmoke;
 }
 
 .project-image-container {
     box-sizing: border-box;
     height: 100%;
     position: relative;
-    overflow: hidden;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
 }
 
 .project-image {
