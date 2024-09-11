@@ -219,6 +219,7 @@ p.article-p::first-letter {
 }
 
 .nav-link .nav-link-body::before {
+    box-sizing: border-box;
     content: "A";
     color: transparent;
     position: absolute;
@@ -228,7 +229,7 @@ p.article-p::first-letter {
 
     transform: scaleX(0.0);
     /* cubic-bezier(.68,-0.55,.27,1.55) -- alternative */
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-link:hover .nav-link-body::before {
@@ -236,6 +237,7 @@ p.article-p::first-letter {
 }
 
 .nav-link.active .nav-link-body::before {
+    border-color: brown;
     transform: scaleX(1.0);
 }
 
