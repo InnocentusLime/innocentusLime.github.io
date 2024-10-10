@@ -1,0 +1,25 @@
+{% macro nav_active(item_url, current_url) %}
+{% if (current_url is starting_with(item_url) and item_url != "/") or (item_url == current_url) %}
+active
+{% endif %}
+{% endmacro %}
+
+{% macro nav_item(item_name, item_url, current_url) %}
+{% set active = macros_header::nav_active(item_url=item_url, current_url=current_url) %}
+<li class="nav-item">
+    <a class="{{ "nav-link " ~ active  | trim }}" href={{ item_url }}>
+        <span class="nav-link-body">{{ item_name }}</span>
+    </a>
+</li>
+{% endmacro %}
+
+{% macro header(current_url) %}
+<nav class="site-nav">
+    <ul class="nav-items">
+        {% set items = load_data(path="content/data/nav.json", format="json") %}
+        {% for item in items %}
+            {{ macros_header::nav_item(item_name=item.name, item_url=item.url, current_url=current_url) }}
+        {% endfor %}
+    </ul>
+</nav>
+{% endmacro %}

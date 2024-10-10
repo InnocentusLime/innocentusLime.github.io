@@ -1,0 +1,23 @@
+{% extends "section.html" %}
+
+{% block content %}
+    {{ section.content | safe }}
+    {% set items = load_data(path="content/data/projects.json", format="json") %}
+    <div class="project-grid">
+    {% for item in items %}
+        <a class="project" href={{ item.url }}><div class="project-content">
+            <div class="project-image-container">
+                <img src={{ item.img_src }} class="project-image"/>
+            </div>
+            <div class="project-info">
+                <h2 class="project-name">
+                    {{ item.title }}
+                </h2>
+                <p class="project-description">
+                    {{ item.description }}
+                </p>
+            </div>
+        </div></a>
+    {% endfor %}
+    </div>
+{% endblock content %}
