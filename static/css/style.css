@@ -6,7 +6,7 @@
 
     --main-block-border-col: black;
 
-    --nav-item-space: 30px;
+    --nav-item-space: 15px;
     --nav-item-padding: 8px;
     --nav-item-border-thickness: 1px;
 
@@ -215,6 +215,8 @@ p.article-p::first-letter {
 .nav-item {
     position: relative;
     font-size: large;
+    margin-right: var(--nav-item-padding);
+    margin-left: var(--nav-item-padding);
 }
 
 .nav-link {
@@ -224,41 +226,33 @@ p.article-p::first-letter {
     padding: var(--nav-item-padding) var(--nav-item-space);
     color: var(--nav-item-inactice-text-col);
     text-decoration: none;
+    text-transform: capitalize;
+    font-weight: bold;
 }
 
-.nav-link-body {
-    position: relative;
-}
-
-.nav-link .nav-link-body::before {
+.nav-link::after {
     box-sizing: border-box;
-    content: "A";
+    content: "";
     color: transparent;
     position: absolute;
     border-bottom: 2px solid black;
-    width: 100%;
-    bottom: -8px;
+    bottom: 0;
+    top: 0;
+    left: var(--nav-item-space);
+    right: var(--nav-item-space);
 
     transform: scaleX(0.0);
     /* cubic-bezier(.68,-0.55,.27,1.55) -- alternative */
     transition: all 0.3s ease-in-out;
 }
 
-.nav-link:hover .nav-link-body::before {
+.nav-link:hover:after {
     transform: scaleX(1.0);
 }
 
-.nav-link.active .nav-link-body::before {
+.nav-link.active::after {
     border-color: brown;
     transform: scaleX(1.0);
-}
-
-.nav-item:last-child {
-    margin-right: var(--nav-item-padding);
-}
-
-.nav-item:first-child {
-    margin-left: var(--nav-item-padding);
 }
 
 .site-footer {

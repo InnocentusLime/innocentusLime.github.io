@@ -8,7 +8,7 @@ active
 {% set active = macros_header::nav_active(item_url=item_url, current_url=current_url) %}
 <li class="nav-item">
     <a class="{{ "nav-link " ~ active  | trim }}" href={{ item_url }}>
-        <span class="nav-link-body">{{ item_name }}</span>
+        {{ item_name }}
     </a>
 </li>
 {% endmacro %}
