@@ -355,3 +355,58 @@ p.article-p::first-letter {
     object-fit: contain;
     aspect-ratio: 1 / 1;
 }
+
+.article h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    display: inline-block;
+    position: relative;
+}
+
+.article p {
+    margin: 0;
+    margin-top: 10px;
+}
+
+.article ul {
+    margin: 0;
+    margin-top: 10px;
+}
+
+.article ul li {
+    margin-top: 2px;
+}
+
+.article h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+.article pre {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.article h1:before {
+    z-index: -1;
+    content: "";
+    left: 0;
+    right: 100%;
+    bottom: -3px;
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+    border-bottom: 3px solid black;
+    transition: right 0.3s ease-in-out;
+}
+
+.article h1:hover:before {
+    right: 0;
+}
+
+.article h1 a::before {
+    content: "#";
+}
