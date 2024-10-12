@@ -49,11 +49,6 @@ body {
 }
 
 @font-face {
-    font-family: gothicDecor;
-    src: url(/font/BraveThornRegular.ttf);
-}
-
-@font-face {
     font-family: detail;
     src: url(/font/SourceSerif4_18pt-Light.ttf);
 }
