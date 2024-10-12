@@ -6,8 +6,8 @@
 
     --main-block-border-col: black;
 
-    --nav-item-space: 15px;
-    --nav-item-padding: 8px;
+    --nav-item-space: 12px;
+    --nav-item-padding: 6px;
     --nav-item-border-thickness: 1px;
 
     --nav-item-inactive-col: black;
@@ -349,10 +349,11 @@ body {
 }
 
 .article {
-    max-width: 100%;
-    /* display: contents; */
+    box-sizing: border-box;
+    padding-left: 3px;
+    padding-right: 3px;
+    max-width: min(100%, 700px);
     margin: auto;
-    font-size: 1.4rem;
 }
 
 .article h1 {
@@ -380,7 +381,7 @@ body {
 
 .article h1 a {
     font-family: mainFont;
-    font-size: 50px;
+    font-size: 40px;
     text-decoration: none;
     color: black;
 }
@@ -422,7 +423,7 @@ body {
 }
 
 .article * {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     font-family: detail;
 }
