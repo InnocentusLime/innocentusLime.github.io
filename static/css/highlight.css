@@ -1,0 +1,94 @@
+/*
+    Inspires by
+    TODO: attribute
+    https://github.com/yunlingz/vscode-theme-github-light
+*/
+
+.article pre {
+    overflow: auto;
+    background-color: #eeeeee;
+}
+
+.article pre table td:nth-of-type(1) {
+    text-align: left;
+    user-select: none;
+    color: #b0b0b0;
+}
+
+.article pre table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Comment */
+.z-comment {
+  color: #696969;
+}
+
+/* Red */
+.article pre, .z-parameter {
+  /* color: #d91e18; */
+  color: #545454;
+}
+
+/* Orange */
+.z-constant {
+  color: #aa5d00;
+}
+
+/* Blue */
+.z-function, .z-macro {
+  color: #007faa;
+}
+
+/* Yellow */
+.hljs-attribute {
+  color: #aa5d00;
+}
+
+/* Green */
+.z-string {
+  color: #008000;
+}
+.article pre .z-string .z-punctuation {
+  color: #008000;
+}
+
+/* Purple */
+.z-keyword, .z-storage {
+  color: #7928a1;
+}
+
+.article pre .z-punctuation.z-terminator {
+    color: #434f54;
+}
+
+.article pre .z-punctuation {
+    color: #434f54;
+}
+/*
+@media screen and (-ms-high-contrast: active) {
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-built_in,
+  .hljs-bullet,
+  .hljs-comment,
+  .hljs-link,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-params,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-type,
+  .hljs-quote {
+        color: highlight;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+        font-weight: bold;
+    }
+} */
+
+/*  #6f42c1 */
