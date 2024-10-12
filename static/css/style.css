@@ -54,6 +54,11 @@ body {
 }
 
 @font-face {
+    font-family: detail;
+    src: url(/font/SourceSerif4_18pt-Light.ttf);
+}
+
+@font-face {
     font-family: mainFont;
     src: url(/font/Lora-Regular.ttf);
     /* src: url(/font/Andika-Regular.ttf); */
@@ -139,7 +144,8 @@ body {
 .project-name {
     padding-bottom: var(--grid-project-title-padding);
     width: 100%;
-    font-size: larger;
+    font-weight: bold;
+    font-size: large;
     display: block;
     margin: 0;
 }
@@ -147,6 +153,7 @@ body {
 .project-description {
     width: 100%;
     font-size: small;
+    font-family: detail;
     display: block;
     margin: 0;
     text-overflow: ellipsis;
@@ -256,6 +263,7 @@ p.article-p::first-letter {
 }
 
 .site-footer {
+    font-family: detail;
     font-size: smaller;
     position: relative;
     width: 100%;
