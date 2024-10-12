@@ -1,5 +1,11 @@
 [
     {
+        "title": "Boring Arcanoid",
+        "url": "https://innocentuslime.github.io/mquad-arconoid",
+        "description": "A simple plain Arcanoid clone that can run in your browser! Mobile included",
+        "img_src": "https://innocentuslime.github.io/mquad-arconoid/banner.png"
+    },
+    {
         "title": "Hunted Thief",
         "url": "https://innocentuslime.itch.io/hunted-thief",
         "description": "You need to steal. A monster hunts you down. Why? You can't remember...",
