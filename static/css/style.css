@@ -354,6 +354,7 @@ body {
     padding-right: 3px;
     max-width: min(100%, 700px);
     margin: auto;
+    width: 100%;
 }
 
 .article h1 {
