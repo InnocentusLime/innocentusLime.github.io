@@ -447,10 +447,11 @@ body {
     margin: 0;
     font-weight: bold;
     font-size: large;
-    padding-bottom: 10px;
+    padding-bottom: 2px;
 }
 
 .blog-link .blog-link-description {
+    padding-top: 8px;
     margin: 0;
     height: 40px;
     align-content: center;
@@ -473,4 +474,27 @@ body {
     max-width: min(100%, 700px);
     margin: auto;
     width: 100%;
+}
+
+.blog-link-header {
+    display: inline-block;
+    position: relative;
+}
+
+.blog-link .blog-link-header:before {
+    z-index: -1;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: translateX(-50%) scaleX(0);
+}
+
+.blog-link:hover .blog-link-header:before {
+    transform: translateX(0) scaleX(1);
 }
