@@ -429,10 +429,18 @@ body {
     font-family: detail;
 }
 
+.blog-list > :not(:last-child) {
+    border-bottom: 1px black solid;
+}
+
 .blog-link {
     color: black;
     text-decoration: none;
-    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: block;
 }
 
 .blog-link .blog-link-header {
@@ -458,8 +466,8 @@ body {
     /* margin-left: 30px;
     margin-right: 30px; */
     box-sizing: border-box;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
     max-width: min(100%, 700px);
     margin: auto;
     width: 100%;
