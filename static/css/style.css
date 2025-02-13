@@ -452,6 +452,8 @@ body {
 
 .blog-link .blog-link-description {
     margin: 0;
+    height: 40px;
+    align-content: center;
 }
 
 .blog-link .blog-link-info {
