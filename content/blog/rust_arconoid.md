@@ -4,3 +4,5 @@ description = "Macroquad is a very nice variable for writing games! But have you
 date = 2025-02-12
 draft = false
 +++
+
+Foo
