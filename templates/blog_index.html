@@ -6,9 +6,11 @@
 <div class="blog-list">
   {% for page in paginator.pages %}
   <a href="{{ page.permalink }}" class="blog-link">
-    <h3 class="blog-link-header"> {{ page.title }}</h3>
+    <div class="blog-link-info">
+      <h3 class="blog-link-header"> {{ page.title }}</h3>
+      <p class="blog-link-date">{{ page.date | date(format="%d/%m/%Y") }}</p>
+    </div>
     <p class="blog-link-description">{{ page.description }}</p>
-    <p class="blog-link-info">{{ page.date | date(format="%d/%m/%Y") }}</p>
   </a>
   {% endfor %}
 </div>
