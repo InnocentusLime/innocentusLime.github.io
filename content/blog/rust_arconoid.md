@@ -31,4 +31,4 @@ miniquad_add_plugin({
 
 The exported API should be put into the import object with `reg_function` and all the plugin state (on the JS side) should initialised with `init_func`. With this API, I was able to add some functions that would allow me to implement the cross-platform arcanoid.
 
-[^1]: WebAssmebly module instantiation API https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/instantiate_static
+[^1]: [WebAssmebly module instantiation API](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/instantiate_static)
