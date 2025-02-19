@@ -444,13 +444,18 @@ body {
     grid-template-columns: 1fr 70px;
 }
 
-.blog-link .blog-link-header {
-    margin: 0;
-    font-weight: bold;
-    font-size: large;
+.blog-link-header-container {
     grid-column: 1;
     grid-row: 1;
 }
+
+.blog-link-header {
+    margin: 0;
+    font-weight: bold;
+    font-size: large;
+    padding-bottom: 6px;
+}
+
 /*
 .blog-link .blog-link-info {
     display: flex;
