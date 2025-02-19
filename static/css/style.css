@@ -363,6 +363,7 @@ body {
     margin-top: 20px;
     display: inline-block;
     position: relative;
+    text-transform: capitalize;
 }
 
 .article p {
