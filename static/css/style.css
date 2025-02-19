@@ -383,6 +383,15 @@ body {
     color: black;
 }
 
+.article p > code {
+    padding: 4px;
+    font-family: monospace;
+    font-weight: 100;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #eeeeee;
+}
+
 .article pre {
     margin-left: 2px;
     margin-right: 2px;
@@ -417,6 +426,10 @@ body {
 
 .article h1 a::before {
     content: "#";
+}
+
+.article p {
+    line-height: 1.5;
 }
 
 .article * {
