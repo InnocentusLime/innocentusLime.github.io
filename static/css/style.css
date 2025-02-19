@@ -456,16 +456,7 @@ body {
     padding-bottom: 6px;
 }
 
-/*
-.blog-link .blog-link-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    padding-bottom: 2px;
-} */
-
-.blog-link .blog-link-description {
+.blog-link-description {
     padding-top: 8px;
     margin: 0;
     height: 40px;
@@ -475,7 +466,7 @@ body {
     overflow: hidden;
 }
 
-.blog-link .blog-link-date {
+.blog-link-date {
     display: inline-block;
     margin: 0;
     font-weight: lighter;
@@ -502,7 +493,7 @@ body {
     position: relative;
 }
 
-.blog-link .blog-link-header:before {
+.blog-link-header:before {
     z-index: -1;
     content: "";
     left: 0;
