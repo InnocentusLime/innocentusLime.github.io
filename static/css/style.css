@@ -573,6 +573,7 @@ body {
 
 .footnote-definition p {
     margin: 0;
+    margin-left: 10px;
     margin-bottom: 5px;
     font-size: 15px;
     display: inline-block
@@ -580,4 +581,21 @@ body {
 
 #\31 {
     margin-top: 120px;
+}
+
+.footnote-definition-label {
+    font-family: monospace;
+    font-size: 18px;
+    border-radius: 40px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    top: 0px;
+}
+
+.footnote-definition:target .footnote-definition-label {
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: black;
 }
