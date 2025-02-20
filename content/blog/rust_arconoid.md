@@ -12,7 +12,7 @@ draft = false
 
 If you browse [the examples](https://macroquad.rs/examples/), hosted on the macroquad website -- you will find that they work on `WebAssembly` supporting mobile devices without any problems at a quite comfortable FPS. Some examples that do not require keyboard input can even be interracted with. However, these are just application examples. This blogpost is about `Boring Arcanoid` -- a simple arcanoid clone written with `macroquad` that can be played **both** on phones and PCs.
 
-The application is a single standalone `WebAssembly` module, that detects the platform it is run on at runtime and adjusts the conrols and ui accordingly.
+The application is a single standalone `WebAssembly` module, that detects the platform it is run on at runtime and adjusts the conrols and ui accordingly. Essentially, that means that a game written this way can be effortlessly served through a super simple static HTTP server. Thus, making it a perfect for uploading such games to websites like `itch.io`!
 
 # Miniquad plugin API
 
