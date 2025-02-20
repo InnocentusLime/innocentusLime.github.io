@@ -85,6 +85,20 @@ pub fn on_mobile() -> bool { false }
 pub fn get_orientation() -> f32 { 0.0 }
 ```
 
+# Why the re-orientation
+
+I have designed the arcanoid application in such a way, that it does not fit well into a portait style orientation. While designing the app -- there were two routes I could take when implementing mobile support:
+
+* Rotate the rendered graphics automatically
+* Just expect the device to be in landscape mode
+
+When considering what route to take -- I decided that expecting the landscape mode is the best route for the following reasons:
+
+* Touch position handling looks clean
+* There is no extra code in the rendering system
+* Redesigning for portrait mode equals extra problems
+* It is common to play games with your phone in landscape mode
+* Other route would undermine the idea of "it just works everywhere"
 
 # Handling user input
 
@@ -163,6 +177,10 @@ pub fn draw(&self, model: InGameUiModel) {
     );
 }
 ```
+
+# Requesting reorientation
+
+As it has been been made clear before, it is not possible to make any mobile device change its orientation[^3].
 
 [^1]: [WebAssmebly module instantiation API](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/instantiate_static)
 [^2]: [JS orientation API](https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation)
