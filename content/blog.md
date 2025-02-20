@@ -1,3 +1,0 @@
-+++
-title = "InnocentusLime's blog"
-+++

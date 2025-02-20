@@ -21,6 +21,8 @@
     --grid-project-card-height: 150px;
     --grid-project-title-padding: 2px;
 
+    --link-color: rgb(0, 0, 140);
+
     font-family: mainFont;
 }
 
@@ -354,6 +356,7 @@ body {
     padding-right: 3px;
     max-width: min(100%, 700px);
     margin: auto;
+    width: 100%;
 }
 
 .article h1 {
@@ -362,11 +365,7 @@ body {
     margin-top: 20px;
     display: inline-block;
     position: relative;
-}
-
-.article p {
-    margin: 0;
-    margin-top: 10px;
+    text-transform: capitalize;
 }
 
 .article ul {
@@ -379,11 +378,20 @@ body {
     margin-top: 2px;
 }
 
-.article h1 a {
+.article h1 .zola-anchor {
     font-family: mainFont;
     font-size: 40px;
     text-decoration: none;
     color: black;
+}
+
+.article p > code {
+    padding: 4px;
+    font-family: monospace;
+    font-weight: 100;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #eeeeee;
 }
 
 .article pre {
@@ -398,6 +406,10 @@ body {
 .article code * {
     font-family: monospace;
     font-weight: 100;
+}
+
+.article pre code * {
+    font-size: 16px;
 }
 
 .article h1:before {
@@ -418,12 +430,181 @@ body {
     transform: translateX(0) scaleX(1);
 }
 
+.article h1:target:before {
+    transform: translateX(0) scaleX(1);
+}
+
 .article h1 a::before {
     content: "#";
 }
 
+.article p {
+    line-height: 1.5;
+}
+
 .article * {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
     font-family: detail;
+}
+
+.blog-list > :not(:last-child) {
+    border-bottom: 1px black solid;
+}
+
+.blog-link {
+    color: black;
+    text-decoration: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: grid;
+    grid-template-columns: 1fr 70px;
+}
+
+.blog-link-header-container {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.blog-link-header {
+    margin: 0;
+    font-weight: bold;
+    font-size: large;
+    padding-bottom: 6px;
+}
+
+.blog-link-description {
+    padding-top: 8px;
+    margin: 0;
+    height: 40px;
+    align-content: center;
+    grid-column: 1 / 3;
+    grid-row: 2;
+    overflow: hidden;
+}
+
+.blog-link-date {
+    display: inline-block;
+    margin: 0;
+    font-weight: lighter;
+    font-family: detail;
+    font-size: small;
+    padding-bottom: 1px;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.blog-list {
+    /* margin-left: 30px;
+    margin-right: 30px; */
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: min(100%, 700px);
+    margin: auto;
+    width: 100%;
+}
+
+.blog-link-header {
+    display: inline-block;
+    position: relative;
+}
+
+.blog-link-header:before {
+    z-index: -1;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: translateX(-50%) scaleX(0);
+}
+
+.blog-link:hover .blog-link-header:before {
+    transform: translateX(0) scaleX(1);
+}
+
+.footnote-reference a {
+    font-family: monospace;
+    font-size: 12px;
+    color: whitesmoke;
+    text-decoration: none;
+    border-radius: 40px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: black;
+}
+
+.article p > a {
+    position: relative;
+    color: var(--link-color);
+    transition: color 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.article p > a:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.article p > a:before {
+    background-color: var(--link-color);
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: translateX(-50%) scaleX(0);
+    z-index: -1;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.article p > a:hover:before {
+    transform: translateX(0) scaleX(1);
+}
+
+.footnote-definition {
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.footnote-definition p {
+    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    display: inline-block
+}
+
+#\31 {
+    margin-top: 40px;
+    border-top: 1px black dashed;
+    padding-top: 40px;
+}
+
+.footnote-definition-label {
+    font-weight: normal;
+    font-family: monospace;
+    font-size: 18px;
+    border-radius: 40px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    top: 0px;
+}
+
+.footnote-definition:target .footnote-definition-label {
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: black;
 }
