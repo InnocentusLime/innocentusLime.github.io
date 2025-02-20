@@ -61,9 +61,106 @@ function app_get_orientation() {
 With this in-place, the functions were imported into the Rust code for later calling as follows
 
 ```rust,linenos
-extern "C" {
-    pub fn app_is_on_mobile() -> bool;
-    pub fn app_get_orientation() -> f32;
+mod imports {
+    extern "C" {
+        pub fn app_is_on_mobile() -> bool;
+        pub fn app_get_orientation() -> f32;
+    }
+}
+
+pub fn on_mobile() -> bool {
+    unsafe { imports::app_is_on_mobile() }
+}
+
+pub fn get_orientation() -> f32 {
+    unsafe { imports::app_get_orientation() }
+}
+```
+
+To make the application also work on native platforms, I simply added the no-op implementations
+
+```rust,linenos
+pub fn on_mobile() -> bool { false }
+
+pub fn get_orientation() -> f32 { 0.0 }
+```
+
+
+# Handling user input
+
+Now, having the API for platform specific stuff -- an abstraction is required. In case of a `macroquad` game -- what needs to be done is to abstract away the input code. Platform specific wise it is as follows:
+
+* On desktop -- we use `A` and `D` to move the arcanoid paddle
+* On mobile -- we use on-screen buttons to move the paddle
+
+For that I have written the `Ui` struct in the `ui.rs` module. It is responisble for reading the user input and (if needed) draw the controls on the screen. The input requests are encoded as a bunch of flags like that:
+
+```rust,linenos
+#[derive(Clone, Copy, Debug)]
+pub struct InGameUiModel {
+    left_movement_down: bool,
+    right_movement_down: bool,
+}
+```
+
+And when it comes to reading the input, the following method does the trick
+
+```rust,linenos
+pub fn update(&self) -> InGameUiModel {
+    // Macroquad allows to get touch position with mouse_position
+    let (mx, my) = mouse_position();
+    let Vec2 { x: mx, y: my } = self.get_cam().screen_to_world(vec2(mx, my));
+    let left_button_rect = self.move_left_button_rect();
+    let right_button_rect = self.move_right_button_rect();
+
+    let left_movement_down =
+        is_key_down(KeyCode::A) ||
+        is_key_down(KeyCode::Left) ||
+        (left_button_rect.contains(vec2(mx, my)) &&
+            is_mouse_button_down(MouseButton::Left) &&
+            on_mobile());
+    let right_movement_down =
+        is_key_down(KeyCode::D) ||
+        is_key_down(KeyCode::Right) ||
+        (right_button_rect.contains(vec2(mx, my)) &&
+            is_mouse_button_down(MouseButton::Left) &&
+            on_mobile());
+
+    InGameUiModel {
+        left_movement_down,
+        right_movement_down,
+    }
+}
+```
+
+And then inside the `Ui::draw()` method I just did this
+
+```rust,linenos
+pub fn draw(&self, model: InGameUiModel) {
+    set_camera(&self.get_cam());
+
+    if !on_mobile() {
+        return;
+    }
+
+    let left_button_rect = self.move_left_button_rect();
+    let right_button_rect = self.move_right_button_rect();
+    draw_rectangle(
+        left_button_rect.x,
+        left_button_rect.y,
+        left_button_rect.w,
+        left_button_rect.h,
+        if model.move_left() { WHITE }
+        else { Color::from_hex(0xDDFBFF) }
+    );
+    draw_rectangle(
+        right_button_rect.x,
+        right_button_rect.y,
+        right_button_rect.w,
+        right_button_rect.h,
+        if model.move_right() { WHITE }
+        else { Color::from_hex(0xDDFBFF) }
+    );
 }
 ```
 
