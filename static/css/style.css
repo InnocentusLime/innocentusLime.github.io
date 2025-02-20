@@ -21,6 +21,8 @@
     --grid-project-card-height: 150px;
     --grid-project-title-padding: 2px;
 
+    --link-color: rgb(0, 0, 140);
+
     font-family: mainFont;
 }
 
@@ -535,4 +537,32 @@ body {
     padding-top: 2px;
     padding-bottom: 2px;
     background-color: black;
+}
+
+.article p > a {
+    position: relative;
+    color: var(--link-color);
+    transition: color 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.article p > a:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.article p > a:before {
+    background-color: var(--link-color);
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    transform: translateX(-50%) scaleX(0);
+    z-index: -1;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.article p > a:hover:before {
+    transform: translateX(0) scaleX(1);
 }
