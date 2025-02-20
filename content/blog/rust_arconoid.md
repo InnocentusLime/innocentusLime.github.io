@@ -180,7 +180,22 @@ pub fn draw(&self, model: InGameUiModel) {
 
 # Requesting reorientation
 
-As it has been been made clear before, it is not possible to make any mobile device change its orientation[^3].
+As it has been been made clear before, it is not possible to make any mobile device change its orientation[^3]. That is why we need to **ask** the user to do that instead. It is more or less simple to implement. We just check the device orientation every frame and if it is misoriented -- we enter a "please rotate" state, where game logic does not run.
+
+```rust,linenos
+ if get_orientation() != 0.0 && state != GameState::PleaseRotate {
+    prev_state = state;
+    state = GameState::PleaseRotate;
+}
+
+match state {
+    GameState::Active => { /* Game logic */ },
+    GameState::PleaseRotate if get_orientation() == 0.0 => {
+        state = prev_state;
+    },
+    _ => (),
+}
+```
 
 [^1]: [WebAssmebly module instantiation API](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/instantiate_static)
 [^2]: [JS orientation API](https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation)
