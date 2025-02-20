@@ -592,6 +592,7 @@ body {
 }
 
 .footnote-definition-label {
+    font-weight: normal;
     font-family: monospace;
     font-size: 18px;
     border-radius: 40px;
