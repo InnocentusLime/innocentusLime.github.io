@@ -430,6 +430,10 @@ body {
     transform: translateX(0) scaleX(1);
 }
 
+.article h1:target:before {
+    transform: translateX(0) scaleX(1);
+}
+
 .article h1 a::before {
     content: "#";
 }
