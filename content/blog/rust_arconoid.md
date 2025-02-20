@@ -197,6 +197,20 @@ match state {
 }
 ```
 
+# Conclusion
+
+`WebAssembly` is fun and writing games is fun too. I am really happy with how relatively clean the code turned out. There are certainly several extra things to explore!
+
+First of all, I should try uploading the game in `itch.io`. It seems the website has some hacks of its own to handle the device orientation for mobile, so this might render the orientation code obsolete (which means the game would need less code altogether).
+
+Secondly, the game code still leaves a lot to be desired: it is odd, full of quick-fixes and generally very brittle. I think I will occasionally revisit this arcanoid to refactor (probably with some lightweight ECS) and update it, adding some features and whatnot.
+
+Thirdly, the current version place the same sounds over and over without any pitch shifting. Adding some subtle pitch shifts would certainly make it feel less monotone.
+
+Finally, like `macroquad` the game code also features some inefficiencies, which I would certainly would love to remove to re-use some parts of the code in the future. Here's a list for some of them:
+* Frequent allocation inside `macroquad`
+* Repeated `on_mobile` calls (aka repeated FFI calls)
+
 [^1]: [WebAssmebly module instantiation API](https://developer.mozilla.org/en-US/docs/WebAssembly/Reference/JavaScript_interface/instantiate_static)
 [^2]: [JS orientation API](https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation)
 [^3]: [JS orientation locking API](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/lock)
