@@ -615,5 +615,5 @@ body {
 .footnote-definition:target .footnote-definition-label {
     color: whitesmoke;
     text-decoration: none;
-    background-color: black;
+    background-color: var(--link-color);
 }
