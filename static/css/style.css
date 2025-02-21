@@ -542,6 +542,21 @@ body {
     font-size: 13px;
     text-decoration: none;
     color: var(--link-color);
+    transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: background-color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.footnote-reference a:hover {
+    color: whitesmoke;
+    background-color: var(--link-color);
+}
+
+.footnote-reference a:hover::before {
+    color: var(--link-color);
+}
+
+.footnote-reference a:hover::after {
+    color: var(--link-color);
 }
 
 .footnote-reference a::before {
