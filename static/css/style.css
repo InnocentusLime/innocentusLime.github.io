@@ -435,7 +435,14 @@ body {
 }
 
 .article h1 a::before {
-    content: "#";
+    content: "";
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50% calc(50% + 5px);
+    background-size: contain;
+    width: 30px;
+    height: 38px;
+    background-image: url(/img/decor/h1decor.svg);
 }
 
 .article p {
@@ -532,15 +539,32 @@ body {
 
 .footnote-reference a {
     font-family: monospace;
-    font-size: 12px;
-    color: whitesmoke;
+    font-size: 13px;
     text-decoration: none;
-    border-radius: 40px;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background-color: black;
+    color: var(--link-color);
+    transition: color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: background-color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.footnote-reference a:hover {
+    color: whitesmoke;
+    background-color: var(--link-color);
+}
+
+.footnote-reference a:hover::before {
+    color: var(--link-color);
+}
+
+.footnote-reference a:hover::after {
+    color: var(--link-color);
+}
+
+.footnote-reference a::before {
+    content: "[";
+}
+
+.footnote-reference a::after {
+    content: "]";
 }
 
 .article p > a {
@@ -606,5 +630,5 @@ body {
 .footnote-definition:target .footnote-definition-label {
     color: whitesmoke;
     text-decoration: none;
-    background-color: black;
+    background-color: var(--link-color);
 }
