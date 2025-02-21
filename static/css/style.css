@@ -435,7 +435,14 @@ body {
 }
 
 .article h1 a::before {
-    content: "#";
+    content: "";
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50% calc(50% + 2px);
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    background-image: url(/img/decor/h1decor.svg);
 }
 
 .article p {
