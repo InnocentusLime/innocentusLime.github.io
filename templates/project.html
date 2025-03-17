@@ -3,7 +3,7 @@
 {% block content %}
     {{ section.content | safe }}
     {% set items = load_data(path="content/data/projects.json", format="json") %}
-    <ul class="project-grid">
+    <ul class="project-grid" role="menu">
     {% for item in items %}
         <li class="project" id={{ item.title | slugify }}><a class="project-content" href={{ item.url }}>
             <div class="project-image-container">
