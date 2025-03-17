@@ -2,18 +2,13 @@
 
 {% block content %}
     {{ super() }}
+    {% set items = load_data(path="content/data/social.json", format="json") %}
     <ul class="social-links">
-        <li class="social-item"><a class="social-link" href="https://x.com/InnocentusLime">
-            <img class="social-image" src="/img/social/x-logo-white.svg" alt="X logo"/>
-            X
+    {% for item in items %}
+        <li class="social-item"><a class="social-link" href={{ item.url }}>
+            <img class="social-image" src={{ "/img/social/" ~ item.img_src }} alt="{{ item.title }} logo"/>
+            {{ item.title }}
         </a></li>
-        <li class="social-item"><a class="social-link" href="https://innocentuslime.itch.io/">
-            <img class="social-image" src="/img/social/itchio-logo-textless-white.svg" alt="itch.io logo"/>
-            itch.io
-        </a></li>
-        <li class="social-item"><a class="social-link" href="https://www.reddit.com/user/Innocentuslime/">
-            <img class="social-image" src="/img/social/Reddit_Icon_1Color_Silhouette.svg" alt="Reddit logo"/>
-            Reddit
-        </a></li>
+    {% endfor %}
     </ul>
 {% endblock content %}
