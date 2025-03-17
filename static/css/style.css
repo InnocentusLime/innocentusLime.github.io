@@ -209,8 +209,6 @@ body {
 .nav-item {
     position: relative;
     font-size: large;
-    margin-right: var(--nav-item-padding);
-    margin-left: var(--nav-item-padding);
 }
 
 .nav-link {
