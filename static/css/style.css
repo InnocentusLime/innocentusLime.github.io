@@ -74,6 +74,9 @@ body {
 .project-grid {
     width: 100%;
     display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     justify-content: center;
     gap: var(--grid-project-gap);
     grid-template-columns: repeat(auto-fill, var(--grid-project-card-width));

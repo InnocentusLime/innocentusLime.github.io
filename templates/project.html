@@ -3,9 +3,9 @@
 {% block content %}
     {{ section.content | safe }}
     {% set items = load_data(path="content/data/projects.json", format="json") %}
-    <div class="project-grid">
+    <ul class="project-grid">
     {% for item in items %}
-        <a class="project" href={{ item.url }}><div class="project-content">
+        <li class="project"><a class="project-content" href={{ item.url }}>
             <div class="project-image-container">
                 <img src={{ item.img_src }} class="project-image"/>
             </div>
@@ -17,7 +17,7 @@
                     {{ item.description }}
                 </p>
             </div>
-        </div></a>
+        </a></li>
     {% endfor %}
-    </div>
+    </ul>
 {% endblock content %}
