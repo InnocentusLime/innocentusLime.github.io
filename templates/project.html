@@ -5,9 +5,10 @@
     {% set items = load_data(path="content/data/projects.json", format="json") %}
     <ul class="project-grid" role="menu">
     {% for item in items %}
-        <li class="project" id={{ item.title | slugify }}><a class="project-content" href={{ item.url }}>
+        {% set item_id = item.title | slugify %}
+        <li class="project" id={{ item_id }}><a class="project-content" href={{ item.url }}>
             <div class="project-image-container">
-                <img src={{ item.img_src }} class="project-image" alt="{{ item.title }} thumbnail"/>
+                <img src={{ "/img/project/" ~ item_id ~ ".png" }} class="project-image" alt="{{ item.title }} thumbnail"/>
             </div>
             <div class="project-info">
                 <h2 class="project-name">
