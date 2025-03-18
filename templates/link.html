@@ -5,8 +5,9 @@
     {% set items = load_data(path="content/data/social.json", format="json") %}
     <ul class="social-links" role="menu">
     {% for item in items %}
-        <li class="social-item" id={{ item.title | slugify }}><a class="social-link" href={{ item.url }}>
-            <img class="social-image" src={{ "/img/social/" ~ item.img_src }} alt="{{ item.title }} logo"/>
+        {% set item_id = item.title | slugify %}
+        <li class="social-item" id={{ item_id }}><a class="social-link" href={{ item.url }}>
+            <img class="social-image" src={{ "/img/social/" ~ item_id ~ ".svg" }} alt="{{ item.title }} logo"/>
             {{ item.title }}
         </a></li>
     {% endfor %}
