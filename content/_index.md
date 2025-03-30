@@ -23,3 +23,5 @@ This website has been made using the Zola static website generator and contains 
 * It has been done to learn all CSS and HTML tricks
 * It has been done out of spite
 * It has been done because the author saw someone else do this
+
+[^1]: The XMM research article is a POPL25 (A* conference) paper, that got a distinguished paper award. [Link](https://popl25.sigplan.org/details/POPL-2025-popl-research-papers/72/Relaxed-Memory-Concurrency-Re-executed)
