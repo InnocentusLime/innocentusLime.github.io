@@ -6,7 +6,7 @@
     <main class="site-content"><ul class="project-grid" role="menu">
     {% for item in items %}
         {% set item_id = item.title | slugify %}
-        <li class="project" id={{ item_id }}><a class="project-content" href={{ item.url }}>
+        <li class="project button-link" id={{ item_id }}><a class="project-content" href={{ item.url }}>
             <div class="project-image-container">
                 <img src={{ "/img/project/" ~ item_id ~ ".png" }} class="project-image" alt="{{ item.title }} thumbnail"/>
             </div>
