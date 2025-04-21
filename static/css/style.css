@@ -38,6 +38,8 @@ body {
     max-width: 1120px;
     width: 100vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 @font-face {
@@ -162,7 +164,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
 }
 
 .nav-items {
@@ -270,8 +271,6 @@ body {
 }
 
 .social-links {
-    margin-top: auto;
-    margin-bottom: auto;
     padding: 0;
     list-style: none;
     display: grid;

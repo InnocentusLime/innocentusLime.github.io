@@ -3,15 +3,15 @@
 
 {% block content %}
 
-<div class="blog-list">
+<main class="blog-list">
   {% for page in paginator.pages %}
-  <a href="{{ page.permalink }}" class="blog-link">
+  <artcle><a href="{{ page.permalink }}" class="blog-link">
     <div class="blog-link-header-container">
       <h3 class="blog-link-header">{{ page.title }}</h3>
     </div>
     <p class="blog-link-description">{{ page.description }}</p>
     <p class="blog-link-date">{{ page.date | date(format="%d/%m/%Y") }}</p>
-  </a>
+  </a></artcle>
   {% endfor %}
-</div>
+</main>
 {% endblock content %}

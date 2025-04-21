@@ -3,7 +3,7 @@
 {% block content %}
     {{ super() }}
     {% set items = load_data(path="content/data/social.json", format="json") %}
-    <ul class="social-links" role="menu">
+    <main class="site-content"><ul class="social-links" role="menu">
     {% for item in items %}
         {% set item_id = item.title | slugify %}
         <li class="social-item" id={{ item_id }}><a class="social-link" href={{ item.url }}>
@@ -11,5 +11,5 @@
             {{ item.title }}
         </a></li>
     {% endfor %}
-    </ul>
+    </ul></main>
 {% endblock content %}
