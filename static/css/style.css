@@ -29,24 +29,14 @@
 body {
     padding: 0;
     margin: 0;
-    width: 100vw;
-    display: flex;
     min-height: 100vh;
-    flex-direction: column;
     background-color: whitesmoke;
-    align-items: center;
-}
-
-.app {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     padding: 0;
-    margin: 0;
-    width: 100%;
+    margin: auto;
     padding-left: 2px;
     padding-right: 2px;
     max-width: 1120px;
+    width: 100vw;
     min-height: 100vh;
 }
 
