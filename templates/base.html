@@ -25,7 +25,7 @@
         <!-- Look okay on mobile pls -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body><div class="app">
+    <body class="app">
         {% block header %}
                 {% if not section is undefined %}
                     {{ macros_header::header(current_url=section.path) }}
@@ -33,12 +33,10 @@
                     {{ macros_header::header(current_url=page.path) }}
                 {% endif %}
         {% endblock header %}
-        <main class="site-content">
         {% block content %}
         {% endblock content %}
-        </main>
         {% block footer %}
             {{ macros_footer::footer() }}
         {% endblock footer %}
-    </div></body>
+    </body>
 </html>
