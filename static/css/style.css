@@ -427,6 +427,23 @@ body {
     line-height: 1.5;
 }
 
+.yt-embed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.yt-embed iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 .article * {
     font-size: 1.1rem;
     font-weight: bold;
