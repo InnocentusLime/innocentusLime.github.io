@@ -441,6 +441,7 @@ body {
     box-sizing: border-box;
     border-radius: 20px;
     overflow: hidden;
+    background-color: black;
 }
 
 .yt-embed iframe {
