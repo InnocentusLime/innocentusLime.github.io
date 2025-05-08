@@ -25,8 +25,7 @@ called "Invasion of The Body Invader" (skip to 1:51 for the actual boss).
 
 {{ youtube(class="yt-embed", id="mJ9JRI-dPnc", autolpay=false) }}
 
-<!-- TODO: the umlaut is missing -->
-That level was amazing. Not only it had ["Vision One" by Royksopp](https://www.youtube.com/watch?v=HNyiTdFKYyI)
+That level was amazing. Not only it had ["Vision One" by Röyksopp](https://www.youtube.com/watch?v=HNyiTdFKYyI)
 playing in the background - there was something captivating about the boss itself!
 While even the young me understood that it was technically just a bunch of small
 balls, I couldn't help but feel captivated its soft-body like movements as it
@@ -200,6 +199,29 @@ level in Little Big Planet 2 had. The swarm also doesn't behave exactly like it 
 either. Will work on that!
 
 {{ youtube(class="yt-embed", id="cxIu8tMEI50", autoplay=false) }}
+
+A small note to add, however. While it was fun implementing it... It was hard to ignore that the
+movement didn't look the same. You can even see that on the video: the body has a more rigid behaviour,
+less "fluid-like" and occasionally falls apart. This is fun too, but probably not something I want
+to be happening in the final project. The current implementation I have is very simply and flawed.
+Basically, if we ignore the complex details it works like this:
+
+```rust
+// Basically, all cells are: 
+// 1. pulled towards each other
+// 2. pulled towards the player
+for enemy in enemies {
+    for fella_enemy in enemies {
+        enemy.force += (fella_enemy.pos - enemy.pos) * GROUP_FORCE;
+    }
+    enemy.force += (player_pos - enemy.pos).normalize() * CHASE_FORCE;
+}
+```
+
+I do however believe, that I just need to tinker with the numbers more. There's no way this thing
+isn't just a bunch of physics-based circles - that I know for sure as a long-time Little Big Planet
+player. The main question is: what material properties do these circles have. Are they slippery?
+Does the size play any big role here? More things to try! 
 
 # What's next?
 
