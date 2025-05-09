@@ -536,7 +536,7 @@ body {
     content: "";
     left: 0;
     right: 0;
-    bottom: 3px;
+    bottom: -1px;
     position: absolute;
     top: 0;
     font-weight: bold;
