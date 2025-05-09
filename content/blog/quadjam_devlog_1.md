@@ -18,63 +18,54 @@ Much-much more intricate than a simple arcanoid.
 
 # Inspiration
 
-I played Little Big Planet a lot when I was a kid. Then came Little Big Planet 2
-with even more levels for everyone to enjoy! There are quite a few favourites of
-mine among the story levels. One of them is the boss in "Eve's Asylum" from the level
-called "Invasion of The Body Invader" (skip to 1:51 for the actual boss).
+I played Little Big Planet 2 a lot when I was a kid. I loved a lot of levels in that
+game. One my favourites was the level called "Invasion of The Body Invaders".
+In particular, the boss (skip to 1:51 for the actual boss).
 
 {{ youtube(class="yt-embed", id="mJ9JRI-dPnc", autolpay=false) }}
 
 That level was amazing. Not only it had ["Vision One" by Röyksopp](https://www.youtube.com/watch?v=HNyiTdFKYyI)
 playing in the background - there was something captivating about the boss itself!
 While even the young me understood that it was technically just a bunch of small
-balls, I couldn't help but feel captivated its soft-body like movements as it
-danced over the round arena... The level felt short. Almost unjustly so. It made
-sense in the scope of the game - it is just a boss. However, I always wanted
-more, it felt like this boss idea could have been something a bit more. 
-Maybe a whole game? Just on a smaller side, of course.
+balls, the way it moved and interracted with the level was very fun. The idea of
+you fighting this large blob of goo was really fun too!
+
+However, the level felt short, really short, too short. It made
+sense in the scope of the game - it is just a boss. But I always wanted
+more.
 
 So here we are. It is 2025 and I can code. Looks like a perfect opportunity to
 tap into that childhood dream - this is where "Project Swarm" starts its life!
 
 # Getting started
 
-After writing an arcanoid in macroquad that works in the browser, I found myself
-qualified enough to write this game too. It was decided to recycle all of the
-code from that game for Project Swarm. Doing that, I immediately ran into a problem -
-there was now way whatever had been written was enough for a proper physics simulation.
+After writing an arcanoid in macroquad that works in the browser, I decided,
+that immediately got the competenence to implement my new you idea. 
+So I decided to recycle the code for Project Swarm. I immediately ran into a problem -
+I needed physics and I really am not a person capable of writing physics simulations.
 
-For that reason, I grabbed what was available "on the market" - `rapier2d`. `rapier2d`
-is, together with `rapier3d` part of the rapier framework. It is a fast, advanced physics
-engine written entirely in Rust[^1]. It actually already used in quite a few places:
-it has a good interop with the Bevy game engine[^2] and the Godot game engine[^3].
+For that reason, I grabbed what was available "on the market" - `rapier`.
+`Rapier` is a fast, advanced physics engine written entirely in Rust[^1]. 
+It has a good interop with the Bevy game engine[^2] and the Godot game engine[^3].
 
-However, interfacing with rapier is not an easy task. It is a quite complicated
-framework on its own. However, unless you wrote everything with rapier in mind, 
-a lot of the stuff needs to be "translated" to make it work. In addition,
-extra care needs to be given to not have your code turn into spaghetti. Just look
-at the bevy integration source code![^2]
+However, the word "advanced" has a second side to it. `Rapier` is complicated.
+Unless you write everything with rapier in mind beforehand, you will immediately
+find yourself writing some sort of wrapper around this monster... And not have
+the wrapper itself turn into a monster! 
 
-I believe it is more than obvious, that the arcanoid code was never designed with
-rapier in mind. Moreover, I didn't really want to have rapier invade the main codebase.
-The game logic itself should remain simple and not fall victim to various design decisions
-inside the physics engine. In an effort to connect everything nicely, I decided that
+To cope with the overwhelming complexity and to connect everything nicely, I decided that
 some form dependency-injection was in-order. Which brings me to the other large component
 inside the game: a lightweight ECS library called [shipyard](https://crates.io/crates/shipyard).
 
 # What's ECS
 
-First of all, ECS is an architectural pattern. As in, it is how group the code. It is
-not a silver bullet that solves all possible problems. It is also quite counter-intutive,
-so it is okay if you have problems understanding what it is right away. I will give my
-best shot at an explanation without any Rust-specific stuff in this section.
+First of all, ECS is an architectural pattern. It is how you group the code. It is
+not a silver bullet that solves all possible problems. Here I will not dwelve into 
+the technicalities of implementing the tools required for an ECS. Just the most 
+basic understanding. 
 
-I will not dwelve into the technicalities of implementing the tools required for an ECS. 
-I will only present the basic mentality I have for ECS, which may also justify why I picked
-it over any other programming pattern.
-
-Imagine the way you would most likely write a game object. Unless you are a chronical academic 
-or a functional programmer lover, it would be something like this
+Imagine the way you would most likely write a game object. Unless you have chronic 
+academicisis or love functional programming, it would be something like this
 
 ```c++
 class MyCharacter {
@@ -102,10 +93,13 @@ public:
 }
 ```
 
-Basically, you would follow these OOP-like principles: the data would be protected and 
-tightly coupled with the means of manipulating it. When you are writing an ECS application,
-the data and the manipulation means are loosely coupled. To such a degree that you don't
-even have them in the same place! Instead you have two large chunks: **storage** and **systems**.
+Basically, you would follow these OOP-like principles: 
+
+* The data is protected 
+* The data and the means of manipulating it are together in a class
+
+When you are writing an ECS application, the data and the manipulation means 
+are loosely coupled. Instead of chunk you have two large chunks: **storage** and **systems**.
 
 ```cpp
 class Storage {
@@ -145,21 +139,14 @@ public:
 So, essentially we get the following architectural principles:
 
 1. Components are small pieces of plain data without any complex invariants
-2. Components are grouped into Entities, by associating them with the same EntityId
+2. Components are grouped into Entities
 3. Components are all stored in one big placed, usually refered to as `World`
 4. Systems are functions that interact with said `World` and update the data accordingly
 
 This may seem unsafe and over-complicated, but this approach actually leads to a lot of
-flexibility and free dependency injection. 
-
-Code written this way doesn't need any sophiscticated observer or subscription systems. 
-Everything a piece of logic would have to do is ask the `World` for all entities that 
-have HP and what it needs to do. Similarly, any entity that needs to opt-out of that
-damage handling stuff just needs to not have that HP component.
-
-It also usually frees you from ending up with 10 different ways/callbacks your game 
-handles an object receiving damage or something like that. You write only one function 
-that asks "who can I damage" and that's it.
+flexibility and free dependency injection. Code written this way doesn't need any
+sophiscticated observer or subscription systems - everything is in one place and
+handled in the same manner. 
 
 # The prototype
 
@@ -175,15 +162,14 @@ pub struct PhysicsInfo {
 }
 ```
 
-You can actually see that it is not quite a plain-data component, unlike what I said.
+You can actually see that it is not quite a plain-data component, despite what I said.
 The past me didn't think that it would be a huge problem, but that decision came to bite
 me later. I will not dwelve into the design problems in this post though.
 
 What I also did is add a quite complex singleton component called `PhysicsState`. At first
 it looked like a good idea, because that allowed to do nice clean calls like `physics.any_collisions`
-to test if something collided with a shape. However, that was pretty much it. It was all
-the benefits I could reap from going against "keep everything plain data" approach. And it
-was yet another footgun waiting to go off.
+to test if something collided with a shape. However, that is where all the benefits of
+going against the "plain-data" rule ended. 
 
 ```rust
 pub struct PhysicsState {
@@ -192,19 +178,20 @@ pub struct PhysicsState {
 ```
 
 Despite that, I still could ship a rather decent prototype. You can still view the code from
-back in time right here at commit [`f942cf0`](https://github.com/InnocentusLime/quad-jam-2024/tree/f942cf0a5626431dd2c3ce7b80ba3f20e385f694). There were several gameplay iterations I went through,
-but for now I decided to go with a simple oneshot laser that teleports the only bullet to the other
-end of the ray. But who knows! Maybe I will eventually implement the same attack mechanic the orginal
-level in Little Big Planet 2 had. The swarm also doesn't behave exactly like it did in the original
-either. Will work on that!
+back in time right here at commit 
+[`f942cf0`](https://github.com/InnocentusLime/quad-jam-2024/tree/f942cf0a5626431dd2c3ce7b80ba3f20e385f694). 
+There were several gameplay iterations I went through, but for now I decided to go with a
+simple oneshot laser that teleports the only bullet to the other end of the ray. 
+Maybe I will implement the same attack mechanic the orginal level in Little Big Planet 2 had. 
+This is still under consideration.
 
 {{ youtube(class="yt-embed", id="cxIu8tMEI50", autoplay=false) }}
 
-A small note to add, however. While it was fun implementing it... It was hard to ignore that the
-movement didn't look the same. You can even see that on the video: the body has a more rigid behaviour,
-less "fluid-like" and occasionally falls apart. This is fun too, but probably not something I want
-to be happening in the final project. The current implementation I have is very simply and flawed.
-Basically, if we ignore the complex details it works like this:
+A small note to add, however. While programming all of that was fun... 
+It was hard to ignore that the movement of the "swarm" was nothing like the on in Little
+Big Planet! You can see that on the video: the structure of these circles is firm and
+brittle. Playing with it is fun too, but it is not what I intended. The current implementation
+works like this:
 
 ```rust
 // Basically, all cells are: 
@@ -218,14 +205,13 @@ for enemy in enemies {
 }
 ```
 
-I do however believe, that I just need to tinker with the numbers more. There's no way this thing
-isn't just a bunch of physics-based circles - that I know for sure as a long-time Little Big Planet
-player. The main question is: what material properties do these circles have. Are they slippery?
-Does the size play any big role here? More things to try! 
+I believe tinkering with the numbers more should help. There's no way this thing
+isn't just a bunch of physics-based circles - that I know for sure. Perhaps I also need
+to mess around with the "material properties" too. 
 
 # What's next?
 
-Good question! I have quite a lot of plans for that small game in fact and this page too!
+Good question! I have quite a lot of plans for that small game and this page too!
 
 First of all, I want to actually finish that game and give it a slightly bigger amount of polish
 than the arcanoid clone. This time I would like to have the final state of the project have animated
@@ -239,7 +225,7 @@ decisions and share my progress as I keep moving forward. However, I also think 
 small things too in order to share random cool findings!
 
 And of course... I will occasionally cleanup the `.css` and the `.html` templates to keep things
-fresh looking! You can follow the gamr development closely on GitHub right [here](https://github.com/InnocentusLime/quad-jam-2024).
+fresh looking! You can follow the game development closely on GitHub right [here](https://github.com/InnocentusLime/quad-jam-2024).
 
 [^1]: [Official rapier website](https://rapier.rs/)
 [^2]: [Crates.io page for the interop](https://crates.io/crates/bevy_rapier2d/)
