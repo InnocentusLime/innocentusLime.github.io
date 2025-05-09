@@ -56,6 +56,11 @@ body {
 }
 
 @font-face {
+    font-family: articleFont;
+    src: url(/font/SourceSerif4_18pt-Regular.ttf);
+}
+
+@font-face {
     font-family: mainBold;
     src: url(/font/Lora-Bold.ttf);
 }
@@ -372,6 +377,12 @@ body {
     background-color: #eeeeee;
 }
 
+.article p > a code {
+    font-family: monospace;
+    font-weight: 100;
+    font-size: 16px;
+}
+
 .article pre {
     margin-left: 2px;
     margin-right: 2px;
@@ -427,10 +438,31 @@ body {
     line-height: 1.5;
 }
 
+.article li {
+    margin-bottom: 10px;
+}
+
+.yt-embed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: black;
+}
+
+.yt-embed iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 .article * {
     font-size: 1.1rem;
-    font-weight: bold;
-    font-family: detail;
+    font-family: articleFont;
 }
 
 .blog-list > :not(:last-child) {
@@ -504,7 +536,7 @@ body {
     content: "";
     left: 0;
     right: 0;
-    bottom: 3px;
+    bottom: -1px;
     position: absolute;
     top: 0;
     font-weight: bold;
