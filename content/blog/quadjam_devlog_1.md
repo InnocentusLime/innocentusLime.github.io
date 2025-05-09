@@ -1,7 +1,7 @@
 +++
 title = "Project Swarm Devlog (Entry 1)"
 template = "article.html"
-description = "A start of a new project, written in Rust. Inspired by a single level in a beloved game"
+description = "A start of a new macroquad-powered project, fueled by a some level from a childhood game!"
 date = 2025-05-03
 draft = false
 +++
@@ -14,7 +14,7 @@ But what good is a programmer or their website when they don't actually do proje
 What good is in the stagnation!
 
 With that said, this the first, long overdue devlog entry for a new project of mine.
-Much-much more intricate than a simple arcanoid.
+Much-much more intricate than a simple arcanoid!
 
 # Inspiration
 
@@ -28,44 +28,48 @@ That level was amazing. Not only it had ["Vision One" by Röyksopp](https://www.
 playing in the background - there was something captivating about the boss itself!
 While even the young me understood that it was technically just a bunch of small
 balls, the way it moved and interracted with the level was very fun. The idea of
-you fighting this large blob of goo was really fun too!
+you fighting this large blob of goo was really cool too!
 
 However, the level felt short, really short, too short. It made
 sense in the scope of the game - it is just a boss. But I always wanted
 more.
 
 So here we are. It is 2025 and I can code. Looks like a perfect opportunity to
-tap into that childhood dream - this is where "Project Swarm" starts its life!
+tap into that childhood dream. This is where "Project Swarm" starts its life!
 
 # Getting started
 
 After writing an arcanoid in macroquad that works in the browser, I decided,
-that immediately got the competenence to implement my new you idea. 
+that I now have the competenence to implement my new idea (what a fool). 
 So I decided to recycle the code for Project Swarm. I immediately ran into a problem -
-I needed physics and I really am not a person capable of writing physics simulations.
+I needed physics and I really am not a person capable of writing physics simulations (yet).
 
 For that reason, I grabbed what was available "on the market" - `rapier`.
 `Rapier` is a fast, advanced physics engine written entirely in Rust[^1]. 
 It has a good interop with the Bevy game engine[^2] and the Godot game engine[^3].
 
-However, the word "advanced" has a second side to it. `Rapier` is complicated.
+However, that "advanced" part is a double-edged sword. `Rapier` is complicated.
 Unless you write everything with rapier in mind beforehand, you will immediately
-find yourself writing some sort of wrapper around this monster... And not have
-the wrapper itself turn into a monster! 
+find yourself writing some sort of wrapper around this monster... And trying to
+stop the wrapper itself turning into something hideous! 
 
 To cope with the overwhelming complexity and to connect everything nicely, I decided that
-some form dependency-injection was in-order. Which brings me to the other large component
-inside the game: a lightweight ECS library called [shipyard](https://crates.io/crates/shipyard).
+some form of dependency-injection framework could help. Which brings me to the other large component
+inside the game: [shipyard](https://crates.io/crates/shipyard). `Shipyard` is one of many
+Rust ECS imeplementations. Why is everyone in the Rust community trying to implement an ECS?
+No idea!
 
 # What's ECS
 
 First of all, ECS is an architectural pattern. It is how you group the code. It is
 not a silver bullet that solves all possible problems. Here I will not dwelve into 
-the technicalities of implementing the tools required for an ECS. Just the most 
-basic understanding. 
+the technicalities of implementing an ECS pattern. Just the most basic understanding.
+You have Wikipedia for in-depth stuff and actual Game Developer presentations for
+pros and cons. 
 
-Imagine the way you would most likely write a game object. Unless you have chronic 
-academicisis or love functional programming, it would be something like this
+What does that mean?  Imagine the way you would most likely write a game object. 
+Unless you have chronic  academicisis or love functional programming, it would be 
+something like this
 
 ```c++
 class MyCharacter {
@@ -98,30 +102,13 @@ Basically, you would follow these OOP-like principles:
 * The data is protected 
 * The data and the means of manipulating it are together in a class
 
-When you are writing an ECS application, the data and the manipulation means 
-are loosely coupled. Instead of chunk you have two large chunks: **storage** and **systems**.
+In contract, in ECS-like architecture: 
 
-```cpp
-class Storage {
-private:
-    /* Some cool data structure */
-public:
-    GetHealth() -> int { /* ... */ }
-    SetHealth(hp: int) { /* ... */ }
+* You through that whole "protection" business out of the window
+* The data and the manipulation means are decoupled into two things: storage and systems
 
-    GetPos() -> vector2 { /* ... */ }
-    SetPos(pos: vector2) { /* ... */ }
-}
-
-damageSystem(storage: Storage) {
-    dmg: int = calculate_damage()
-    storage.SetHealth(storage.GetHealth() - dmg)
-}
-```
-
-In addition, the storage is usually keyd by some value, usually called `EntityId`. Which is
-how we can logically group components into a single object. So the code would look more like
-this.
+The storage is usually keyed by some value: `EntityId`. This allows us to recognise
+that some components belong to a single thing: an **entity**.
 
 ```cpp
 class Storage {
@@ -134,19 +121,13 @@ public:
     GetPos(who: EntityId) -> vector2 { /* ... */ }
     SetPos(who: EntityId, pos: vector2) { /* ... */ }
 }
+
+damageSystem(storage: Storage) {
+    gotShot: EntityId = findVictim()
+    dmg: int = calculateDamage()
+    storage.SetHealth(gotShot, storage.GetHealth() - dmg)
+}
 ```
-
-So, essentially we get the following architectural principles:
-
-1. Components are small pieces of plain data without any complex invariants
-2. Components are grouped into Entities
-3. Components are all stored in one big placed, usually refered to as `World`
-4. Systems are functions that interact with said `World` and update the data accordingly
-
-This may seem unsafe and over-complicated, but this approach actually leads to a lot of
-flexibility and free dependency injection. Code written this way doesn't need any
-sophiscticated observer or subscription systems - everything is in one place and
-handled in the same manner. 
 
 # The prototype
 
@@ -169,7 +150,7 @@ me later. I will not dwelve into the design problems in this post though.
 What I also did is add a quite complex singleton component called `PhysicsState`. At first
 it looked like a good idea, because that allowed to do nice clean calls like `physics.any_collisions`
 to test if something collided with a shape. However, that is where all the benefits of
-going against the "plain-data" rule ended. 
+going against the "plain-data" rule stopped. 
 
 ```rust
 pub struct PhysicsState {
@@ -177,21 +158,22 @@ pub struct PhysicsState {
 }
 ```
 
-Despite that, I still could ship a rather decent prototype. You can still view the code from
+Despite that, I still could ship a rather decent prototype. You can view the code from
 back in time right here at commit 
 [`f942cf0`](https://github.com/InnocentusLime/quad-jam-2024/tree/f942cf0a5626431dd2c3ce7b80ba3f20e385f694). 
 There were several gameplay iterations I went through, but for now I decided to go with a
-simple oneshot laser that teleports the only bullet to the other end of the ray. 
+simple laser beam with a teleporting bullet. 
 Maybe I will implement the same attack mechanic the orginal level in Little Big Planet 2 had. 
-This is still under consideration.
+Who knows!
 
 {{ youtube(class="yt-embed", id="cxIu8tMEI50", autoplay=false) }}
 
-A small note to add, however. While programming all of that was fun... 
-It was hard to ignore that the movement of the "swarm" was nothing like the on in Little
+# Future work
+
+While programming and testing all of that was fun... 
+It was hard to ignore that the movement of the "swarm" wasn't like in Little
 Big Planet! You can see that on the video: the structure of these circles is firm and
-brittle. Playing with it is fun too, but it is not what I intended. The current implementation
-works like this:
+brittle, not soft and squishy. The current implementation works like this:
 
 ```rust
 // Basically, all cells are: 
@@ -213,16 +195,13 @@ to mess around with the "material properties" too.
 
 Good question! I have quite a lot of plans for that small game and this page too!
 
-First of all, I want to actually finish that game and give it a slightly bigger amount of polish
-than the arcanoid clone. This time I would like to have the final state of the project have animated
-ui and probably a less stellar main menu. I also want to add more variety and a few levels to make
-it more like a game and less like a tech-demo. At the same time, moving on to new projects is a 
-healthy approach. So the development time will be limitted.
+First of all, this game isn't going to be an infinite investment. Projects need to end
+one day and this game is not an exception. I will refine the vision of the "final product"
+in the next post and set it as the goal with an appropiate time limit.
 
 Second of all, while the arcanoid thing was quickly turned into a short "what has been done" report,
 I think this project will have a more or less full-fledged devlog. I will reflect on the design
-decisions and share my progress as I keep moving forward. However, I also think I still will post 
-small things too in order to share random cool findings!
+decisions and share my progress as I move forward.
 
 And of course... I will occasionally cleanup the `.css` and the `.html` templates to keep things
 fresh looking! You can follow the game development closely on GitHub right [here](https://github.com/InnocentusLime/quad-jam-2024).
