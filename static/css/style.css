@@ -438,6 +438,10 @@ body {
     line-height: 1.5;
 }
 
+.article li {
+    margin-bottom: 10px;
+}
+
 .yt-embed {
     display: flex;
     flex-direction: column;
