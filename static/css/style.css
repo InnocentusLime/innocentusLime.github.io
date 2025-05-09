@@ -56,6 +56,11 @@ body {
 }
 
 @font-face {
+    font-family: articleFont;
+    src: url(/font/SourceSerif4_18pt-Regular.ttf);
+}
+
+@font-face {
     font-family: mainBold;
     src: url(/font/Lora-Bold.ttf);
 }
@@ -453,8 +458,7 @@ body {
 
 .article * {
     font-size: 1.1rem;
-    font-weight: bold;
-    font-family: detail;
+    font-family: articleFont;
 }
 
 .blog-list > :not(:last-child) {
