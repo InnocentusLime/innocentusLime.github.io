@@ -1,5 +1,5 @@
 +++
-title = "Simple Arconoid That Runs On Mobile"
+title = "Simple Arcanoid That Runs On Mobile"
 template = "article.html"
 description = "Macroquad is a very nice variable for writing games! But have you ever tried writing a game in it that works both on Desktop and mobile... In a browser?"
 date = 2025-02-12
@@ -10,9 +10,9 @@ draft = false
 
 `macroquad` is a library for developing games. It has a remarkably simple API and a decent cross-platform support. There is an [amazing tutorial](https://mq.agical.se/) on how to write the game with it. In addition to this, there is an [excellent section](https://mq.agical.se/release-web.html) on shipping your game in `WebAssembly`. Is it possible to make a `macroquad` application that is compiled into `WebAssembly`, that works both on PC and mobile?
 
-If you browse [the examples](https://macroquad.rs/examples/), hosted on the macroquad website -- you will find that they work on `WebAssembly` supporting mobile devices without any problems at a quite comfortable FPS. Some examples that do not require keyboard input can even be interracted with. However, these are just application examples. This blogpost is about `Boring Arcanoid` -- a simple arcanoid clone written with `macroquad` that can be played **both** on phones and PCs.
+If you browse [the examples](https://macroquad.rs/examples/), hosted on the macroquad website -- you will find that they work on `WebAssembly` supporting mobile devices without any problems at a quite comfortable FPS. Some examples that do not require keyboard input can even be interacted with. However, these are just application examples. This blogpost is about `Boring Arcanoid` -- a simple arcanoid clone written with `macroquad` that can be played **both** on phones and PCs.
 
-The application is a single standalone `WebAssembly` module, that detects the platform it is run on at runtime and adjusts the conrols and ui accordingly. Essentially, that means that a game written this way can be effortlessly served through a super simple static HTTP server. Thus, making it a perfect for uploading such games to websites like `itch.io`!
+The application is a single standalone `WebAssembly` module, that detects the platform it is run on at runtime and adjusts the controls and ui accordingly. Essentially, that means that a game written this way can be effortlessly served through a super simple static HTTP server. Thus, making it a perfect for uploading such games to websites like `itch.io`!
 
 # Miniquad plugin API
 
@@ -29,11 +29,11 @@ miniquad_add_plugin({
 });
 ```
 
-The exported API should be put into the import object with `reg_function` and all the plugin state (on the JS side) should initialised with `init_func`. With this API, I was able to add some functions that would allow me to implement the cross-platform arcanoid.
+The exported API should be put into the import object with `reg_function` and all the plugin state (on the JS side) should initialized with `init_func`. With this API, I was able to add some functions that would allow me to implement the cross-platform arcanoid.
 
 # The extra API
 
-To fascilitate the mobile device support, the following functions would be needed: getting the device orientations and checking if the current device is a mobile device in the first place. The orientation checking[^2] is needed to prompt the user to rotate their mobile device (explicitly asking the device to enter a certain orientation is not baseline API at the moment[^3]). Detecting if the device is a mobile device or not is not an existing API either. However, it is possible to figure this out by checking the user agent string[^4]
+To facilitate the mobile device support, the following functions would be needed: getting the device orientations and checking if the current device is a mobile device in the first place. The orientation checking[^2] is needed to prompt the user to rotate their mobile device (explicitly asking the device to enter a certain orientation is not baseline API at the moment[^3]). Detecting if the device is a mobile device or not is not an existing API either. However, it is possible to figure this out by checking the user agent string[^4]
 
 ```js
 function app_is_on_mobile() {
@@ -87,7 +87,7 @@ pub fn get_orientation() -> f32 { 0.0 }
 
 # Why the re-orientation
 
-I have designed the arcanoid application in such a way, that it does not fit well into a portait style orientation. While designing the app -- there were two routes I could take when implementing mobile support:
+I have designed the arcanoid application in such a way, that it does not fit well into a portrait style orientation. While designing the app -- there were two routes I could take when implementing mobile support:
 
 * Rotate the rendered graphics automatically
 * Just expect the device to be in landscape mode
@@ -107,7 +107,7 @@ Now, having the API for platform specific stuff -- an abstraction is required. I
 * On desktop -- we use `A` and `D` to move the arcanoid paddle
 * On mobile -- we use on-screen buttons to move the paddle
 
-For that I have written the `Ui` struct in the `ui.rs` module. It is responisble for reading the user input and (if needed) draw the controls on the screen. The input requests are encoded as a bunch of flags like that:
+For that I have written the `Ui` struct in the `ui.rs` module. It is responsible for reading the user input and (if needed) draw the controls on the screen. The input requests are encoded as a bunch of flags like that:
 
 ```rust
 #[derive(Clone, Copy, Debug)]
