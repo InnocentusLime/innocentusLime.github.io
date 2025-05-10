@@ -165,12 +165,13 @@ body {
 
 .site-nav::after {
     width: 200px;
+    height: 20px;
     color: transparent;
     background-image: url('/img/decor/site-top-border-decor.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    content: "A";
+    content: "";
     position: absolute;
     left: 50%;
     transform: translateX(-50%) translateY(-50%)
@@ -241,12 +242,13 @@ body {
 
 .site-footer::before {
     width: 200px;
+    height: 15px;
     color: transparent;
     background-image: url('/img/decor/site-bot-border-decor.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    content: "A";
+    content: "";
     position: absolute;
     left: 50%;
     transform: translateX(-50%) translateY(-50%)
