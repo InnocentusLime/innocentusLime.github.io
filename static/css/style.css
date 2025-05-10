@@ -2,17 +2,23 @@
     --main-block-space-vert: 20px;
     --main-block-border-thickness: 1px;
     --main-border-thickness: 45px;
-    --decor-box: 45px;
-
-    --main-block-border-col: black;
 
     --nav-item-space: 12px;
     --nav-item-padding: 6px;
     --nav-item-border-thickness: 1px;
 
-    --nav-item-inactive-col: black;
-    --nav-item-border-col: var(--nav-item-inactive-col);
-    --nav-item-inactice-text-col: var(--nav-item-inactive-col);
+    --nav-item-inactive-color: black;
+    --nav-item-active-color: brown;
+    --link-color-primary: rgb(0, 0, 140);
+    --link-color-secondary: whitesmoke;
+    --project-card-main-color: black;
+    --project-card-background: whitesmoke;
+    --social-link-main-color: black;
+    --social-link-background: whitesmoke;
+    --blog-list-main-color: black;
+    --article-main-color: black;
+    --article-code-background: #eeeeee;
+    --article-yt-embed-background: black;
 
     --grid-project-gap: 20px;
     --grid-project-card-gap: 6px;
@@ -20,8 +26,6 @@
     --grid-project-card-width: 330px;
     --grid-project-card-height: 150px;
     --grid-project-title-padding: 2px;
-
-    --link-color: rgb(0, 0, 140);
 
     --underline-time: 0.6s;
     --underline-curve: cubic-bezier(0.33, 1, 0.68, 1);
@@ -122,7 +126,7 @@ body {
     display: inline-block;
     box-sizing: content-box;
     padding: var(--nav-item-padding) var(--nav-item-space);
-    color: var(--nav-item-inactice-text-col);
+    color: var(--nav-item-inactive-color);
     text-decoration: none;
     text-transform: capitalize;
     font-weight: bold;
@@ -133,7 +137,7 @@ body {
     content: "";
     color: transparent;
     position: absolute;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--nav-item-inactive-color);
     bottom: 0;
     top: 0;
     left: var(--nav-item-space);
@@ -148,7 +152,7 @@ body {
 }
 
 .nav-link.active::after {
-    border-color: brown;
+    border-color: var(--nav-item-active-color);
     transform: scaleX(1.0);
 }
 
@@ -198,7 +202,7 @@ body {
     bottom: 0;
     right: 0;
     opacity: 0.2;
-    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1), 0 0 37px 0 rgba(0, 0, 0, 1);
+    box-shadow: 0 0 7px 0 black, 0 0 37px 0 black;
     background-color: black;
     transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -246,7 +250,7 @@ body {
     right: 0;
     bottom: 0;
     text-decoration: none;
-    color: black;
+    color: var(--project-card-main-color);
     display: grid;
     border-radius: 10px;
     overflow: hidden;
@@ -258,7 +262,7 @@ body {
     padding-top: var(--grid-project-card-padding);
     padding-bottom: var(--grid-project-card-padding);
     padding-left: var(--grid-project-card-gap);
-    background-color: whitesmoke;
+    background-color: var(--project-card-background);
 }
 
 .project-image-container {
@@ -318,14 +322,14 @@ body {
 .social-link {
     padding: 10px;
     position: absolute;
-    color: black;
+    color: var(--social-link-main-color);
     font-weight: bold;
     text-decoration: none;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: whitesmoke;
+    background-color: var(--social-link-background);
     gap: 10px;
     display: grid;
     grid-template-columns: 30px auto;
@@ -336,7 +340,7 @@ body {
 }
 
 .social-image {
-    color: whitesmoke;
+    color: var(--social-link-background);
     height: 100%;
     overflow: hidden;
     object-position: center;
@@ -359,7 +363,7 @@ body {
 }
 
 .blog-link {
-    color: black;
+    color: var(--blog-list-main-color);
     text-decoration: none;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -369,7 +373,7 @@ body {
 }
 
 .blog-list > :not(:last-child) {
-    border-bottom: 1px black dashed;
+    border-bottom: 1px var(--blog-list-main-color) dashed;
 }
 
 .blog-link-header-container {
@@ -418,7 +422,7 @@ body {
     position: absolute;
     top: 0;
     font-weight: bold;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--blog-list-main-color);
     transition: transform var(--underline-time) var(--underline-curve);
     transform: translateX(-50%) scaleX(0);
 }
@@ -466,7 +470,7 @@ body {
     font-family: mainFont;
     font-size: 40px;
     text-decoration: none;
-    color: black;
+    color: var(--article-main-color);
 }
 
 .article p > code {
@@ -475,7 +479,7 @@ body {
     font-weight: 100;
     font-size: 16px;
     border-radius: 6px;
-    background-color: #eeeeee;
+    background-color: var(--article-code-background);
 }
 
 .article p > a code {
@@ -511,7 +515,7 @@ body {
     position: absolute;
     top: 0;
     font-weight: bold;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid var(--article-main-color);
     transition: transform var(--underline-time) var(--underline-curve);
     transform: translateX(-50%) scaleX(0);
 }
@@ -551,7 +555,7 @@ body {
     box-sizing: border-box;
     border-radius: 20px;
     overflow: hidden;
-    background-color: black;
+    background-color: var(--article-yt-embed-background);
 }
 
 .article .yt-embed iframe {
@@ -565,23 +569,23 @@ body {
     font-family: monospace;
     font-size: 13px;
     text-decoration: none;
-    color: var(--link-color);
+    color: var(--link-color-primary);
     transition-property: color, background-color;
     transition-timing-function: var(--footnote-highlight-curve);
     transition-duration: var(--footnote-highlight-time) ;
 }
 
 .article .footnote-reference a:hover {
-    color: whitesmoke;
-    background-color: var(--link-color);
+    color: var(--link-color-secondary);
+    background-color: var(--link-color-primary);
 }
 
 .article .footnote-reference a:hover::before {
-    color: var(--link-color);
+    color: var(--link-color-primary);
 }
 
 .article .footnote-reference a:hover::after {
-    color: var(--link-color);
+    color: var(--link-color-primary);
 }
 
 .article .footnote-reference a::before {
@@ -594,17 +598,17 @@ body {
 
 .article p > a {
     position: relative;
-    color: var(--link-color);
+    color: var(--link-color-primary);
     transition: color var(--underline-time) var(--underline-curve);
 }
 
 .article p > a:hover {
     text-decoration: none;
-    color: whitesmoke;
+    color: var(--link-color-secondary);
 }
 
 .article p > a:before {
-    background-color: var(--link-color);
+    background-color: var(--link-color-primary);
     transition: transform var(--underline-time) var(--underline-curve);
     transform: translateX(-50%) scaleX(0);
     z-index: -1;
@@ -636,7 +640,7 @@ body {
 
 .article #\31 {
     margin-top: 40px;
-    border-top: 1px black dashed;
+    border-top: 1px var(--article-main-color) dashed;
     padding-top: 40px;
 }
 
@@ -653,7 +657,7 @@ body {
 }
 
 .article .footnote-definition:target .footnote-definition-label {
-    color: whitesmoke;
+    color: var(--link-color-secondary);
     text-decoration: none;
-    background-color: var(--link-color);
+    background-color: var(--link-color-primary);
 }
