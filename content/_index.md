@@ -18,7 +18,7 @@ Even before that I trying out Rust in various ways during the 10th grade of scho
 
 # This page
 
-This website has been made using the Zola static website generator and contains not a single line JavaScript. All HTML and CSS are hand-written. Why? I do not know myself to be honest! However, it must be one of the following:
+This website contains not a single line JavaScript. All HTML and CSS are hand-written. Why? I do not know myself to be honest! However, it must be one of the following:
 
 * It has been done to learn all CSS and HTML tricks
 * It has been done out of spite
