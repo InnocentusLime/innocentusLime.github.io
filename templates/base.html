@@ -2,11 +2,12 @@
 {% import 'macros/footer.html' as macros_footer %}
 
 {% if not section is undefined %}
+{% set description = "InnocentusLime's blog and stuff!" %}
 {% set title = section.title %}
 {% else %}
+{% set description = page.description %}
 {% set title = page.title %}
 {% endif %}
-{% set description = "InnocentusLime's blog and stuff!" %}
 
 <!DOCTYPE html>
 <html lang="en-US">
