@@ -27,7 +27,7 @@ In particular, the boss (skip to 1:51 for the actual boss).
 That level was amazing. Not only it had ["Vision One" by Röyksopp](https://www.youtube.com/watch?v=HNyiTdFKYyI)
 playing in the background - there was something captivating about the boss itself!
 While even the young me understood that it was technically just a bunch of small
-balls, the way it moved and interracted with the level was very fun. The idea of
+balls, the way it moved and interacted with the level was very fun. The idea of
 you fighting this large blob of goo was really cool too!
 
 However, the level felt short, really short, too short. It made
@@ -40,7 +40,7 @@ tap into that childhood dream. This is where "Project Swarm" starts its life!
 # Getting started
 
 After writing an arcanoid in macroquad that works in the browser, I decided,
-that I now have the competenence to implement my new idea (what a fool). 
+that I now have the competence to implement my new idea (what a fool). 
 So I decided to recycle the code for Project Swarm. I immediately ran into a problem -
 I needed physics and I really am not a person capable of writing physics simulations (yet).
 
@@ -56,13 +56,13 @@ stop the wrapper itself turning into something hideous!
 To cope with the overwhelming complexity and to connect everything nicely, I decided that
 some form of dependency-injection framework could help. Which brings me to the other large component
 inside the game: [shipyard](https://crates.io/crates/shipyard). `Shipyard` is one of many
-Rust ECS imeplementations. Why is everyone in the Rust community trying to implement an ECS?
+Rust ECS implementations. Why is everyone in the Rust community trying to implement an ECS?
 No idea!
 
 # What's ECS
 
 First of all, ECS is an architectural pattern. It is how you group the code. It is
-not a silver bullet that solves all possible problems. Here I will not dwelve into 
+not a silver bullet that solves all possible problems. Here I will not delve into 
 the technicalities of implementing an ECS pattern. Just the most basic understanding.
 You have Wikipedia for in-depth stuff and actual Game Developer presentations for
 pros and cons. 
@@ -107,7 +107,7 @@ In contract, in ECS-like architecture:
 * You through that whole "protection" business out of the window
 * The data and the manipulation means are decoupled into two things: storage and systems
 
-The storage is usually keyed by some value: `EntityId`. This allows us to recognise
+The storage is usually keyed by some value: `EntityId`. This allows us to recognize
 that some components belong to a single thing: an **entity**.
 
 ```cpp
@@ -145,7 +145,7 @@ pub struct PhysicsInfo {
 
 You can actually see that it is not quite a plain-data component, despite what I said.
 The past me didn't think that it would be a huge problem, but that decision came to bite
-me later. I will not dwelve into the design problems in this post though.
+me later. I will not delve into the design problems in this post though.
 
 What I also did is add a quite complex singleton component called `PhysicsState`. At first
 it looked like a good idea, because that allowed to do nice clean calls like `physics.any_collisions`
@@ -197,7 +197,7 @@ Good question! I have quite a lot of plans for that small game and this page too
 
 First of all, this game isn't going to be an infinite investment. Projects need to end
 one day and this game is not an exception. I will refine the vision of the "final product"
-in the next post and set it as the goal with an appropiate time limit.
+in the next post and set it as the goal with an appropriate time limit.
 
 Second of all, while the arcanoid thing was quickly turned into a short "what has been done" report,
 I think this project will have a more or less full-fledged devlog. I will reflect on the design
@@ -208,4 +208,4 @@ fresh looking! You can follow the game development closely on GitHub right [here
 
 [^1]: [Official rapier website](https://rapier.rs/)
 [^2]: [Crates.io page for the interop](https://crates.io/crates/bevy_rapier2d/)
-[^3]: [Godot intergration for rapier](https://godot.rapier.rs/)
+[^3]: [Godot integration for rapier](https://godot.rapier.rs/)
