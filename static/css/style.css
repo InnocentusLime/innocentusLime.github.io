@@ -661,3 +661,14 @@ body {
     text-decoration: none;
     background-color: var(--link-color-primary);
 }
+
+/* not-found page rules */
+
+.not-found {
+    text-align: center;
+}
+
+.not-found-header {
+    text-transform: capitalize;
+    text-decoration: underline;
+}
