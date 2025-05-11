@@ -4,9 +4,12 @@
 {% if not section is undefined %}
 {% set description = "InnocentusLime's blog and stuff!" %}
 {% set title = section.title %}
-{% else %}
+{% elif not page is undefined %}
 {% set description = page.description %}
 {% set title = page.title %}
+{% else %}
+{% set description = "This page does not exist" %}
+{% set title = "Not found" %}
 {% endif %}
 
 <!DOCTYPE html>
@@ -49,8 +52,10 @@
         {% block header %}
                 {% if not section is undefined %}
                     {{ macros_header::header(current_url=section.path) }}
-                {% else %}
+                {% elif not page is undefined %}
                     {{ macros_header::header(current_url=page.path) }}
+                {% else %}
+                    {{ macros_header::header(current_url="404") }}
                 {% endif %}
         {% endblock header %}
         {% block content %}
