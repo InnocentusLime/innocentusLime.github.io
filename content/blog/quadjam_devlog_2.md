@@ -8,78 +8,87 @@ draft = false
 
 # Still alive!
 
-<!-- ALT: a series where I pretend that I know what I am doing -->
-Welcome back. This is part 2 of the devlog where a fool decided to make a physics
-based game right after making a simple arcanoid. Without any prior knowledge.
-Without any proper tooling. Without a proper engine.
+Welcome back to the series when I pretend that I know what I am doing. No
+prior knowledge. No proper tooling. No proper engine...
 
-I did some small playtests of the prototype. In addition I played the game myself
-several times to see how the gameplay evolves for me. Some things were expected. 
-Some were not. Let us go through what I have learned!
+I did some small playtests of the prototype and played the game myself
+several times. The results were quite expectable in hindsight.
 
-# The challenge
+# Problems
 
-One of the playtesters noted very fairly so: the challenge got easier
-as they hit enemy. Which in retrospect made sense. The player has
-the ability to melt the cells away, making the swarm smaller. 
-Obviously, when the swarm gets smaller - it becomes much easier to dodge.
+One of the main things that became apparent was that the game was too easy.
+It was easy in the worst way possible. Despite the highspeed gameplay, there
+was a quite easy way to turn it into simple repeated cycle. That cycle got
+only easier to do as the game progressed.
 
-Another thing that was pointed out is that the enemy AI is very easy
-to abuse. Going in circles very quickly rendered the swarm unable
-to fight back in any way! Surprisingly, the bullet teleporting to
-the other side of the laser beam that the player shot did not
-affect the gameplay too much.
+The AI is very easy to abuse. Especially the one that is predictable. 
+One of the most abusable AI types is the one that just chases the player. 
+The current AI just chases the player. There isn't much to say here.
 
-Finally, it turned out that the playtesters weren't really enthusiastic
-about the score and more focused on beating the monster.
+The enemy had way too many weak spots. The player could have a fairly
+good shot from any angle. Which meant that not only they didn't have
+to aim, that cycle was very easy to do.
+
+The enemy got easier as its health dropped. As the player hit those
+small cells, they eventually disappeared, reducing the overall numbers
+of the swarm. Quite obviously, dealing with less threats is easier.
 
 # Pivoting
 
-The problems were very apparent. While the enemy is big, it is
-easily hittable from any side (and from any position). While there
-technically are many "parts" to it, they melt off extremely fast.
+The main idea is to add a new kind of cell - the "main cell". It will
+be in the center of the swarm. In addition that main cell will also
+be the only weak spot of the enemy. All other cells become invulnerable.
 
-The change I came up as a foundation, was super simple. Make
-everyone invulnerable!... Except one central "cell", that would
-be normally hiding in the middle of the swarm.
-
-# But how...
-
-A quite fair would arise: if all surrounding cells are invulnerable,
-then how would the player do any damage? To understand this idea,
-let's revisit the Little Big Planet 2 boss.
+To see how that main cell would become vulnerable for player to hit,
+let us revisit the original Little Big Planet 2 boss.
 
 {{ blogimg(class="big-img-embed", name="bossbulge.jpg") }}
 
-You can see, that it kind of stretches out as it goes down. This
-causes the main "cell" (the one with the eye) to be closer to
+You can see, it kind of stretches out as it goes down. This
+causes the main cell (the one with the eye) to be closer to
 the edge, than to the center. If we imagine that effect getting
 stronger, the main cell will end up poking - exposed!
 
-This exact effect is the key to the answer. The player will have
-to wait out for an opening to strike the main cell at the right
-time!
-
-To support this sort of mechanic, I had to update the main AI
-to not move at a constant speed. The reason for that is that so
-the main cell could get some protection. In addition, I also
-messed around with the physics parameters of rapier to get more
-of that "fluid" effect. Here is what it looks like right now:
+Another step in that direction is reducing the power of player's
+weapon. Instead of a piercing beam, I have replaced it with a
+throwable object. It has really basic mechanics for now, but
+that is not set in stone.
 
 {{ youtube(class="yt-embed", id="IjY20AjznHU", autoplay=false) }}
-
-As you can see, another change was made to player's laser. It
-is now a throwable object instead of a piercing beam! Which makes 
-getting hits slightly more challenging.
 
 I am still experimenting. But I feel like I am slowly approaching
 something that feels more and more like a fleshed out game.
 
-# The bite
+# The Refactor
 
-Remember I mentioned in part 1, that the following definition in
-my code would come back and bite me? It did and I had a very bad
-time when removing all of the intertwined components.
+The game code grew quite a lot. In fact it barely resembles what
+I have started with. I now have several modules, support for debug 
+tools and other cool things. This inevitably leads to several concerns:
+
+* the development will steer towards engine development instead of game development
+* the low level parts will get in the way
+
+To cope with this, I did a very simple move: I have split the game
+code base into two parts:
+
+* `src`: the game logic
+* `lib-game`: the "engine", a box of tools
+
+During development I also bumped into another issue: my ECS
+`World` was a formless spaghetti mess. I initially viewed it
+as some sort of "plugin & dependency injection platform".
+So I stored almost everything in it. From game state to the 
+state of the graphics system. This was a bad idea.
+
+The code was reworked. The ECS `World` now contains only the
+game related entity data. The rendering system and the physics
+system now live outside of it and act as some higher-level things,
+that interact with the `World`.
+
+While it was quite easy to do for the rendering system, the physics
+engine removal wasn't as easy. It already had its roots quite deep
+inside the game logic and in addition, had that annoying `PhysicsInfo`
+component.
 
 ```rust
 pub struct PhysicsInfo {
@@ -90,20 +99,52 @@ pub struct PhysicsInfo {
 }
 ```
 
-I ended up moving **all** of the subsystems out of the game `World`,
-leaving only the relevant state there. That included the physics
-properties and its "state". The reason for that was a shift in the
-vision. For quite a while I viewed physics engine stuff as an
-essential part of game state. However, it is now considered to be
-a mere subsystem that just updates some object positions.
+One of the main problems was that this one component ruined the whole
+idea of the rework. All components can be constructed by the user one
+way or the other with no strings attached. However, this component
+could only be attached by asking the physics system to do it. This
+made it some sort of an outcast, that went against everything else.
 
-# Rendering...
+Moreover I couldn't just remove the physics system from the ECS world.
+It was queried several times by the Game and the ECS world was the only
+thing the game had access to by design. However, I eventually found
+a way to overcome it. 
 
-The rendering system got a small rework too. Earlier, every single
-entity had its custom rendering code, covering all possible needs
-for rendering that entity. That approach doesn't scale well and
-also caused me to have an annoying code duplication to implement
-flickering. Have a look yourself
+I stole the idea from the Godot engine[^1]. The gist of it is that you
+can represent your physics queries as object in the game. The object
+would be updated by the physics system based off what the query results
+into. For example, if you want to have a sensor collider, you can do this:
+
+```rust
+world.add_entity((
+    Transform {
+        pos: vec2(300.0, 300.0),
+        angle: 0.0,
+    },
+    OneSensorTag::new(
+        ColliderTy::Box {
+            width: 16.0,
+            height: 16.0,
+        },
+        InteractionGroups {
+            memberships: groups::LEVEL,
+            filter: groups::NPCS,
+        },
+    ),
+    PlayerDamageSensorTag,
+));
+```
+
+And then the data inside `OneSensorTag` would be initialized
+based on what the physics system found.
+
+# Render system?
+
+Earlier, every single entity had its custom rendering code, 
+covering all possible needs for rendering that entity. That
+was pretty much it and there wasn't much of a "system". However,
+such approach did't scale well and also caused me to do annoying 
+copy-paste to implement flickering on various objects. Have a look yourself
 
 ```rust
  for (_, pos, state, hp) in (&brute, &pos, &state, &hp).iter() {
@@ -157,7 +198,7 @@ for (_, pos, state) in (&brute, &pos, &state).iter() {
 
 This may look like an overkill. And that because at that stage
 it technically is. It isn't really possible to screw up the
-code that is just responsible for making objects flicker[^1]
+code that is just responsible for making objects flicker[^2]
 
 # New additions!
 
@@ -170,7 +211,7 @@ I really gotta figure out level loading. So I finally decided
 that this project is going to be the one.
 
 The level format turned out really simple. I ended up using the
-RON[^2] format. I picked it over JSON purely because RON interracts
+RON[^3] format. I picked it over JSON purely because RON interacts
 better with Rust's enum types. The format itself has the following structure
 
 ```ron
@@ -185,8 +226,8 @@ better with Rust's enum types. The format itself has the following structure
 )
 ```
 
-So, for instance, if I the level to have a `Brute` somewhere, I 
-would write
+So, for instance, if I want the level to have a `Brute` somewhere, I 
+will write
 
 ```ron
 (
@@ -202,26 +243,6 @@ And this is actually very elegant, because this `Brute` entry
 directly maps into the `spawn_brute` function in game's source
 code. This makes level loading very straight-forward and simple.
 
-# A fear
-
-The game code grew quite a lot. In fact it barely resembles what
-I have started with. I now have several modules, support
-for debug tools and other cool things. Every time I see a project
-of mine grow in complexity, I get one and only one concern: a risk
-of entering an infinite "engine development" pursuit instead of a
-proper game development. 
-
-What helped me personally was a drawing a clear line between what
-counts as an engine and what counts as the actual game. Basically,
-the game got split into two parts: `src` and `lib-game`.
-
-`src` is where the game logic lives. It hosts things like the player
-controls, enemy AI and the descriptions of how the entities are rendered.
-
-`lib-game` is the engine. It is a box of all the tools that on their
-own don't provide any sort of gameplay and is usually set aside. It
-is modified only when it is absolutely necessary.
-
 # Conclusion
 
 The game is taking very interesting twists and turns. The road is bumpy.
@@ -229,9 +250,13 @@ However, the experience is amazing and I learned a lot.
 
 Though, I keep reminding myself that once I finish tinkering with the
 swarm AI, I should go back to the drawing board and figure out the
-vision once again. Clearly, the idea has changed. The pivoting
-needs clarifications. With proper reflection, I will have a more
-clear plan on how to pave the way towards a finished project.
+vision once again. It is time... To take a step back and plan out
+the gameplay once again. Time to do a bit more of the game in the
+gamedev!
 
-[^1]: fun fact. The Mario 64 devs did just that
-[^2]: RON -- Rusty Object Notation
+I will make another blog entry once I figure at least 
+some game design out.
+
+[^1]: [Godot RayCast2D node](https://docs.godotengine.org/en/stable/classes/class_raycast2d.html)
+[^2]: Fun fact: [Mario64 devs messed up while implementing flickering](https://www.youtube.com/watch?v=QoU2NKQrQ1Q) 
+[^3]: [RON (Rusty Object Notation)](https://github.com/ron-rs/ron)
