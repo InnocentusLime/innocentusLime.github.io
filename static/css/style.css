@@ -614,14 +614,27 @@ body {
     content: "]";
 }
 
+.article p a:has(code) {
+    overflow: hidden;
+    border-radius: 6px;
+    padding: 0;
+    background-color: var(--article-code-background);
+}
+
+.article p > a code {
+    background-color: transparent;
+}
+
 .article p > a {
     position: relative;
     color: var(--link-color-primary);
     transition: color var(--underline-time) var(--underline-curve);
+    transition: background-color var(--underline-time) var(--underline-curve);
 }
 
 .article p > a:hover {
     text-decoration: none;
+    background-color: transparent;
     color: var(--link-color-secondary);
 }
 
