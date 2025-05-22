@@ -475,19 +475,13 @@ body {
     color: var(--article-main-color);
 }
 
-.article p > code {
+.article code {
     padding: 4px;
     font-family: monospace;
     font-weight: 100;
     font-size: 16px;
     border-radius: 6px;
     background-color: var(--article-code-background);
-}
-
-.article p > a code {
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
 }
 
 .article pre {
@@ -504,8 +498,13 @@ body {
     font-weight: 100;
 }
 
-.article pre code * {
+.article pre code {
+    padding: 0;
+    font-family: monospace;
+    font-weight: 100;
     font-size: 16px;
+    border-radius: 0;
+    background-color: transparent;
 }
 
 .article h1:before {
