@@ -628,8 +628,9 @@ body {
 .article p > a {
     position: relative;
     color: var(--link-color-primary);
-    transition: color var(--underline-time) var(--underline-curve);
-    transition: background-color var(--underline-time) var(--underline-curve);
+    transition-property: color, background-color;
+    transition-timing-function: var(--underline-curve);
+    transition-duration: var(--underline-time);
 }
 
 .article p > a:hover {
