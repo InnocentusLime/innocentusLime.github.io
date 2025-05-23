@@ -18,7 +18,9 @@
     --blog-list-main-color: black;
     --article-main-color: black;
     --article-code-background: #eeeeee;
-    --article-yt-embed-background: black;
+    --article-embed-background: black;
+    --article-max-img--height: 400px;
+    --article-embed-border-radius: 20px;
 
     --grid-project-gap: 20px;
     --grid-project-card-gap: 6px;
@@ -473,19 +475,13 @@ body {
     color: var(--article-main-color);
 }
 
-.article p > code {
+.article code {
     padding: 4px;
     font-family: monospace;
     font-weight: 100;
     font-size: 16px;
     border-radius: 6px;
     background-color: var(--article-code-background);
-}
-
-.article p > a code {
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
 }
 
 .article pre {
@@ -502,8 +498,13 @@ body {
     font-weight: 100;
 }
 
-.article pre code * {
+.article pre code {
+    padding: 0;
+    font-family: monospace;
+    font-weight: 100;
     font-size: 16px;
+    border-radius: 0;
+    background-color: transparent;
 }
 
 .article h1:before {
@@ -553,9 +554,9 @@ body {
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: var(--article-embed-border-radius);
     overflow: hidden;
-    background-color: var(--article-yt-embed-background);
+    background-color: var(--article-embed-background);
 }
 
 .article .yt-embed iframe {
@@ -563,6 +564,23 @@ body {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+.article .big-img-embed {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: var(--article-max-img--height);
+    border-radius: var(--article-embed-border-radius);
+    overflow: hidden;
+    background-color: var(--article-embed-background);
+}
+
+.article .big-img-embed img {
+    width: 100%;
+    object-position: center top;
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
 }
 
 .article .footnote-reference a {
@@ -596,14 +614,28 @@ body {
     content: "]";
 }
 
+.article p a:has(code) {
+    overflow: hidden;
+    border-radius: 6px;
+    padding: 0;
+    background-color: var(--article-code-background);
+}
+
+.article p > a code {
+    background-color: transparent;
+}
+
 .article p > a {
     position: relative;
     color: var(--link-color-primary);
-    transition: color var(--underline-time) var(--underline-curve);
+    transition-property: color, background-color;
+    transition-timing-function: var(--underline-curve);
+    transition-duration: var(--underline-time);
 }
 
 .article p > a:hover {
     text-decoration: none;
+    background-color: transparent;
     color: var(--link-color-secondary);
 }
 
