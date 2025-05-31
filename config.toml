@@ -14,4 +14,4 @@ highlight_code = true
 highlight_theme = "css"
 
 [extra]
-# Put all your custom variables here
+zola_version = "0.19.2"
