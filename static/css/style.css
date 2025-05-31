@@ -62,6 +62,11 @@
     src: url(/font/SourceSerif4_18pt-Regular.ttf);
 }
 
+@font-face {
+    font-family: code;
+    src: url(/font/IBMPlexMono-Regular.ttf);
+}
+
 /* Generic rules */
 
 body {
@@ -475,11 +480,15 @@ body {
     color: var(--article-main-color);
 }
 
+.article code, .article code *,
+.article pre code {
+    font-family: code;
+    font-weight: 100;
+    font-size: 15px;
+}
+
 .article code {
     padding: 4px;
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
     border-radius: 6px;
     background-color: var(--article-code-background);
 }
@@ -493,16 +502,8 @@ body {
     border-radius: 10px;
 }
 
-.article code * {
-    font-family: monospace;
-    font-weight: 100;
-}
-
 .article pre code {
     padding: 0;
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
     border-radius: 0;
     background-color: transparent;
 }
@@ -582,7 +583,7 @@ body {
 }
 
 .article .footnote-reference a {
-    font-family: monospace;
+    font-family: code;
     font-size: 13px;
     text-decoration: none;
     color: var(--link-color-primary);
@@ -676,7 +677,7 @@ body {
 
 .article .footnote-definition-label {
     font-weight: normal;
-    font-family: monospace;
+    font-family: code;
     font-size: 18px;
     border-radius: 40px;
     padding-left: 8px;
