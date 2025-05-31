@@ -19,7 +19,7 @@
     --article-main-color: black;
     --article-code-background: #eeeeee;
     --article-embed-background: black;
-    --article-max-img--height: 400px;
+    --article-max-img-height: 390px;
     --article-embed-border-radius: 20px;
 
     --grid-project-gap: 20px;
@@ -569,18 +569,16 @@ body {
 .article .big-img-embed {
     position: relative;
     width: 100%;
-    box-sizing: border-box;
-    max-height: var(--article-max-img--height);
+    max-height: var(--article-max-img-height);
     border-radius: var(--article-embed-border-radius);
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     background-color: var(--article-embed-background);
 }
 
 .article .big-img-embed img {
     width: 100%;
-    object-position: center top;
-    object-fit: contain;
-    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .article .footnote-reference a {
