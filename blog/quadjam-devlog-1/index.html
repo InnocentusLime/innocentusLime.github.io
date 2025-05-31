@@ -1,0 +1,281 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Zola 0.19.2">
+        <meta name="author" content="Innokentii (InnocentusLime) Meleshchenko">
+        <link rel="license" href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by&#x2F;4.0&#x2F;">
+        <title>Project Swarm Devlog (Entry 1)</title>
+
+        <!-- Preloads -->
+        <link rel="preload" as="image" href="/img/decor/site-border.svg">
+        <link rel="preload" as="image" href="/img/decor/site-bot-border-decor.svg">
+        <link rel="preload" as="image" href="/img/decor/site-top-border-decor.svg">
+
+        <!-- Css stuff -->
+        <link rel="preload" as="style" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="preload" as="style" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/highlight.css">
+
+        <!-- Look okay on mobile pls -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OpenGraph -->
+        <meta property="og:title" content="Project Swarm Devlog (Entry 1)" />
+        <meta property="og:description" content="A start of a new macroquad-powered project, fueled by a some level from a childhood game!" />
+        <meta property="og:url" content="https://innocentuslime.github.io/" />
+        <meta property="og:site_name" content="InnocentusLime's page"/>
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary" />
+        <meta property="twitter:domain" content="innocentuslime.github.io" />
+        <meta property="twitter:url" content="https://innocentuslime.github.io/" />
+        <meta name="twitter:title" content="Project Swarm Devlog (Entry 1)" />
+        <meta name="twitter:description" content="A start of a new macroquad-powered project, fueled by a some level from a childhood game!" />
+    </head>
+    <body>
+        
+                
+                    
+<nav class="site-nav">
+    <ul class="nav-items">
+        
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;>
+        about&nbsp;me
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link 
+
+active" href=&#x2F;blog>
+        blog
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;project>
+        projects
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;link>
+        socials
+    </a>
+</li>
+
+        
+    </ul>
+</nav>
+
+                
+        
+        
+    <main class="article">
+    <h1 id="i-am-alive"><a class="zola-anchor" href="#i-am-alive" aria-label="Anchor link for: i-am-alive">I am alive!</a></h1>
+<p>A lot of things have happened after I posted the <a href="/blog/rust-arconoid">arcanoid blog entry</a>.
+Even this GitHub page has been reworked quite a few times for various reasons.
+But what good is a programmer or their website when they don't actually do projects?
+What good is in the stagnation!</p>
+<p>With that said, this the first, long overdue devlog entry for a new project of mine.
+Much-much more intricate than a simple arcanoid!</p>
+<h1 id="inspiration"><a class="zola-anchor" href="#inspiration" aria-label="Anchor link for: inspiration">Inspiration</a></h1>
+<p>I played Little Big Planet 2 a lot when I was a kid. I loved a lot of levels in that
+game. One my favourites was the level called "Invasion of The Body Invaders".
+In particular, the boss (skip to 1:51 for the actual boss).</p>
+<div class="yt-embed">
+    <iframe src="https://www.youtube-nocookie.com/embed/mJ9JRI-dPnc" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<p>That level was amazing. Not only it had <a href="https://www.youtube.com/watch?v=HNyiTdFKYyI">"Vision One" by Röyksopp</a>
+playing in the background - there was something captivating about the boss itself!
+While even the young me understood that it was technically just a bunch of small
+balls, the way it moved and interacted with the level was very fun. The idea of
+you fighting this large blob of goo was really cool too!</p>
+<p>However, the level felt short, really short, too short. It made
+sense in the scope of the game - it is just a boss. But I always wanted
+more.</p>
+<p>So here we are. It is 2025 and I can code. Looks like a perfect opportunity to
+tap into that childhood dream. This is where "Project Swarm" starts its life!</p>
+<h1 id="getting-started"><a class="zola-anchor" href="#getting-started" aria-label="Anchor link for: getting-started">Getting started</a></h1>
+<p>After writing an arcanoid in macroquad that works in the browser, I decided,
+that I now have the competence to implement my new idea (what a fool).
+So I decided to recycle the code for Project Swarm. I immediately ran into a problem -
+I needed physics and I really am not a person capable of writing physics simulations (yet).</p>
+<p>For that reason, I grabbed what was available "on the market" - <code>rapier</code>.
+<code>Rapier</code> is a fast, advanced physics engine written entirely in Rust<sup class="footnote-reference"><a href="#1">1</a></sup>.
+It has a good interop with the Bevy game engine<sup class="footnote-reference"><a href="#2">2</a></sup> and the Godot game engine<sup class="footnote-reference"><a href="#3">3</a></sup>.</p>
+<p>However, that "advanced" part is a double-edged sword. <code>Rapier</code> is complicated.
+Unless you write everything with rapier in mind beforehand, you will immediately
+find yourself writing some sort of wrapper around this monster... And trying to
+stop the wrapper itself turning into something hideous!</p>
+<p>To cope with the overwhelming complexity and to connect everything nicely, I decided that
+some form of dependency-injection framework could help. Which brings me to the other large component
+inside the game: <a href="https://crates.io/crates/shipyard">shipyard</a>. <code>Shipyard</code> is one of many
+Rust ECS implementations. Why is everyone in the Rust community trying to implement an ECS?
+No idea!</p>
+<h1 id="what-s-ecs"><a class="zola-anchor" href="#what-s-ecs" aria-label="Anchor link for: what-s-ecs">What's ECS</a></h1>
+<p>First of all, ECS is an architectural pattern. It is how you group the code. It is
+not a silver bullet that solves all possible problems. Here I will not delve into
+the technicalities of implementing an ECS pattern. Just the most basic understanding.
+You have Wikipedia for in-depth stuff and actual Game Developer presentations for
+pros and cons.</p>
+<p>What does that mean?  Imagine the way you would most likely write a game object.
+Unless you have chronic  academicisis or love functional programming, it would be
+something like this</p>
+<pre data-lang="c++" class="language-c++ z-code"><code class="language-c++" data-lang="c++"><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-storage z-type z-c++">class</span> </span><span class="z-meta z-class z-c++"><span class="z-entity z-name z-class z-c++">MyCharacter</span></span><span class="z-meta z-class z-c++"> <span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-storage z-modifier z-c++">private</span><span class="z-punctuation z-section z-class z-c++">:</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    hp<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-storage z-type z-c">int</span><span class="z-punctuation z-terminator z-c++">;</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    pos<span class="z-keyword z-operator z-ternary z-c">:</span> vector2f<span class="z-punctuation z-separator z-c++">,</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-storage z-modifier z-c++">public</span><span class="z-punctuation z-section z-class z-c++">:</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">Update</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> 
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        hp <span class="z-keyword z-operator z-assignment z-augmented z-c">+=</span> <span class="z-constant z-numeric z-integer z-decimal z-c++">1</span> <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> regeneration 
+</span></span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">    </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">Render</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> 
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        <span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">draw_rectangle</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++">pos</span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        <span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">draw_hp</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++">pos<span class="z-punctuation z-separator z-c++">,</span> hp</span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">    </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">Move</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">delta<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">vector2</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        pos <span class="z-keyword z-operator z-assignment z-augmented z-c">+=</span> delta
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">    </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">GetHurt</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">dmg<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">int</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        hp <span class="z-keyword z-operator z-assignment z-augmented z-c">-=</span> dmg
+</span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">        <span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">Move</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-keyword z-operator z-arithmetic z-c">-</span><span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">vector2</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-keyword z-operator z-arithmetic z-c">-</span>dmg<span class="z-punctuation z-separator z-c++">,</span> <span class="z-constant z-numeric z-integer z-decimal z-c++">0</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span> <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> Knockback
+</span></span></span></span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++">    </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"></span></span><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></code></pre>
+<p>Basically, you would follow these OOP-like principles:</p>
+<ul>
+<li>The data is protected</li>
+<li>The data and the means of manipulating it are together in a class</li>
+</ul>
+<p>In contract, in ECS-like architecture:</p>
+<ul>
+<li>You through that whole "protection" business out of the window</li>
+<li>The data and the manipulation means are decoupled into two things: storage and systems</li>
+</ul>
+<p>The storage is usually keyed by some value: <code>EntityId</code>. This allows us to recognize
+that some components belong to a single thing: an <strong>entity</strong>.</p>
+<pre data-lang="cpp" class="language-cpp z-code"><code class="language-cpp" data-lang="cpp"><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-storage z-type z-c++">class</span> </span><span class="z-meta z-class z-c++"><span class="z-entity z-name z-class z-c++">Storage</span></span><span class="z-meta z-class z-c++"> <span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-storage z-modifier z-c++">private</span><span class="z-punctuation z-section z-class z-c++">:</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Some cool data structure <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-storage z-modifier z-c++">public</span><span class="z-punctuation z-section z-class z-c++">:</span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">GetHealth</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">who<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">EntityId</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> <span class="z-punctuation z-separator z-c++">-&gt;</span></span> <span class="z-storage z-type z-c">int</span> <span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> ... <span class="z-punctuation z-definition z-comment z-c">*/</span></span> </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">SetHealth</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">who<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">EntityId</span><span class="z-punctuation z-separator z-c++">,</span> hp<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">int</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> ... <span class="z-punctuation z-definition z-comment z-c">*/</span></span> </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">GetPos</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">who<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">EntityId</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> <span class="z-punctuation z-separator z-c++">-&gt;</span></span> vector2 <span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> ... <span class="z-punctuation z-definition z-comment z-c">*/</span></span> </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++">    <span class="z-meta z-method z-constructor z-c++"><span class="z-entity z-name z-function z-constructor z-c++">SetPos</span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method z-parameters z-c++"><span class="z-meta z-group z-c++">who<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">EntityId</span><span class="z-punctuation z-separator z-c++">,</span> pos<span class="z-keyword z-operator z-ternary z-c">:</span> <span class="z-variable z-parameter z-c++">vector2</span><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span><span class="z-meta z-method z-c++"> </span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span></span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"> <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> ... <span class="z-punctuation z-definition z-comment z-c">*/</span></span> </span></span><span class="z-meta z-method z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span></span></span><span class="z-source z-c++"><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"></span></span><span class="z-meta z-class z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span></span>
+</span><span class="z-source z-c++">
+</span><span class="z-source z-c++"><span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">damageSystem</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++">storage<span class="z-keyword z-operator z-ternary z-c">:</span> Storage</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span> <span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-begin z-c++">{</span>
+</span></span><span class="z-source z-c++"><span class="z-meta z-block z-c++">    <span class="z-entity z-name z-label z-c">gotShot</span><span class="z-punctuation z-separator z-c">:</span> EntityId <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">findVictim</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span>
+</span></span><span class="z-source z-c++"><span class="z-meta z-block z-c++">    <span class="z-entity z-name z-label z-c">dmg</span><span class="z-punctuation z-separator z-c">:</span> <span class="z-storage z-type z-c">int</span> <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c++"><span class="z-variable z-function z-c++">calculateDamage</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-function-call z-c++"></span><span class="z-meta z-function-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span>
+</span></span><span class="z-source z-c++"><span class="z-meta z-block z-c++">    storage<span class="z-punctuation z-accessor z-dot z-c++">.</span><span class="z-meta z-method-call z-c++"><span class="z-variable z-function z-member z-c++">SetHealth</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method-call z-c++"><span class="z-meta z-group z-c++">gotShot<span class="z-punctuation z-separator z-c++">,</span> storage<span class="z-punctuation z-accessor z-dot z-c++">.</span><span class="z-meta z-method-call z-c++"><span class="z-variable z-function z-member z-c++">GetHealth</span><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-begin z-c++">(</span></span></span><span class="z-meta z-method-call z-c++"></span><span class="z-meta z-method-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span> <span class="z-keyword z-operator z-arithmetic z-c">-</span> dmg</span></span><span class="z-meta z-method-call z-c++"><span class="z-meta z-group z-c++"><span class="z-punctuation z-section z-group z-end z-c++">)</span></span></span>
+</span></span><span class="z-source z-c++"><span class="z-meta z-block z-c++"><span class="z-punctuation z-section z-block z-end z-c++">}</span></span>
+</span></code></pre>
+<h1 id="the-prototype"><a class="zola-anchor" href="#the-prototype" aria-label="Anchor link for: the-prototype">The prototype</a></h1>
+<p>With those tools, I first and foremost added a wrapper around <code>rapier</code>. At that point
+in time, what I did was implement a special component called <code>PhysicsInfo</code>.</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-modifier z-rust">pub</span> <span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">PhysicsInfo</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">enabled</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-storage z-type z-rust">bool</span>,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">groups</span><span class="z-punctuation z-separator z-type z-rust">:</span> InteractionGroups,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">col</span><span class="z-punctuation z-separator z-type z-rust">:</span> ColliderTy,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">body</span><span class="z-punctuation z-separator z-type z-rust">:</span> RigidBodyHandle,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<p>You can actually see that it is not quite a plain-data component, despite what I said.
+The past me didn't think that it would be a huge problem, but that decision came to bite
+me later. I will not delve into the design problems in this post though.</p>
+<p>What I also did is add a quite complex singleton component called <code>PhysicsState</code>. At first
+it looked like a good idea, because that allowed to do nice clean calls like <code>physics.any_collisions</code>
+to test if something collided with a shape. However, that is where all the benefits of
+going against the "plain-data" rule stopped.</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-modifier z-rust">pub</span> <span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">PhysicsState</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-comment z-block z-rust"><span class="z-punctuation z-definition z-comment z-rust">/*</span> Lots and lots of rapier-specific goodness <span class="z-punctuation z-definition z-comment z-rust">*/</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<p>Despite that, I still could ship a rather decent prototype. You can view the code from
+back in time right here at commit
+<a href="https://github.com/InnocentusLime/quad-jam-2024/tree/f942cf0a5626431dd2c3ce7b80ba3f20e385f694"><code>f942cf0</code></a>.
+There were several gameplay iterations I went through, but for now I decided to go with a
+simple laser beam with a teleporting bullet.
+Maybe I will implement the same attack mechanic the orginal level in Little Big Planet 2 had.
+Who knows!</p>
+<div class="yt-embed">
+    <iframe src="https://www.youtube-nocookie.com/embed/cxIu8tMEI50" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div><h1 id="future-work"><a class="zola-anchor" href="#future-work" aria-label="Anchor link for: future-work">Future work</a></h1>
+<p>While programming and testing all of that was fun...
+It was hard to ignore that the movement of the "swarm" wasn't like in Little
+Big Planet! You can see that on the video: the structure of these circles is firm and
+brittle, not soft and squishy. The current implementation works like this:</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> Basically, all cells are: 
+</span></span><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 1. pulled towards each other
+</span></span><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 2. pulled towards the player
+</span></span><span class="z-source z-rust"><span class="z-keyword z-control z-rust">for</span> enemy <span class="z-keyword z-operator z-rust">in</span> enemies <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">for</span> fella_enemy <span class="z-keyword z-operator z-rust">in</span> enemies <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        enemy<span class="z-punctuation z-accessor z-dot z-rust">.</span>force <span class="z-keyword z-operator z-assignment z-rust">+=</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>fella_enemy<span class="z-punctuation z-accessor z-dot z-rust">.</span>pos <span class="z-keyword z-operator z-arithmetic z-rust">-</span> enemy<span class="z-punctuation z-accessor z-dot z-rust">.</span>pos</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">*</span> <span class="z-constant z-other z-rust">GROUP_FORCE</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    enemy<span class="z-punctuation z-accessor z-dot z-rust">.</span>force <span class="z-keyword z-operator z-assignment z-rust">+=</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>player_pos <span class="z-keyword z-operator z-arithmetic z-rust">-</span> enemy<span class="z-punctuation z-accessor z-dot z-rust">.</span>pos</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">normalize</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">*</span> <span class="z-constant z-other z-rust">CHASE_FORCE</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></code></pre>
+<p>I believe tinkering with the numbers more should help. There's no way this thing
+isn't just a bunch of physics-based circles - that I know for sure. Perhaps I also need
+to mess around with the "material properties" too.</p>
+<h1 id="what-s-next"><a class="zola-anchor" href="#what-s-next" aria-label="Anchor link for: what-s-next">What's next?</a></h1>
+<p>Good question! I have quite a lot of plans for that small game and this page too!</p>
+<p>First of all, this game isn't going to be an infinite investment. Projects need to end
+one day and this game is not an exception. I will refine the vision of the "final product"
+in the next post and set it as the goal with an appropriate time limit.</p>
+<p>Second of all, while the arcanoid thing was quickly turned into a short "what has been done" report,
+I think this project will have a more or less full-fledged devlog. I will reflect on the design
+decisions and share my progress as I move forward.</p>
+<p>And of course... I will occasionally cleanup the <code>.css</code> and the <code>.html</code> templates to keep things
+fresh looking! You can follow the game development closely on GitHub right <a href="https://github.com/InnocentusLime/quad-jam-2024">here</a>.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://rapier.rs/">Official rapier website</a></p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://crates.io/crates/bevy_rapier2d/">Crates.io page for the interop</a></p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p><a href="https://godot.rapier.rs/">Godot integration for rapier</a></p>
+</div>
+
+    </main>
+
+        
+            
+    <footer class="site-footer">
+        The website source code (CSS, HTML and zola macros) are available under the MIT license.
+        All articles are available under <a href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by&#x2F;4.0&#x2F;">CC BY 4.0</a>.
+        The website is built with <a href="https://getzola.org">Zola static site generator</a> version 0.19.2.
+        All decor (svgs in the `img/decor` directory) are designed by <a href="https://www.freepik.com">freepik.com</a> for
+        terms see <a href="https://www.freepik.com/legal/terms-of-use">terms of use</a>.
+    </footer>
+
+        
+    </body>
+</html>

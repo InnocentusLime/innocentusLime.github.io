@@ -1,0 +1,326 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Zola 0.19.2">
+        <meta name="author" content="Innokentii (InnocentusLime) Meleshchenko">
+        <link rel="license" href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by&#x2F;4.0&#x2F;">
+        <title>Project Swarm Devlog (Entry 2)</title>
+
+        <!-- Preloads -->
+        <link rel="preload" as="image" href="/img/decor/site-border.svg">
+        <link rel="preload" as="image" href="/img/decor/site-bot-border-decor.svg">
+        <link rel="preload" as="image" href="/img/decor/site-top-border-decor.svg">
+
+        <!-- Css stuff -->
+        <link rel="preload" as="style" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="preload" as="style" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/highlight.css">
+
+        <!-- Look okay on mobile pls -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OpenGraph -->
+        <meta property="og:title" content="Project Swarm Devlog (Entry 2)" />
+        <meta property="og:description" content="Resuming the journey of the project and evolving the game design" />
+        <meta property="og:url" content="https://innocentuslime.github.io/" />
+        <meta property="og:site_name" content="InnocentusLime's page"/>
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary" />
+        <meta property="twitter:domain" content="innocentuslime.github.io" />
+        <meta property="twitter:url" content="https://innocentuslime.github.io/" />
+        <meta name="twitter:title" content="Project Swarm Devlog (Entry 2)" />
+        <meta name="twitter:description" content="Resuming the journey of the project and evolving the game design" />
+    </head>
+    <body>
+        
+                
+                    
+<nav class="site-nav">
+    <ul class="nav-items">
+        
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;>
+        about&nbsp;me
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link 
+
+active" href=&#x2F;blog>
+        blog
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;project>
+        projects
+    </a>
+</li>
+
+        
+            
+
+<li class="nav-item">
+    <a class="nav-link" href=&#x2F;link>
+        socials
+    </a>
+</li>
+
+        
+    </ul>
+</nav>
+
+                
+        
+        
+    <main class="article">
+    <h1 id="still-alive"><a class="zola-anchor" href="#still-alive" aria-label="Anchor link for: still-alive">Still alive!</a></h1>
+<p>Welcome back to the series when I pretend that I know what I am doing. No
+prior knowledge. No proper tooling. No proper engine...</p>
+<p>I did some small playtests of the prototype and played the game myself
+several times. The results were quite expectable in hindsight.</p>
+<h1 id="problems"><a class="zola-anchor" href="#problems" aria-label="Anchor link for: problems">Problems</a></h1>
+<p>One of the main things that became apparent was that the game was too easy.
+It was easy in the worst way possible. Despite the highspeed gameplay, there
+was a quite easy way to turn it into simple repeated cycle. That cycle got
+only easier to do as the game progressed.</p>
+<p>The AI is very easy to abuse. Especially the one that is predictable.
+One of the most abusable AI types is the one that just chases the player.
+The current AI just chases the player. There isn't much to say here.</p>
+<p>The enemy had way too many weak spots. The player could have a fairly
+good shot from any angle. Which meant that not only they didn't have
+to aim, that cycle was very easy to do.</p>
+<p>The enemy got easier as its health dropped. As the player hit those
+small cells, they eventually disappeared, reducing the overall numbers
+of the swarm. Quite obviously, dealing with less threats is easier.</p>
+<h1 id="pivoting"><a class="zola-anchor" href="#pivoting" aria-label="Anchor link for: pivoting">Pivoting</a></h1>
+<p>The main idea is to add a new kind of cell - the "main cell". It will
+be in the center of the swarm. In addition that main cell will also
+be the only weak spot of the enemy. All other cells become invulnerable.</p>
+<p>To see how that main cell would become vulnerable for player to hit,
+let us revisit the original Little Big Planet 2 boss.</p>
+<div class="big-img-embed">
+    <img src="/img/blog/quadjam-devlog-2/bossbulge.jpg">
+</div>
+<p>You can see, it kind of stretches out as it goes down. This
+causes the main cell (the one with the eye) to be closer to
+the edge, than to the center. If we imagine that effect getting
+stronger, the main cell will end up poking - exposed!</p>
+<p>Another step in that direction is reducing the power of player's
+weapon. Instead of a piercing beam, I have replaced it with a
+throwable object. It has really basic mechanics for now, but
+that is not set in stone.</p>
+<div class="yt-embed">
+    <iframe src="https://www.youtube-nocookie.com/embed/IjY20AjznHU" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<p>I am still experimenting. But I feel like I am slowly approaching
+something that feels more and more like a fleshed out game.</p>
+<h1 id="the-refactor"><a class="zola-anchor" href="#the-refactor" aria-label="Anchor link for: the-refactor">The Refactor</a></h1>
+<p>The game code grew quite a lot. In fact it barely resembles what
+I have started with. I now have several modules, support for debug
+tools and other cool things. This inevitably leads to several concerns:</p>
+<ul>
+<li>the development will steer towards engine development instead of game development</li>
+<li>the low level parts will get in the way</li>
+</ul>
+<p>To cope with this, I did a very simple move: I have split the game
+code base into two parts:</p>
+<ul>
+<li><code>src</code>: the game logic</li>
+<li><code>lib-game</code>: the "engine", a box of tools</li>
+</ul>
+<p>During development I also bumped into another issue: my ECS
+<code>World</code> was a formless spaghetti mess. I initially viewed it
+as some sort of "plugin &amp; dependency injection platform".
+So I stored almost everything in it. From game state to the
+state of the graphics system. This was a bad idea.</p>
+<p>The code was reworked. The ECS <code>World</code> now contains only the
+game related entity data. The rendering system and the physics
+system now live outside of it and act as some higher-level things,
+that interact with the <code>World</code>.</p>
+<p>While it was quite easy to do for the rendering system, the physics
+engine removal wasn't as easy. It already had its roots quite deep
+inside the game logic and in addition, had that annoying <code>PhysicsInfo</code>
+component.</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-storage z-modifier z-rust">pub</span> <span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">PhysicsInfo</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">enabled</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-storage z-type z-rust">bool</span>,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">groups</span><span class="z-punctuation z-separator z-type z-rust">:</span> InteractionGroups,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">col</span><span class="z-punctuation z-separator z-type z-rust">:</span> ColliderTy,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust">    <span class="z-variable z-other z-member z-rust">body</span><span class="z-punctuation z-separator z-type z-rust">:</span> RigidBodyHandle,
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<p>One of the main problems was that this one component ruined the whole
+idea of the rework. All components can be constructed by the user one
+way or the other with no strings attached. However, this component
+could only be attached by asking the physics system to do it. This
+made it some sort of an outcast, that went against everything else.</p>
+<p>Moreover I couldn't just remove the physics system from the ECS world.
+It was queried several times by the Game and the ECS world was the only
+thing the game had access to by design. However, I eventually found
+a way to overcome it.</p>
+<p>I stole the idea from the Godot engine<sup class="footnote-reference"><a href="#1">1</a></sup>. The gist of it is that you
+can represent your physics queries as object in the game. The object
+would be updated by the physics system based off what the query results
+into. For example, if you want to have a sensor collider, you can do this:</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust">world<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">add_entity</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">    Transform <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">        pos<span class="z-punctuation z-separator z-rust">:</span> <span class="z-support z-function z-rust">vec2</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-constant z-numeric z-float z-rust">300.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-constant z-numeric z-float z-rust">300.</span><span class="z-constant z-numeric z-float z-rust">0</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">        angle<span class="z-punctuation z-separator z-rust">:</span> <span class="z-constant z-numeric z-float z-rust">0.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">    <span class="z-meta z-path z-rust">OneSensorTag<span class="z-punctuation z-accessor z-rust">::</span></span>new<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">        <span class="z-meta z-path z-rust">ColliderTy<span class="z-punctuation z-accessor z-rust">::</span></span>Box <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">            width<span class="z-punctuation z-separator z-rust">:</span> <span class="z-constant z-numeric z-float z-rust">16.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">            height<span class="z-punctuation z-separator z-rust">:</span> <span class="z-constant z-numeric z-float z-rust">16.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">        </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">        InteractionGroups <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">            memberships<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-path z-rust">groups<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-constant z-other z-rust">LEVEL</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">            filter<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-path z-rust">groups<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-constant z-other z-rust">NPCS</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-block z-rust">        </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">    </span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust">    PlayerDamageSensorTag<span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-group z-rust"><span class="z-meta z-group z-rust"></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></code></pre>
+<p>And then the data inside <code>OneSensorTag</code> would be initialized
+based on what the physics system found.</p>
+<h1 id="render-system"><a class="zola-anchor" href="#render-system" aria-label="Anchor link for: render-system">Render system?</a></h1>
+<p>Earlier, every single entity had its custom rendering code,
+covering all possible needs for rendering that entity. That
+was pretty much it and there wasn't much of a "system". However,
+such approach did't scale well and also caused me to do annoying
+copy-paste to implement flickering on various objects. Have a look yourself</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"> <span class="z-keyword z-control z-rust">for</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-rust">_</span><span class="z-punctuation z-separator z-rust">,</span> pos<span class="z-punctuation z-separator z-rust">,</span> state<span class="z-punctuation z-separator z-rust">,</span> hp</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">in</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>brute<span class="z-punctuation z-separator z-rust">,</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>pos<span class="z-punctuation z-separator z-rust">,</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>state<span class="z-punctuation z-separator z-rust">,</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>hp</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">iter</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">if</span> <span class="z-support z-macro z-rust">matches!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>state<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">EnemyState<span class="z-punctuation z-accessor z-rust">::</span></span>Dead</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-keyword z-control z-rust">continue</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> k <span class="z-keyword z-operator z-assignment z-rust">=</span> hp<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-constant z-numeric z-integer z-decimal z-rust">0</span> <span class="z-keyword z-operator z-rust">as</span> <span class="z-storage z-type z-rust">f32</span> <span class="z-keyword z-operator z-arithmetic z-rust">/</span> <span class="z-constant z-other z-rust">BRUTE_SPAWN_HEALTH</span> <span class="z-keyword z-operator z-rust">as</span> <span class="z-storage z-type z-rust">f32</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> is_flickering <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-macro z-rust">matches!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>state<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">EnemyState<span class="z-punctuation z-accessor z-rust">::</span></span>Stunned <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span> <span class="z-keyword z-operator z-range z-rust">..</span> </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> color <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-keyword z-control z-rust">if</span> is_flickering <span class="z-keyword z-operator z-logical z-rust">&amp;&amp;</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-support z-function z-rust">get_time</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-arithmetic z-rust">*</span> <span class="z-constant z-numeric z-float z-rust">1000.</span><span class="z-constant z-numeric z-float z-rust">0</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">as</span> <span class="z-storage z-type z-rust">u32</span> <span class="z-keyword z-operator z-arithmetic z-rust">%</span> <span class="z-constant z-numeric z-integer z-decimal z-rust">2</span> <span class="z-keyword z-operator z-comparison z-rust">==</span> <span class="z-constant z-numeric z-integer z-decimal z-rust">0</span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-meta z-path z-rust">Color<span class="z-punctuation z-accessor z-rust">::</span></span>new<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-constant z-numeric z-float z-rust">0.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-constant z-numeric z-float z-rust">0.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-constant z-numeric z-float z-rust">0.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-constant z-numeric z-float z-rust">0.</span><span class="z-constant z-numeric z-float z-rust">0</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span> <span class="z-keyword z-control z-rust">else</span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> res <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-constant z-other z-rust">RED</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        res<span class="z-punctuation z-accessor z-dot z-rust">.</span>r <span class="z-keyword z-operator z-assignment z-rust">*=</span> k<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        res<span class="z-punctuation z-accessor z-dot z-rust">.</span>g <span class="z-keyword z-operator z-assignment z-rust">*=</span> k<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        res<span class="z-punctuation z-accessor z-dot z-rust">.</span>b <span class="z-keyword z-operator z-assignment z-rust">*=</span> k<span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        res
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-support z-function z-rust">draw_circle</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">        pos<span class="z-punctuation z-accessor z-dot z-rust">.</span>pos<span class="z-punctuation z-accessor z-dot z-rust">.</span>x<span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">        pos<span class="z-punctuation z-accessor z-dot z-rust">.</span>pos<span class="z-punctuation z-accessor z-dot z-rust">.</span>y<span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">        <span class="z-constant z-numeric z-float z-rust">8.</span><span class="z-constant z-numeric z-float z-rust">0</span><span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">        color<span class="z-punctuation z-separator z-rust">,</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-group z-rust">    </span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></code></pre>
+<p>To avoid copy-paste and also have something easier to use in the future,
+I decided to go with a declarative approach. Instead of saying how to draw
+a blinking red square, I just submit a request to draw a blinking red
+square. The rendering system figures the "how" part later. Simple as that.</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-keyword z-control z-rust">for</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-rust">_</span><span class="z-punctuation z-separator z-rust">,</span> pos<span class="z-punctuation z-separator z-rust">,</span> state</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">in</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>brute<span class="z-punctuation z-separator z-rust">,</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>pos<span class="z-punctuation z-separator z-rust">,</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>state</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">iter</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">if</span> <span class="z-support z-macro z-rust">matches!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>state<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">EnemyState<span class="z-punctuation z-accessor z-rust">::</span></span>Dead</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        <span class="z-keyword z-control z-rust">continue</span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> is_flickering <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-macro z-rust">matches!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>state<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-path z-rust">EnemyState<span class="z-punctuation z-accessor z-rust">::</span></span>Stunned <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span> <span class="z-keyword z-operator z-range z-rust">..</span> </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-storage z-type z-rust">let</span> r_enemy <span class="z-keyword z-operator z-assignment z-rust">=</span> render
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">        <span class="z-punctuation z-accessor z-dot z-rust">.</span>world
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">        <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">add_entity</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-keyword z-operator z-arithmetic z-rust">*</span>pos<span class="z-punctuation z-separator z-rust">,</span> CircleShape <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span> radius<span class="z-punctuation z-separator z-rust">:</span> <span class="z-constant z-numeric z-float z-rust">6.</span><span class="z-constant z-numeric z-float z-rust">0</span> </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-separator z-rust">,</span> Tint<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-constant z-other z-rust">RED</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust">    <span class="z-keyword z-control z-rust">if</span> is_flickering <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">        render<span class="z-punctuation z-accessor z-dot z-rust">.</span>world<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">add_component</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>r_enemy<span class="z-punctuation z-separator z-rust">,</span> Flicker</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span></span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"><span class="z-meta z-block z-rust">    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></span><span class="z-source z-rust"><span class="z-meta z-block z-rust"></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+</span></code></pre>
+<p>This may look like an overkill. And that because at that stage
+it technically is. It isn't really possible to screw up the
+code that is just responsible for making objects flicker<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+<h1 id="new-additions"><a class="zola-anchor" href="#new-additions" aria-label="Anchor link for: new-additions">New additions!</a></h1>
+<p>When I was writing the future plans, one of the main features
+that I would like to have delivered were the levels. I contemplated
+for quite a bit what should the implementation look like. It was
+very enticing to just hardcode them in and call it a day. But
+then I realized that I can't do that indefinitely. One day
+I really gotta figure out level loading. So I finally decided
+that this project is going to be the one.</p>
+<p>The level format turned out really simple. I ended up using the
+RON<sup class="footnote-reference"><a href="#3">3</a></sup> format. I picked it over JSON purely because RON interacts
+better with Rust's enum types. The format itself has the following structure</p>
+<pre data-lang="ron" class="language-ron z-code"><code class="language-ron" data-lang="ron"><span class="z-text z-plain">(
+</span><span class="z-text z-plain">    next_level: NONE or Some(PATH),
+</span><span class="z-text z-plain">    map: MapDef(
+</span><span class="z-text z-plain">        width: INTEGER,
+</span><span class="z-text z-plain">        height: INTEGER,
+</span><span class="z-text z-plain">        tiles: [ TILE ],
+</span><span class="z-text z-plain">    ),
+</span><span class="z-text z-plain">    entities: [ ENTITY ],
+</span><span class="z-text z-plain">)
+</span></code></pre>
+<p>So, for instance, if I want the level to have a <code>Brute</code> somewhere, I
+will write</p>
+<pre data-lang="ron" class="language-ron z-code"><code class="language-ron" data-lang="ron"><span class="z-text z-plain">(
+</span><span class="z-text z-plain">    next_level: ...,
+</span><span class="z-text z-plain">    map: ...,
+</span><span class="z-text z-plain">    entities: [
+</span><span class="z-text z-plain">        Brute((20.0, 40.0)),
+</span><span class="z-text z-plain">    ],
+</span><span class="z-text z-plain">)
+</span></code></pre>
+<p>And this is actually very elegant, because this <code>Brute</code> entry
+directly maps into the <code>spawn_brute</code> function in game's source
+code. This makes level loading very straight-forward and simple.</p>
+<h1 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h1>
+<p>The game is taking very interesting twists and turns. The road is bumpy.
+However, the experience is amazing and I learned a lot.</p>
+<p>Though, I keep reminding myself that once I finish tinkering with the
+swarm AI, I should go back to the drawing board and figure out the
+vision once again. It is time... To take a step back and plan out
+the gameplay once again. Time to do a bit more of the game in the
+gamedev!</p>
+<p>I will make another blog entry once I figure at least
+some game design out.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://docs.godotengine.org/en/stable/classes/class_raycast2d.html">Godot RayCast2D node</a></p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Fun fact: <a href="https://www.youtube.com/watch?v=QoU2NKQrQ1Q">Mario64 devs messed up while implementing flickering</a></p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p><a href="https://github.com/ron-rs/ron">RON (Rusty Object Notation)</a></p>
+</div>
+
+    </main>
+
+        
+            
+    <footer class="site-footer">
+        The website source code (CSS, HTML and zola macros) are available under the MIT license.
+        All articles are available under <a href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by&#x2F;4.0&#x2F;">CC BY 4.0</a>.
+        The website is built with <a href="https://getzola.org">Zola static site generator</a> version 0.19.2.
+        All decor (svgs in the `img/decor` directory) are designed by <a href="https://www.freepik.com">freepik.com</a> for
+        terms see <a href="https://www.freepik.com/legal/terms-of-use">terms of use</a>.
+    </footer>
+
+        
+    </body>
+</html>
