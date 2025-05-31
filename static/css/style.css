@@ -19,7 +19,7 @@
     --article-main-color: black;
     --article-code-background: #eeeeee;
     --article-embed-background: black;
-    --article-max-img--height: 400px;
+    --article-max-img-height: 390px;
     --article-embed-border-radius: 20px;
 
     --grid-project-gap: 20px;
@@ -60,6 +60,11 @@
 @font-face {
     font-family: read;
     src: url(/font/SourceSerif4_18pt-Regular.ttf);
+}
+
+@font-face {
+    font-family: code;
+    src: url(/font/IBMPlexMono-Regular.ttf);
 }
 
 /* Generic rules */
@@ -475,11 +480,15 @@ body {
     color: var(--article-main-color);
 }
 
+.article code, .article code *,
+.article pre code {
+    font-family: code;
+    font-weight: 100;
+    font-size: 15px;
+}
+
 .article code {
     padding: 4px;
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
     border-radius: 6px;
     background-color: var(--article-code-background);
 }
@@ -493,16 +502,8 @@ body {
     border-radius: 10px;
 }
 
-.article code * {
-    font-family: monospace;
-    font-weight: 100;
-}
-
 .article pre code {
     padding: 0;
-    font-family: monospace;
-    font-weight: 100;
-    font-size: 16px;
     border-radius: 0;
     background-color: transparent;
 }
@@ -569,22 +570,20 @@ body {
 .article .big-img-embed {
     position: relative;
     width: 100%;
-    box-sizing: border-box;
-    max-height: var(--article-max-img--height);
+    max-height: var(--article-max-img-height);
     border-radius: var(--article-embed-border-radius);
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     background-color: var(--article-embed-background);
 }
 
 .article .big-img-embed img {
     width: 100%;
-    object-position: center top;
-    object-fit: contain;
-    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .article .footnote-reference a {
-    font-family: monospace;
+    font-family: code;
     font-size: 13px;
     text-decoration: none;
     color: var(--link-color-primary);
@@ -678,7 +677,7 @@ body {
 
 .article .footnote-definition-label {
     font-weight: normal;
-    font-family: monospace;
+    font-family: code;
     font-size: 18px;
     border-radius: 40px;
     padding-left: 8px;

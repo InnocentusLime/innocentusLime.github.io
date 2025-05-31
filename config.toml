@@ -14,4 +14,6 @@ highlight_code = true
 highlight_theme = "css"
 
 [extra]
-# Put all your custom variables here
+zola_version = "0.19.2"
+content_license_name = "CC BY 4.0"
+content_license_link = "https://creativecommons.org/licenses/by/4.0/"
