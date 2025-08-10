@@ -494,8 +494,7 @@ body {
 
 .article h2 {
     margin: 0;
-    margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 8px;
     display: inline-block;
     position: relative;
     text-transform: capitalize;
@@ -516,24 +515,26 @@ body {
     background-repeat: no-repeat;
     background-position: 50% calc(50% + 5px);
     background-size: contain;
-    width: 30px;
-    height: 38px;
+    width: 22px;
+    height: 32px;
     background-image: url(/img/decor/h1decor.svg);
 }
 
 .article h2 .zola-anchor {
     font-family: mainFont;
-    font-size: 40px;
+    font-size: 32px;
     text-decoration: none;
     color: var(--article-main-color);
 }
 
 .article p {
+    margin: 0;
+    margin-bottom: 10px;
     line-height: 1.5;
 }
 
 .article li {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .article .yt-embed {
@@ -636,9 +637,9 @@ body {
 }
 
 .article #\31 {
-    margin-top: 40px;
+    margin-top: 20px;
     border-top: 1px var(--article-main-color) dashed;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .article .footnote-definition-label {
