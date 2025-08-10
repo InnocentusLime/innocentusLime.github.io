@@ -10,7 +10,7 @@
       <h3 class="blog-link-header">{{ page.title }}</h3>
     </div>
     <p class="blog-link-description">{{ page.description }}</p>
-    <p class="blog-link-date">{{ page.date | date(format="%d/%m/%Y") }}</p>
+    <time datetime="{{ page.date }}" class="blog-link-date">{{ page.date | date(format="%d %B %Y") }}</time>
   </a></article>
   {% endfor %}
 </main>
