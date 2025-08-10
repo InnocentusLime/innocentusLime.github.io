@@ -6,7 +6,7 @@ date = 2025-05-18
 draft = false
 +++
 
-# Still alive!
+## Still alive!
 
 Welcome back to the series when I pretend that I know what I am doing. No
 prior knowledge. No proper tooling. No proper engine...
@@ -14,7 +14,7 @@ prior knowledge. No proper tooling. No proper engine...
 I did some small playtests of the prototype and played the game myself
 several times. The results were quite expectable in hindsight.
 
-# Problems
+## Problems
 
 One of the main things that became apparent was that the game was too easy.
 It was easy in the worst way possible. Despite the highspeed gameplay, there
@@ -33,7 +33,7 @@ The enemy got easier as its health dropped. As the player hit those
 small cells, they eventually disappeared, reducing the overall numbers
 of the swarm. Quite obviously, dealing with less threats is easier.
 
-# Pivoting
+## Pivoting
 
 The main idea is to add a new kind of cell - the "main cell". It will
 be in the center of the swarm. In addition that main cell will also
@@ -59,7 +59,7 @@ that is not set in stone.
 I am still experimenting. But I feel like I am slowly approaching
 something that feels more and more like a fleshed out game.
 
-# The Refactor
+## The Refactor
 
 The game code grew quite a lot. In fact it barely resembles what
 I have started with. I now have several modules, support for debug 
@@ -138,7 +138,7 @@ world.add_entity((
 And then the data inside `OneSensorTag` would be initialized
 based on what the physics system found.
 
-# Render system?
+## Render system?
 
 Earlier, every single entity had its custom rendering code, 
 covering all possible needs for rendering that entity. That
@@ -200,7 +200,7 @@ This may look like an overkill. And that because at that stage
 it technically is. It isn't really possible to screw up the
 code that is just responsible for making objects flicker[^2]
 
-# New additions!
+## New additions!
 
 When I was writing the future plans, one of the main features
 that I would like to have delivered were the levels. I contemplated
@@ -243,7 +243,7 @@ And this is actually very elegant, because this `Brute` entry
 directly maps into the `spawn_brute` function in game's source
 code. This makes level loading very straight-forward and simple.
 
-# Conclusion
+## Conclusion
 
 The game is taking very interesting twists and turns. The road is bumpy.
 However, the experience is amazing and I learned a lot.

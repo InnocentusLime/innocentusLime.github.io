@@ -6,7 +6,7 @@ date = 2025-02-12
 draft = false
 +++
 
-# Introduction
+## Introduction
 
 `macroquad` is a library for developing games. It has a remarkably simple API and a decent cross-platform support. There is an [amazing tutorial](https://mq.agical.se/) on how to write the game with it. In addition to this, there is an [excellent section](https://mq.agical.se/release-web.html) on shipping your game in `WebAssembly`. Is it possible to make a `macroquad` application that is compiled into `WebAssembly`, that works both on PC and mobile?
 
@@ -14,7 +14,7 @@ If you browse [the examples](https://macroquad.rs/examples/), hosted on the macr
 
 The application is a single standalone `WebAssembly` module, that detects the platform it is run on at runtime and adjusts the controls and ui accordingly. Essentially, that means that a game written this way can be effortlessly served through a super simple static HTTP server. Thus, making it a perfect for uploading such games to websites like `itch.io`!
 
-# Miniquad plugin API
+## Miniquad plugin API
 
 At the current moment a lot of browser API is not available in `WebAssembly`. This is circumvented by providing what is needed with "import objects"[^1]. In fact `macroquad` and `miniquad` do just that to import the WebGL API functions.
 
@@ -31,7 +31,7 @@ miniquad_add_plugin({
 
 The exported API should be put into the import object with `reg_function` and all the plugin state (on the JS side) should initialized with `init_func`. With this API, I was able to add some functions that would allow me to implement the cross-platform arcanoid.
 
-# The extra API
+## The extra API
 
 To facilitate the mobile device support, the following functions would be needed: getting the device orientations and checking if the current device is a mobile device in the first place. The orientation checking[^2] is needed to prompt the user to rotate their mobile device (explicitly asking the device to enter a certain orientation is not baseline API at the moment[^3]). Detecting if the device is a mobile device or not is not an existing API either. However, it is possible to figure this out by checking the user agent string[^4]
 
@@ -85,7 +85,7 @@ pub fn on_mobile() -> bool { false }
 pub fn get_orientation() -> f32 { 0.0 }
 ```
 
-# Why the re-orientation
+## Why the re-orientation
 
 I have designed the arcanoid application in such a way, that it does not fit well into a portrait style orientation. While designing the app -- there were two routes I could take when implementing mobile support:
 
@@ -100,7 +100,7 @@ When considering what route to take -- I decided that expecting the landscape mo
 * It is common to play games with your phone in landscape mode
 * Other route would undermine the idea of "it just works everywhere"
 
-# Handling user input
+## Handling user input
 
 Now, having the API for platform specific stuff -- an abstraction is required. In case of a `macroquad` game -- what needs to be done is to abstract away the input code. Platform specific wise it is as follows:
 
@@ -178,7 +178,7 @@ pub fn draw(&self, model: InGameUiModel) {
 }
 ```
 
-# Requesting reorientation
+## Requesting reorientation
 
 As it has been been made clear before, it is not possible to make any mobile device change its orientation[^3]. That is why we need to **ask** the user to do that instead. It is more or less simple to implement. We just check the device orientation every frame and if it is misoriented -- we enter a "please rotate" state, where game logic does not run.
 
@@ -197,7 +197,7 @@ match state {
 }
 ```
 
-# Conclusion
+## Conclusion
 
 `WebAssembly` is fun and writing games is fun too. I am really happy with how relatively clean the code turned out. There are certainly several extra things to explore!
 

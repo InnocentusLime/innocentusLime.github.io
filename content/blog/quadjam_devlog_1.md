@@ -6,7 +6,7 @@ date = 2025-05-03
 draft = false
 +++
 
-# I am alive!
+## I am alive!
 
 A lot of things have happened after I posted the [arcanoid blog entry](/blog/rust-arconoid).
 Even this GitHub page has been reworked quite a few times for various reasons.
@@ -16,7 +16,7 @@ What good is in the stagnation!
 With that said, this the first, long overdue devlog entry for a new project of mine.
 Much-much more intricate than a simple arcanoid!
 
-# Inspiration
+## Inspiration
 
 I played Little Big Planet 2 a lot when I was a kid. I loved a lot of levels in that
 game. One my favourites was the level called "Invasion of The Body Invaders".
@@ -37,7 +37,7 @@ more.
 So here we are. It is 2025 and I can code. Looks like a perfect opportunity to
 tap into that childhood dream. This is where "Project Swarm" starts its life!
 
-# Getting started
+## Getting started
 
 After writing an arcanoid in macroquad that works in the browser, I decided,
 that I now have the competence to implement my new idea (what a fool). 
@@ -59,7 +59,7 @@ inside the game: [shipyard](https://crates.io/crates/shipyard). `Shipyard` is on
 Rust ECS implementations. Why is everyone in the Rust community trying to implement an ECS?
 No idea!
 
-# What's ECS
+## What's ECS
 
 First of all, ECS is an architectural pattern. It is how you group the code. It is
 not a silver bullet that solves all possible problems. Here I will not delve into 
@@ -129,7 +129,7 @@ damageSystem(storage: Storage) {
 }
 ```
 
-# The prototype
+## The prototype
 
 With those tools, I first and foremost added a wrapper around `rapier`. At that point
 in time, what I did was implement a special component called `PhysicsInfo`. 
@@ -168,7 +168,7 @@ Who knows!
 
 {{ youtube(class="yt-embed", id="cxIu8tMEI50", autoplay=false) }}
 
-# Future work
+## Future work
 
 While programming and testing all of that was fun... 
 It was hard to ignore that the movement of the "swarm" wasn't like in Little
@@ -191,7 +191,7 @@ I believe tinkering with the numbers more should help. There's no way this thing
 isn't just a bunch of physics-based circles - that I know for sure. Perhaps I also need
 to mess around with the "material properties" too. 
 
-# What's next?
+## What's next?
 
 Good question! I have quite a lot of plans for that small game and this page too!
 
