@@ -464,13 +464,6 @@ body {
     margin-top: 2px;
 }
 
-.article h1 .zola-anchor {
-    font-family: mainFont;
-    font-size: 40px;
-    text-decoration: none;
-    color: var(--article-main-color);
-}
-
 .article code, .article code *,
 .article pre code {
     font-family: code;
@@ -514,7 +507,7 @@ body {
 }
 
 .article h1:target {
-    border-bottom: 3px solid var(--article-main-color);
+    border-bottom: 3px solid var(--nav-item-active-color);
 }
 
 .article h1 a::before {
@@ -526,6 +519,13 @@ body {
     width: 30px;
     height: 38px;
     background-image: url(/img/decor/h1decor.svg);
+}
+
+.article h1 .zola-anchor {
+    font-family: mainFont;
+    font-size: 40px;
+    text-decoration: none;
+    color: var(--article-main-color);
 }
 
 .article p {
