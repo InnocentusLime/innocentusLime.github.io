@@ -258,5 +258,5 @@ I will make another blog entry once I figure at least
 some game design out.
 
 [^1]: [Godot RayCast2D node](https://docs.godotengine.org/en/stable/classes/class_raycast2d.html)
-[^2]: Fun fact: [Mario64 devs messed up while implementing flickering](https://www.youtube.com/watch?v=QoU2NKQrQ1Q) 
+[^2]: Fun fact: Mario64 devs [messed up](https://www.youtube.com/watch?v=QoU2NKQrQ1Q) while implementing flickering 
 [^3]: [RON (Rusty Object Notation)](https://github.com/ron-rs/ron)
