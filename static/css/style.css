@@ -492,7 +492,7 @@ body {
     background-color: transparent;
 }
 
-.article h1 {
+.article h2 {
     margin: 0;
     margin-bottom: 10px;
     margin-top: 20px;
@@ -502,15 +502,15 @@ body {
     border-bottom: 3px solid transparent;
 }
 
-.article h1:hover {
+.article h2:hover {
     border-bottom: 3px solid var(--article-main-color);
 }
 
-.article h1:target {
+.article h2:target {
     border-bottom: 3px solid var(--nav-item-active-color);
 }
 
-.article h1 a::before {
+.article h2 a::before {
     content: "";
     display: inline-block;
     background-repeat: no-repeat;
@@ -521,7 +521,7 @@ body {
     background-image: url(/img/decor/h1decor.svg);
 }
 
-.article h1 .zola-anchor {
+.article h2 .zola-anchor {
     font-family: mainFont;
     font-size: 40px;
     text-decoration: none;

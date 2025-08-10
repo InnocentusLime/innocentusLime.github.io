@@ -4,19 +4,19 @@ template = "aboutme.html"
 insert_anchor_links = "heading"
 +++
 
-# Hello
+## Hello
 
 My name is Innokentii. I am a beginner software engineer with a passion towards game development and development of software that requires as little as possible! Sometimes I also do WASM stuff mainly to make games running in a browser
 
 I usually code in Rust, but I sometimes do projects in languages like C, Java and Go.
 
-# A few words
+## A few words
 
 I am a graduate of Neapolis University Pafos with bachelors in Applied Computer Science with lots of extracurricular courses from JetBrains academy. During my studies I also got to be an intern in PLAN labs @ JetBrains research, where I could co-author an amazing article about the XMM memory model[^1].
 
 Even before that I trying out Rust in various ways during the 10th grade of school, which helped me get where I am today.
 
-# This page
+## This page
 
 This website contains not a single line JavaScript. All HTML and CSS are hand-written. Why? I do not know myself to be honest! However, it must be one of the following:
 
