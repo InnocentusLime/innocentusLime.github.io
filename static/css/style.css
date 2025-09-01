@@ -451,7 +451,7 @@ body {
 }
 
 .article * {
-    font-size: 1.1rem;
+    font-size: 18px;
     font-family: articleFont;
 }
 
@@ -470,6 +470,7 @@ body {
     font-family: code;
     font-weight: 100;
     font-size: 15px;
+    letter-spacing: 1px;
 }
 
 .article code {
@@ -499,6 +500,8 @@ body {
     display: inline-block;
     position: relative;
     text-transform: capitalize;
+    letter-spacing: 1px;
+    font-kerning: none;
     border-bottom: 3px solid transparent;
 }
 
@@ -532,6 +535,7 @@ body {
     margin: 0;
     margin-bottom: 10px;
     line-height: 1.5;
+    word-spacing: 3px;
 }
 
 .article li {
@@ -547,6 +551,7 @@ body {
     border-radius: var(--article-embed-border-radius);
     overflow: hidden;
     background-color: var(--article-embed-background);
+    margin-bottom: 10px;
 }
 
 .article .yt-embed iframe {
@@ -564,6 +569,7 @@ body {
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background-color: var(--article-embed-background);
+    margin-bottom: 10px;
 }
 
 .article .big-img-embed img {
