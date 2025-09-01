@@ -14,12 +14,23 @@ active
 {% endmacro %}
 
 {% macro header(current_url) %}
-<nav class="site-nav">
-    <ul class="nav-items">
-        {% set items = load_data(path="content/data/nav.json", format="json") %}
+<header class="site-header">
+    <nav>
+        <ul class="nav-items">
+            {% set items = load_data(path="content/data/nav.json", format="json") %}
+            {% for item in items %}
+                {{ macros_header::nav_item(item_name=item.name, item_url=item.url, current_url=current_url) }}
+            {% endfor %}
+        </ul>
+    </nav>
+    <ul class="social-items">
+        {% set items = load_data(path="content/data/social.json", format="json") %}
         {% for item in items %}
-            {{ macros_header::nav_item(item_name=item.name, item_url=item.url, current_url=current_url) }}
+            {% set item_id = item.title | slugify %}
+            <li class="social-item"><a class="social-link" href={{ item.url }}>
+                <img class="social-image" src={{ "/img/social/" ~ item_id ~ ".svg" }} alt="{{ item.title }} logo"/>
+            </a></li>
         {% endfor %}
     </ul>
-</nav>
+</header>
 {% endmacro %}

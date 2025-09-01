@@ -10,9 +10,5 @@
     {
         "name": "projects",
         "url": "/project"
-    },
-    {
-        "name": "socials",
-        "url": "/link"
     }
 ]
