@@ -10,6 +10,7 @@
     --nav-item-inactive-color: #000000;
     --nav-item-active-color: #a52a2a;
     --link-color-primary: #00008c;
+    --link-color-hover: #4646d2;
     --link-color-secondary: #f5f5f5;
     --project-card-main-color: #000000;
     --project-card-background: #f5f5f5;
@@ -578,16 +579,15 @@ body {
 }
 
 .article .footnote-reference a:hover {
-    color: var(--link-color-secondary);
-    background-color: var(--link-color-primary);
+    color: var(--link-color-hover);
 }
 
 .article .footnote-reference a:hover::before {
-    color: var(--link-color-primary);
+    color: transparent;
 }
 
 .article .footnote-reference a:hover::after {
-    color: var(--link-color-primary);
+    color: transparent;
 }
 
 .article .footnote-reference a::before {
@@ -610,16 +610,16 @@ body {
 }
 
 .article p > a {
-    text-decoration: none;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
     position: relative;
     color: var(--link-color-primary);
-    border-bottom: 2px solid var(--link-color-primary);
 }
 
 .article p > a:hover {
-    background-color: var(--link-color-primary);
-    color: var(--link-color-secondary);
-    border-bottom: 2px transparent;
+    text-decoration: none;
+    color: var(--link-color-hover);
 }
 
 .article .footnote-definition {
