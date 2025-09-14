@@ -5,13 +5,11 @@
 
 <main class="blog-list">
   {% for page in paginator.pages %}
-  <article><a href="{{ page.permalink }}" class="blog-link">
-    <div class="blog-link-header-container">
-      <h3 class="blog-link-header">{{ page.title }}</h3>
-    </div>
+  <article><div class="blog-link">
+    <a class="blog-link-header" href="{{ page.permalink }}">{{ page.title }}</a>
     <p class="blog-link-description">{{ page.description }}</p>
-    <time datetime="{{ page.date }}" class="blog-link-date">{{ page.date | date(format="%d %B %Y") }}</time>
-  </a></article>
+    <time datetime="{{ page.date }}" class="blog-link-date">{{ page.date | date(format="%d %b %Y") }}</time>
+  </div></article>
   {% endfor %}
 </main>
 {% endblock content %}
