@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://innocentuslime.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/blog/quadjam-devlog-1/</loc>
+        <lastmod>2025-05-03</lastmod>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/blog/quadjam-devlog-2/</loc>
+        <lastmod>2025-05-18</lastmod>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/blog/rust-arconoid/</loc>
+        <lastmod>2025-02-12</lastmod>
+    </url>
+    <url>
+        <loc>https://innocentuslime.github.io/project/</loc>
+    </url>
+</urlset>
