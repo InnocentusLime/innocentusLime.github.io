@@ -429,30 +429,6 @@ body {
     color: var(--link-color-hover);
 }
 
-/* .blog-link-header:before {
-    z-index: -1;
-    content: "";
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    position: absolute;
-    top: 0;
-    font-weight: bold;
-    border-bottom: 2px solid var(--blog-list-main-color);
-    transition: transform var(--underline-time) var(--underline-curve);
-    transform: translateX(-50%) scaleX(0);
-}
-
-.blog-link:hover .blog-link-header:before {
-    transform: translateX(0) scaleX(1);
-} */
-
-/* .blog-link-header:after {
-    font-weight: lighter;
-    font-family: detail;
-    content: " ......................................................................................................................"
-} */
-
 .blog-link-description {
     grid-column: 1 / 3;
     grid-row: 2;
