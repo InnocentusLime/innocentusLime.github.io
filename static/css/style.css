@@ -65,7 +65,7 @@
 
 @font-face {
     font-family: code;
-    src: url(/font/IBMPlexMono-Regular.ttf);
+    src: url(/font/FiraCode-Regular.ttf);
 }
 
 /* Generic rules */
@@ -481,7 +481,10 @@ body {
     font-family: code;
     font-weight: 100;
     font-size: 15px;
-    letter-spacing: 1px;
+}
+
+.article pre code > span {
+    padding: 2px;
 }
 
 .article code {

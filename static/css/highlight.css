@@ -30,12 +30,12 @@
 }
 
 /* Orange */
-.z-constant {
+.z-constant, .z-invalid {
   color: #aa5d00;
 }
 
 /* Blue */
-.z-function, .z-macro {
+.z-function, .z-macro, .z-tag-digest {
   color: #007faa;
 }
 
@@ -45,7 +45,7 @@
 }
 
 /* Green */
-.z-string {
+.z-string, .z-stage-name {
   color: #008000;
 }
 .article pre .z-string .z-punctuation {
@@ -64,6 +64,13 @@
 .article pre .z-punctuation {
     color: #434f54;
 }
+
+/* Diff */
+.z-diff:has(.z-inserted) {
+  background-color: #80EE80;
+  color: #008000;
+}
+
 /*
 @media screen and (-ms-high-contrast: active) {
   .hljs-addition,
