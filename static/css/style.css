@@ -576,11 +576,11 @@ body {
 }
 
 .article .big-img-embed {
+    display: flex;
     position: relative;
     width: 100%;
     max-height: var(--article-max-img-height);
     border-radius: var(--article-embed-border-radius);
-    aspect-ratio: 16 / 9;
     overflow: hidden;
     background-color: var(--article-embed-background);
     margin-bottom: 10px;
