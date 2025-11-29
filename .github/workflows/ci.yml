@@ -1,0 +1,13 @@
+on: push
+name: Build-check
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Zola
+        run: | 
+          wget -q -O - \
+          "https://github.com/getzola/zola/releases/download/v0.19.2/zola-v0.19.2-x86_64-unknown-linux-gnu.tar.gz" \
+          | tar xzf - -C /usr/local/bin
+      - uses: actions/checkout@v4
+      - run: zola build
