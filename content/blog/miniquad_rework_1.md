@@ -8,103 +8,13 @@ draft = false
 
 ## Introduction
 
-I am developing a video game. Over the course of development, I have created quite
-a bit of code that would be nice to re-use. One of the main dependencies of the game
-is a library called `macroquad`[^1]. As I used that library, I noticed several
-shortcomings about it. First of all, several features were buggy or had questionable
-API. Second of all, it has a lot of code that will never be useful in my projects
-and will never see the light of day, as it doesn't seem to be developed anyomore.
+This article is not for poking fun at the author of `miniquad`[^1]. Not only it is a
+great library that was used in several projects - it also became the heart of another
+great library known as `macroquad`[^2], that fueled even **more** projects! 
 
-As I tried to patch some of the oddities or use the more low-level parts of miniquad,
-it turned out that the problems come from much lower parts of the library. These
-parts, unfortunately, too required a lot of rework. This entry is a part of the multipart
-series where I will be reworking the main dependency of macroquad: **miniquad**[^2].
-
-## Introducing Miniquad
-
-So what is **miniquad**? It is, for the most part, a cross-platform multimedia library.
-Not unlike `SDL`[^3] or `SFML`[^4]. Although, a more accurate example of miniquad is would
-be `Sokol`[^5] - a low-level graphics C library. As summarized by the description on the
-`docs.rs` page for miniquad:
-
-> Miniquad aims to provide a graphics abstraction that works the same way on any platform with a GPU, being as light weight as possible while covering as many machines as possible.
-
-Miniquad's API is directly inspired by Sokol. Here are the examples of drawing a frame
-with just a triangle in both APIs:
-
-```rust
-// Miniquad pipeline creation
-let pipeline = ctx.new_pipeline(
-    &[BufferLayout::default()],
-    &[
-        VertexAttribute::new("in_pos", VertexFormat::Float2),
-        VertexAttribute::new("in_color", VertexFormat::Float4),
-    ],
-    shader,
-    PipelineParams::default(),
-);
-
-// Miniquad frame drawing
-self.ctx.begin_default_pass(Default::default());
-self.ctx.apply_pipeline(&self.pipeline);
-self.ctx.apply_bindings(&self.bindings);
-self.ctx.draw(0, 3, 1);
-self.ctx.end_render_pass();
-self.ctx.commit_frame();
-```
-
-```c
-// Sokol pipeline creation
-state.pip = sg_make_pipeline(&(sg_pipeline_desc){
-    .shader = shd,
-    .layout = {
-        .attrs = {
-            [ATTR_triangle_position].format = SG_VERTEXFORMAT_FLOAT3,
-            [ATTR_triangle_color0].format = SG_VERTEXFORMAT_FLOAT4
-        }
-    },
-    .label = "triangle-pipeline"
-});
-
-// Sokol frame drawing
-sg_begin_pass(&(sg_pass){ .action = state.pass_action, .swapchain = sglue_swapchain() });
-sg_apply_pipeline(state.pip);
-sg_apply_bindings(&state.bind);
-sg_draw(0, 3, 1);
-sg_end_pass();
-sg_commit();
-```
-
-## Why so un-Rusty?
-
-The design choice may raise a few eyebrows. Miniquad is a Rust library. Why would it
-borrow so much from a C design? Both of its main design pillars feel like odd-balls in
-the world of Rust. 
-
-First, we have the `begin`-`end` API. Personally, I don't have much against that style,
-except that maybe I **personally** find it a bit harder to read. But is that really the
-best thing we can do in Rust? As far as I know, it is a quite common pattern to have
-things like this:
-
-```rust
-do_my_thing_in_environment(|| {
-    /* Your thing */
-})
-```
-
-Secondly, miniquad does a lot of verbose bike-shedding. In order to achive the
-light-weight goal, it has a lot of OS-specific code inserted right into it. Miniquad
-talks directly to the Operating System, manages context creation and sets up the
-OpenGL functions. Needless to say, miniquad has portability bugs. One of the most
-frustrating ones is that it handles keyboard input differently: on `Windows` it reads
-**physical** keys, while on `X11 Linux` it reads **virtual** keys.
-
-Thirdly, we have complete lack of RAII. Now, there is a completely valid discussion to
-have about applicability of RAII as an approach and that it may not even work in languages
-like C[^6]. You may argue that `defer` is the proper way for cleaning up resources and
-things like that. But this is a **Rust** library. **Rust** is a language where the `Drop`
-trait exists and types like `File` and `Mutex` follow the RAII semantics. Instead,
-miniquad works with untyped handles. 
+With that said, just like `macroquad`, `miniquad` has its own short-comings that will
+be discussed in these series. They will also present alternative solutions, that I will
+implement in my [own fork of `miniquad`](https://github.com/InnocentusLime/miniquad).
 
 ## Confusing Buffer API
 
@@ -126,6 +36,13 @@ let pipeline = ctx.new_pipeline(
     shader,
     // Default values for parameters
     PipelineParams::default(),
+);
+
+// Later at some point we "use" bindings like this
+ctx.apply_pipeline(&pipeline);
+ctx.apply_bindings_from_slice(
+    &[my_buffer],
+    /* other arguments. irrelevant */
 );
 ```
 
@@ -203,6 +120,16 @@ let pipeline = ctx.new_pipeline(
     ],
     /* other args omitted */
 );
+
+// Later at some point we "use" bindings like this
+ctx.apply_pipeline(&pipeline);
+ctx.apply_bindings_from_slice(
+    &[
+        // This buffer goes into Buffer "Slot" 1
+        my_buffer,
+    ],
+    /* other arguments. irrelevant */
+);
 ```
 
 The question is: *how does miniquad now the offsets of `in_pos` and `in_color` inside
@@ -210,8 +137,8 @@ the buffer we are later going to provide*? Take a good pause and think about it.
 
 If your answer is a list of the following bullet points:
 
-> * `miniquad` implicitly assumes that `in_pos` is at offset zero
-> * `miniquad` implicitly assumes that `in_color` is right after `in_pos`
+* `miniquad` implicitly assumes that `in_pos` is at offset zero
+* `miniquad` implicitly assumes that `in_color` is right after `in_pos`
 
 You would be correct! The order of `VertexAttribute`s actually matters and `miniquad`
 assumes that your buffer is tightly packed.
@@ -284,8 +211,8 @@ Let's take a step back for a second. I completely understand that for most peopl
 is an okay and even an "obvious" design. But personally, when I first managed to wrap my 
 head around the API only questions were
 
-> * Why is **buffer layout** defined by a  **pipeline**???
-> * Why is there **NO** distinction between an Index buffer and Vertex buffer???
+* Why is **buffer layout** defined by a  **pipeline**???
+* Why is there **NO** distinction between an Index buffer and Vertex buffer???
 
 This design most likely makes sense when you work with **untyped handles**. Which is
 what you get in `miniquad`. All calls return a simple `BufferId`, "points" to your
@@ -325,18 +252,171 @@ let pipeline = ctx.new_pipeline(
     /* other args omitted */
 );
 
-bind_pipeline_attributes(bind_buffers![
-    // For attribute 1
-    (&vertex_buffer) as <MyVertex>::pos,
-    // For attribute 2
-    (&vertex_buffer) as <MyVertex>::color,
-])
+ctx.apply_bindings_from_slice(
+    &bind_buffers![
+        // For attribute 1
+        (&vertex_buffer) as <MyVertex>::pos,
+        // For attribute 2
+        (&vertex_buffer) as <MyVertex>::color,
+    ],
+    /* other arguments. irrelevant */
+);
 ```
 
-[^1]: Macroquad [website](https://macroquad.rs/) and [repository](https://github.com/not-fl3/macroquad)
-[^2]: Miniquad [doc page](https://docs.rs/miniquad/latest/miniquad/)
+## Implementing the types
+
+Using the GL-on-whatever (glow) library[^8] and bytemuck we can put together
+the following type
+
+```rust
+#[derive(Debug, Clone)]
+pub struct VertexBuffer<T: Pod + Default> {
+    ctx: Rc<glow::Context>,
+    gl_buf: glow::Buffer,
+    _phantom: PhantomData<&'static [T]>,
+}
+
+// BufferInternal's drop will be called when the reference
+// count reaches zero.
+impl<T: Pod + Default> Drop for VertexBuffer<T> {
+    fn drop(&mut self) {
+        unsafe {
+            self.ctx.delete_buffer(self.gl_buf);
+        }
+    }
+}
+```
+
+Thanks to the `Pod` trait we can enforce that `T` can be continiously laid
+out in memory without any holes. That means we can feed it as bytes to the
+OpenGL API. As a result we can implement a constructor as follows:
+
+```rust
+pub fn new(ctx: Rc<glow::Context>, usage: u32, data: &[T]) -> VertexBuffer<T> {
+    let data: &[u8] = bytemuck::cast_slice(data);
+    let gl_buf = unsafe { ctx.gl.create_buffer().unwrap() };
+    unsafe {
+        ctx.bind_buffer(glow::ARRAY_BUFFER, Some(gl_buf));
+        ctx.buffer_data_u8_slice(glow::ARRAY_BUFFER, data, usage);
+    }
+    VertexBuffer {
+        ctx,
+        gl_buf,
+        _phantom: PhantomData,
+    }
+}
+```
+
+With that typed API sorted out the only thing left to do is to figure out
+the **binding buffer to an attribute**. Unfortunately, our `VertexBuffer`
+abstraction is missing **one crucial part** for doing that - the starting offset.
+There are many ways to get around that. I decided to create a separate type
+for representing a binding.
+
+```rust
+impl<T: Pod + Default> VertexBuffer<T> {
+    pub fn binding(&self, offset: u32) -> VertexBufferBinding<'_> {
+        VertexBufferBinding {
+            gl_buf: self.gl_buf,
+            offset,
+            // Since our buffer contents are structs, the stride
+            // here is always just the size of T
+            stride: std::mem::size_of::<T>() as u32,
+            _phantom: PhantomData,
+        }
+    }
+}
+
+// Note that this type is "untyped". This frees us from
+// doing any ultra-sophisticated generic code in `apply_bindings`.
+#[derive(Debug, Clone, Copy)]
+pub struct VertexBufferBinding<'a> {
+    pub(crate) gl_buf: glow::Buffer,
+    pub(crate) offset: u32,
+    pub(crate) stride: u32,
+    // This `PhantomData` is really important.
+    // Not only it allows us to use the lifetime 'a,
+    // but it also enables us to make the Rust compiler
+    // treat this type as a reference to our buffer.
+    // This way the values in this type can't be used
+    // after the buffer is dropped.
+    _phantom: PhantomData<&'a glow::Buffer>,
+}
+```
+
+This way we get the following API for binding a buffer
+
+```rust
+// Note that this API allows us to bind parts of buffer with
+// arbitrary offsets, unlike the original miniquad API.
+ctx.apply_bindings_from_slice(
+    &[
+        // For attribute 1
+        &vertex_buffer.binding(0),
+        // For attribute 2
+        &vertex_buffer.binding(24),
+    ],
+    /* other arguments. irrelevant */
+);
+```
+
+Of course, writing out offsets by hand is annoying and error-prone.
+We can, however, observe that all of those offsets correspond to a
+**field offset inside T**. Thankfully, getting a field offset is a
+feature already present in `bytemuck`. This way, we can quickly put
+together the following macros
+
+```rust
+// General macro for consuming a LIST of bindings of form
+//
+//  (buffer_reference) as <ELEMENT_TYPE>::field_name
+//
+// Returns a list of `VertexBufferBinding`. For more info see
+// the `bind_vertex_buffer` macro.
+#[macro_export]
+macro_rules! bind_vertex_buffers {
+    (
+        $(
+            ($buf:expr) as <$Type:path>::$field:tt
+        ),+
+        $(,)?
+    ) => {
+        [$(
+            $crate::bind_vertex_buffer!($buf, $Type, $field)
+        ),+]
+    };
+    () => { [] }
+}
+
+#[macro_export]
+macro_rules! bind_vertex_buffer {
+    ($buf:expr, $Type:path, $field:tt) => {{
+        // Create a local variable with an explicit type.
+        // Technically this is no-op, but it lets us to assert the type
+        // of the buffer early.
+        let local: &VertexBuffer<$Type> = $buf;
+        // We now simply call `bytemuck::offset_of!`, which works for all
+        // types that implement `Pod + Default`.
+        local.binding(bytemuck::offset_of!($Type, $field) as u32)
+    }};
+}
+```
+
+## Conclusion
+
+We have successfuly refactored the miniquad buffer API to be something
+more pleasant, explicit and easier to review. We did sacrifice a little
+bit of flexibility, but it might not be not that problematic in the long run.
+I will post more updates and discussions as I get through the remaining parts
+of `miniquad`. You can track my progress [here](https://github.com/InnocentusLime/miniquad).
+
+## Appendix: why bytemuck?
+
+[^1]: Miniquad [doc page](https://docs.rs/miniquad/latest/miniquad/)
+[^2]: Macroquad [website](https://macroquad.rs/) and [repository](https://github.com/not-fl3/macroquad)
 [^3]: SDL [website](https://www.libsdl.org/)
 [^4]: SFML [website](https://www.sfml-dev.org/)
 [^5]: Sokol [GitHub](https://github.com/floooh/sokol)
 [^6]: A good short [article](https://thephd.dev/just-put-raii-in-c-bro-please-bro-just-one-more-destructor-bro-cmon-im-good-for-it) about destructors in C
 [^7]: Quick explanations about the concept of an index buffer: [here](https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-9-vbo-indexing/) and [here](https://openglbook.com/chapter-3-index-buffer-objects-and-primitive-types.html) 
+[^8]: GL on whatever [doc page](https://docs.rs/glow/latest/glow/)
