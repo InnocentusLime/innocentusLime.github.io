@@ -265,7 +265,7 @@ ctx.apply_bindings_from_slice(
 
 ## Implementing the types
 
-Using the GL-on-whatever (glow) library[^8] and bytemuck we can put together
+Using the GL-on-whatever (glow) library[^8] and bytemuck[^9] we can put together
 the following type
 
 ```rust
@@ -447,3 +447,4 @@ The new solution, as you could see, doesn't use `Arg` anywhere. This is becase
 [^6]: A good short [article](https://thephd.dev/just-put-raii-in-c-bro-please-bro-just-one-more-destructor-bro-cmon-im-good-for-it) about destructors in C
 [^7]: Quick explanations about the concept of an index buffer: [here](https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-9-vbo-indexing/) and [here](https://openglbook.com/chapter-3-index-buffer-objects-and-primitive-types.html) 
 [^8]: GL on whatever [doc page](https://docs.rs/glow/latest/glow/)
+[^9]: bytemyck [doc page](https://docs.rs/bytemuck/latest/bytemuck/)
