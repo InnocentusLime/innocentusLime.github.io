@@ -412,6 +412,33 @@ of `miniquad`. You can track my progress [here](https://github.com/InnocentusLim
 
 ## Appendix: why bytemuck?
 
+Miniquad actually uses its own mechanism for passing around raw data into
+the buffer. It's called `Arg<'a>` and is defined like this
+
+```rust
+/// A vtable-erased generic argument.
+/// Basically, the same thing as `fn f<U>(a: &U)`, but
+/// trait-object friendly.
+pub struct Arg<'a> {
+    ptr: *const std::ffi::c_void,
+    element_size: usize,
+    size: usize,
+    is_slice: bool,
+    _phantom: std::marker::PhantomData<&'a ()>,
+}
+```
+
+The new solution, as you could see, doesn't use `Arg` anywhere. This is becase
+`Arg` has several problems that `bytemuck` doesn't 
+
+* The documentation never mentions that the type you get `Arg` from **must**
+  be `#[repr(C)]`. `bytemuck` documents that pretty clearly.
+* The interface of `miniquad` never tries to enforce that. `bytemuck` enforces
+  all of that via its `derive` macros.
+* `Arg` is somewhat obscure and not well supported, plus it adds pressure on me
+  as the developer. `bytemuck` is a separate dependency with more recognition
+  in the Rust community, plus some crates have integration with it.
+
 [^1]: Miniquad [doc page](https://docs.rs/miniquad/latest/miniquad/)
 [^2]: Macroquad [website](https://macroquad.rs/) and [repository](https://github.com/not-fl3/macroquad)
 [^3]: SDL [website](https://www.libsdl.org/)
